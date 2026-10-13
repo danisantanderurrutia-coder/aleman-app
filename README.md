@@ -1,12 +1,22 @@
 # 🇩🇪 DeutschMeister A2 • Institut für deutsche Sprache
 
-Una plataforma integral de estudio académico, filológico y lúdico para dominar el **nivel A2 de alemán**, con simulación de citas contextuales, microaprendizaje y pedagogía aplicada.
+Una plataforma integral de estudio académico, filológico y lúdico para dominar el **nivel A2 de alemán con progresión guiada hacia B1 y B2**, simulación de citas contextuales con 8 arquetipos, microaprendizaje y pedagogía aplicada.
 
 ---
 
-## 🚀 Acceso Local Inmediato
-La aplicación se encuentra en ejecución en:
-👉 **[http://localhost:5174/](http://localhost:5174/)**
+## 🌐 Aplicación en Vivo (Publicada en GitHub Pages)
+👉 **[https://danisantanderurrutia-coder.github.io/aleman-app/](https://danisantanderurrutia-coder.github.io/aleman-app/)**
+
+📦 **Repositorio GitHub**: [https://github.com/danisantanderurrutia-coder/aleman-app](https://github.com/danisantanderurrutia-coder/aleman-app)
+
+---
+
+## 🚀 Acceso Local
+```bash
+npm install
+npm run dev
+# Disponible en: http://localhost:5174/
+```
 
 ---
 
