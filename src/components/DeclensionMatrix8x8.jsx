@@ -177,30 +177,34 @@ export default function DeclensionMatrix8x8({ mode = 'cases' }) {
       {matrixMode === 'cases' && (
         <div className="mt-6">
           <div className="overflow-x-auto pb-4">
-            <div className="min-w-[620px]">
-              {/* Columns Header (8 Cols) */}
-              <div className="grid grid-cols-9 gap-1.5 mb-2">
-                <div className="text-[10px] font-mono text-stone-400 uppercase font-semibold flex items-center justify-center">
-                  Rol / Caso
+            <div className="min-w-[820px]">
+              {/* Columns Header (Row Header + 8 Cols) */}
+              <div className="grid grid-cols-[190px_repeat(8,minmax(72px,1fr))] gap-2 mb-2">
+                <div className="text-[11px] font-mono text-stone-500 uppercase font-bold flex items-center px-2 bg-stone-100 rounded-lg">
+                  Función / Caso
                 </div>
                 {caseColumns.map((col) => (
                   <div
                     key={col.id}
-                    className="p-1.5 text-center rounded-lg bg-stone-50 border border-stone-200/60"
+                    className="p-2 text-center rounded-lg bg-stone-50 border border-stone-200/80"
                   >
-                    <div className="text-[11px] font-bold text-stone-800 leading-tight">{col.label}</div>
-                    <div className="text-[9px] text-stone-500 font-mono">({col.gender})</div>
+                    <div className="text-xs font-bold text-stone-900 leading-tight">{col.label}</div>
+                    <div className="text-[10px] text-stone-500 font-mono">({col.gender})</div>
                   </div>
                 ))}
               </div>
 
               {/* 8 Rows x 8 Columns Grid */}
               {caseRows.map((row, rIdx) => (
-                <div key={row.id} className="grid grid-cols-9 gap-1.5 mb-1.5 items-center">
-                  {/* Row Header Label */}
-                  <div className="p-1.5 rounded-lg bg-stone-100/70 border border-stone-200/60 text-left">
-                    <div className="text-[10px] font-bold text-stone-800 leading-tight line-clamp-1">{row.caseName}</div>
-                    <div className="text-[9px] text-amber-700 font-mono line-clamp-1">{row.role}</div>
+                <div key={row.id} className="grid grid-cols-[190px_repeat(8,minmax(72px,1fr))] gap-2 mb-2 items-stretch">
+                  {/* Row Header Label: Completamente visible, sin puntos suspensivos */}
+                  <div className="p-2.5 px-3 rounded-xl bg-stone-100/90 border border-stone-200 text-left flex flex-col justify-center">
+                    <div className="text-xs font-bold text-stone-900 leading-snug">
+                      {row.caseName}
+                    </div>
+                    <div className="text-[10px] text-amber-800 font-medium font-sans mt-0.5 leading-snug">
+                      {row.role}
+                    </div>
                   </div>
 
                   {/* 8 Interactive Cells */}

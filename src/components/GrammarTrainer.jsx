@@ -300,6 +300,45 @@ export default function GrammarTrainer({ progress, setProgress }) {
                 </div>
               )}
 
+              {/* Quick Trick Callout if available */}
+              {topic.originExplanation.quickTrick && (
+                <div className="p-5 rounded-2xl bg-amber-50/80 border border-amber-300/80 text-amber-950">
+                  <div className="text-xs font-mono font-bold uppercase mb-1.5 flex items-center gap-1.5">
+                    <Sparkles className="w-4 h-4 text-amber-600" />
+                    <span>Regla Mnemotécnica Rápida</span>
+                  </div>
+                  <div className="text-xs font-mono whitespace-pre-line leading-relaxed font-semibold">
+                    {topic.originExplanation.quickTrick}
+                  </div>
+                </div>
+              )}
+
+              {/* Theoretical Treatise Dossier (Google Docs Deep Theory) */}
+              {topic.theoreticalDossier && (
+                <div className="space-y-4 pt-4 border-t border-stone-100">
+                  <div className="flex items-center gap-2 text-xs font-mono font-bold text-stone-900 uppercase tracking-wider">
+                    <BookOpen className="w-4 h-4 text-stone-700" />
+                    <span>Dossier Teórico y Conceptual del Módulo</span>
+                  </div>
+
+                  <div className="grid grid-cols-1 gap-4">
+                    {topic.theoreticalDossier.map((dossier, dIdx) => (
+                      <div
+                        key={dIdx}
+                        className="p-6 rounded-2xl bg-stone-50/90 border border-stone-200/90 text-stone-800"
+                      >
+                        <h4 className="font-serif font-bold text-base text-stone-950 mb-2">
+                          {dossier.title}
+                        </h4>
+                        <div className="text-xs sm:text-sm text-stone-700 leading-relaxed font-sans whitespace-pre-line">
+                          {dossier.content}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               <div className="pt-4 flex justify-end">
                 <button
                   onClick={() => setActivePhase('tables')}
