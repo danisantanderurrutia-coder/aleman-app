@@ -55,8 +55,8 @@ export default function DatingGameTrainer({ progress, setProgress }) {
     setChosenOption(opt);
     setIsStepEvaluated(true);
 
-    // Speak user German line
-    speechService.speak(opt.german);
+    // Cancelar cualquier audio en curso de inmediato
+    speechService.cancel();
 
     const newHearts = Math.max(0, hearts + opt.heartDelta);
     const newCharm = Math.min(100, Math.max(0, charm + opt.charmDelta));
@@ -66,10 +66,10 @@ export default function DatingGameTrainer({ progress, setProgress }) {
     if (newHearts <= 0) {
       setDateState('lost');
     } else {
-      // Play her reply audio after a brief pause
+      // Reproducir ÚNICAMENTE la respuesta de la chica con pausa natural
       setTimeout(() => {
         speechService.speak(opt.herReply);
-      }, 1800);
+      }, 400);
     }
   };
 
@@ -345,7 +345,17 @@ export default function DatingGameTrainer({ progress, setProgress }) {
 
                 {/* Her actual reply to your choice */}
                 <div className="p-3.5 rounded-xl bg-stone-800 border border-stone-700 text-xs">
-                  <span className="font-mono text-stone-400 block mb-0.5">Respuesta de {scenario.name}:</span>
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="font-mono text-stone-400 text-[11px]">Respuesta de {scenario.name}:</span>
+                    <button
+                      onClick={() => speechService.speak(chosenOption.herReply)}
+                      className="p-1 rounded-md bg-stone-700 hover:bg-stone-600 text-stone-200 cursor-pointer flex items-center gap-1 text-[10px]"
+                      title="Volver a escuchar"
+                    >
+                      <Volume2 className="w-3 h-3 text-stone-300" />
+                      <span>Escuchar</span>
+                    </button>
+                  </div>
                   <p className="font-serif font-medium text-stone-100 text-sm">"{chosenOption.herReply}"</p>
                   <p className="text-stone-400 text-[11px] italic mt-0.5">"{chosenOption.herReplyEs}"</p>
                 </div>

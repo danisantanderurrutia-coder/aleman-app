@@ -5,6 +5,8 @@ const STORAGE_KEY = 'deutschmeister_a2_progress';
 const defaultState = {
   xp: 0,
   streak: 1,
+  curriculumDay: 1,
+  completedCurriculumDays: [],
   lastActiveDate: new Date().toISOString().split('T')[0],
   completedGrammarExercises: {}, // { [topicId]: [exerciseIndex, ...] }
   masteredVocab: [], // IDs de palabras dominadas

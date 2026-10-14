@@ -33,7 +33,7 @@ export const datingScenarios = [
       {
         step: 1,
         situation: 'Llegas al evento de intercambio de idiomas y Clara está sentada con un cartel que dice "Suche Spanisch-Partner" (Busco compañero de español).',
-        herLine: '¡Hola! Suchst du auch jemanden zum Deutsch und Spanisch üben?',
+        herLine: 'Hallo! Suchst du auch jemanden zum Deutsch und Spanisch üben?',
         herTranslation: '¡Hola! ¿Tú también buscas a alguien para practicar alemán y español?',
         options: [
           {
@@ -42,7 +42,7 @@ export const datingScenarios = [
             charmDelta: +35,
             heartDelta: 0,
             feedback: '¡Abridor directo y genuino de DateMaster! Clara se ilumina al escuchar tu español nativo.',
-            herReply: '¡Qué bien! Dein Deutsch klingt schon super flüssig. Setz dich unbedingt!',
+            herReply: 'Wie schön! Dein Deutsch klingt schon super flüssig. Setz dich unbedingt!',
             herReplyEs: '¡Qué bien! Tu alemán ya suena super fluido. ¡Siéntate por favor!'
           },
           {

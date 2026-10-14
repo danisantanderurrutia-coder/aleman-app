@@ -35,8 +35,14 @@ class SpeechService {
     // Cancelar cualquier audio anterior
     this.synth.cancel();
 
-    // Limpiar texto de signos innecesarios para pronunciar solo la frase
-    const cleanText = text.replace(/\[.*?\]/g, '').trim();
+    // Limpiar texto de signos innecesarios, acotaciones entre paréntesis y signos invertidos
+    const cleanText = text
+      .replace(/\[.*?\]/g, '')
+      .replace(/\(.*?\)/g, '')
+      .replace(/[¡¿]/g, '')
+      .trim();
+
+    if (!cleanText) return;
 
     const utterance = new SpeechSynthesisUtterance(cleanText);
     utterance.lang = 'de-DE';
@@ -48,6 +54,12 @@ class SpeechService {
     }
 
     this.synth.speak(utterance);
+  }
+
+  cancel() {
+    if (this.synth) {
+      this.synth.cancel();
+    }
   }
 
   setRate(newRate) {

@@ -23,14 +23,15 @@ export default function DailyCheckInPanel({ progress, setProgress, setActiveTab,
     return () => clearInterval(timer);
   }, []);
 
-  // Day of week (0=Sunday, 1=Monday, etc.)
+  // Day of week for calendar display
   const dayOfWeekIdx = new Date().getDay();
   const dayNames = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
   const dayName = dayNames[dayOfWeekIdx];
 
-  // Daily Sprints rotation (cada día de la semana activa una lista temática distinta)
-  const todaySprintIdx = dayOfWeekIdx === 0 ? 6 : dayOfWeekIdx - 1;
-  const todaySprintTheme = dailySprintsData[todaySprintIdx] || dailySprintsData[0];
+  // User Study Day Progression (Día 1, 2, 3...) - NO atado a qué día de la semana sea
+  const currentCurriculumDay = progress.curriculumDay || 1;
+  const sprintIndex = (currentCurriculumDay - 1) % dailySprintsData.length;
+  const todaySprintTheme = dailySprintsData[sprintIndex] || dailySprintsData[0];
 
   // Daily Quests calculation based on user progress today
   const dailyQuestsKey = `quests_${todayDate}`;
@@ -41,19 +42,33 @@ export default function DailyCheckInPanel({ progress, setProgress, setActiveTab,
     claimedBonus: false
   };
 
-  // Daily Focus Rotation System (hace que cada día sea diferente)
-  const dailyRotation = {
-    0: { focus: 'Auditoría & Test A2', desc: 'Comprueba tu retención semanal con la batería diagnóstica.', tab: 'test', icon: Trophy },
-    1: { focus: 'Casos & Wechselpräpositionen', desc: 'Domina la diferencia entre Akkusativ (Wohin) y Dativ (Wo).', tab: 'grammar', icon: BookOpen },
-    2: { focus: 'Citas & Conexión Social', desc: 'Practica tu encanto y objetos situacionales en Flirt & Date.', tab: 'dating', icon: Heart },
-    3: { focus: 'Falsos Amigos & Cazafantasmas 👻', desc: 'Caza trampas cognitivas con el logo fantasma y haz tu Sprint.', tab: 'cognates', icon: Sparkles },
-    4: { focus: 'Sintaxis & Oraciones Subordinadas', desc: 'Interioriza el verbo al final con weil, dass y wenn.', tab: 'sentences', icon: Target },
-    5: { focus: 'Situaciones de la Vida Real', desc: 'Desenvuélvete en el médico, estación de tren y restaurante.', tab: 'dialogues', icon: Clock },
+  // Progression Curriculum System por Día de Estudio (1 a 7)
+  const curriculumDayFocus = {
+    1: { focus: 'Fundamentos de Casos & Ropa', desc: 'Aprende el origen de Nominativ, Akkusativ y Dativ y las 7 palabras de Ropa.', tab: 'grammar', icon: BookOpen },
+    2: { focus: 'Supermercado & Akkusativ Directo', desc: 'Aplica el acusativo masculino (den/einen) en compras y alimentos.', tab: 'sprint', icon: Target },
+    3: { focus: 'Citas & Conexión con Clara', desc: 'Practica tu encanto y objetos situacionales en Flirt & Date.', tab: 'dating', icon: Heart },
+    4: { focus: 'Falsos Amigos & Cazafantasmas 👻', desc: 'Caza trampas cognitivas con el logo fantasma y afina tu oído.', tab: 'cognates', icon: Sparkles },
+    5: { focus: 'Sintaxis & Subordinadas con "weil"', desc: 'Aprende a enviar el verbo conjugado al final de la frase.', tab: 'grammar', icon: Compass },
     6: { focus: 'Ludificación Visual 8×8', desc: 'Asocia pictogramas en matriz y agiliza Der Die Das.', tab: 'pixel', icon: Zap },
+    7: { focus: 'Auditoría & Checkpoint A2.1', desc: 'Comprueba tu retención semanal con la batería diagnóstica.', tab: 'test', icon: Trophy },
   };
 
-  const todayCurriculum = dailyRotation[dayOfWeekIdx] || dailyRotation[1];
+  const focusCycleDay = ((currentCurriculumDay - 1) % 7) + 1;
+  const todayCurriculum = curriculumDayFocus[focusCycleDay] || curriculumDayFocus[1];
   const FocusIcon = todayCurriculum.icon;
+
+  const handleNextStudyDay = () => {
+    const nextDay = currentCurriculumDay + 1;
+    const updated = saveProgress({ curriculumDay: nextDay });
+    setProgress(updated);
+  };
+
+  const handlePrevStudyDay = () => {
+    if (currentCurriculumDay <= 1) return;
+    const prevDay = currentCurriculumDay - 1;
+    const updated = saveProgress({ curriculumDay: prevDay });
+    setProgress(updated);
+  };
 
   // Handle Daily Attendance Check-in
   const handleCheckIn = () => {
@@ -73,15 +88,21 @@ export default function DailyCheckInPanel({ progress, setProgress, setActiveTab,
     });
   };
 
-  // Handle Manual/Trigger Quest Toggle (or completion)
+  // Handle Manual/Trigger Quest Toggle (previene inflado de XP en clicks repetidos)
   const handleToggleQuest = (questName) => {
+    const isCurrentlyDone = !!questsState[questName];
+    const willBeDone = !isCurrentlyDone;
+    const awardedKey = `${questName}_awarded`;
+
     const updatedQuests = {
       ...questsState,
-      [questName]: !questsState[questName]
+      [questName]: willBeDone
     };
 
-    if (updatedQuests[questName]) {
+    // Solo añade XP una vez por quest por día
+    if (willBeDone && !questsState[awardedKey]) {
       addXP(15);
+      updatedQuests[awardedKey] = true;
     }
 
     const updated = saveProgress({ [dailyQuestsKey]: updatedQuests });
@@ -116,17 +137,38 @@ export default function DailyCheckInPanel({ progress, setProgress, setActiveTab,
       <div className="p-8 sm:p-10 rounded-3xl bg-white border border-stone-200 shadow-sm mb-8">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-6 border-b border-stone-100">
           <div>
-            <div className="flex items-center gap-2 mb-2">
+            <div className="flex flex-wrap items-center gap-2 mb-2">
               <span className="px-3 py-1 rounded-md text-xs font-mono font-bold bg-stone-900 text-white uppercase tracking-wider">
                 {dayName} • Sesión de Hoy
               </span>
-              <span className="text-xs text-stone-400 font-mono">Registro de Asistencia</span>
+              
+              {/* Study Day Selector Pill: permite al usuario controlar en qué día de estudio va */}
+              <div className="flex items-center gap-1.5 bg-amber-50 border border-amber-300 px-2.5 py-1 rounded-md shadow-2xs">
+                <button
+                  onClick={handlePrevStudyDay}
+                  disabled={currentCurriculumDay <= 1}
+                  className="text-amber-800 hover:text-amber-950 disabled:opacity-30 cursor-pointer font-mono font-bold px-1"
+                  title="Día de estudio anterior"
+                >
+                  ◀
+                </button>
+                <span className="text-xs font-mono font-bold text-amber-900">
+                  Día de Estudio {currentCurriculumDay} de 28 ({todaySprintTheme.dayTitle})
+                </span>
+                <button
+                  onClick={handleNextStudyDay}
+                  className="text-amber-800 hover:text-amber-950 cursor-pointer font-mono font-bold px-1"
+                  title="Avanzar al siguiente día de estudio"
+                >
+                  ▶
+                </button>
+              </div>
             </div>
             <h2 className="text-2xl sm:text-3xl font-serif font-bold text-stone-900">
               Panel de Ingreso Diario & Misiones
             </h2>
             <p className="text-xs text-stone-500 mt-1 max-w-xl">
-              La constancia diaria de 15 minutos supera por mucho a las sesiones esporádicas. Cada día que entras consolidas tu racha y recibes XP.
+              Tu currículum avanza según tu ritmo (Día {currentCurriculumDay}). Registra tu asistencia diaria para no perder la racha de días consecutivos.
             </p>
           </div>
 
