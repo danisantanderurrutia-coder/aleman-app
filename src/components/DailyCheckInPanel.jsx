@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import ProgressionRoadmap from './ProgressionRoadmap';
+import { dailySprintsData } from '../data/dailySprint';
 
 export default function DailyCheckInPanel({ progress, setProgress, setActiveTab, onOpenCalendar }) {
   const todayDate = new Date().toISOString().split('T')[0];
@@ -22,26 +23,30 @@ export default function DailyCheckInPanel({ progress, setProgress, setActiveTab,
     return () => clearInterval(timer);
   }, []);
 
-  // Daily Quests calculation based on user progress today
-  const dailyQuestsKey = `quests_${todayDate}`;
-  const questsState = progress[dailyQuestsKey] || {
-    vocabDone: false,
-    dateDone: false,
-    grammarDone: false,
-    claimedBonus: false
-  };
-
   // Day of week (0=Sunday, 1=Monday, etc.)
   const dayOfWeekIdx = new Date().getDay();
   const dayNames = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
   const dayName = dayNames[dayOfWeekIdx];
+
+  // Daily Sprints rotation (cada día de la semana activa una lista temática distinta)
+  const todaySprintIdx = dayOfWeekIdx === 0 ? 6 : dayOfWeekIdx - 1;
+  const todaySprintTheme = dailySprintsData[todaySprintIdx] || dailySprintsData[0];
+
+  // Daily Quests calculation based on user progress today
+  const dailyQuestsKey = `quests_${todayDate}`;
+  const questsState = progress[dailyQuestsKey] || {
+    focusDone: false,
+    vocabDone: false,
+    grammarDone: false,
+    claimedBonus: false
+  };
 
   // Daily Focus Rotation System (hace que cada día sea diferente)
   const dailyRotation = {
     0: { focus: 'Auditoría & Test A2', desc: 'Comprueba tu retención semanal con la batería diagnóstica.', tab: 'test', icon: Trophy },
     1: { focus: 'Casos & Wechselpräpositionen', desc: 'Domina la diferencia entre Akkusativ (Wohin) y Dativ (Wo).', tab: 'grammar', icon: BookOpen },
     2: { focus: 'Citas & Conexión Social', desc: 'Practica tu encanto y objetos situacionales en Flirt & Date.', tab: 'dating', icon: Heart },
-    3: { focus: 'Falsos Amigos & Léxico Rápido', desc: 'Caza trampas cognitivas con el logo fantasma 👻 y haz tu Sprint.', tab: 'cognates', icon: Sparkles },
+    3: { focus: 'Falsos Amigos & Cazafantasmas 👻', desc: 'Caza trampas cognitivas con el logo fantasma y haz tu Sprint.', tab: 'cognates', icon: Sparkles },
     4: { focus: 'Sintaxis & Oraciones Subordinadas', desc: 'Interioriza el verbo al final con weil, dass y wenn.', tab: 'sentences', icon: Target },
     5: { focus: 'Situaciones de la Vida Real', desc: 'Desenvuélvete en el médico, estación de tren y restaurante.', tab: 'dialogues', icon: Clock },
     6: { focus: 'Ludificación Visual 8×8', desc: 'Asocia pictogramas en matriz y agiliza Der Die Das.', tab: 'pixel', icon: Zap },
@@ -100,7 +105,7 @@ export default function DailyCheckInPanel({ progress, setProgress, setActiveTab,
     });
   };
 
-  const completedQuestsCount = [questsState.vocabDone, questsState.dateDone, questsState.grammarDone].filter(Boolean).length;
+  const completedQuestsCount = [questsState.focusDone, questsState.vocabDone, questsState.grammarDone].filter(Boolean).length;
   const allQuestsDone = completedQuestsCount === 3;
 
   const weekDays = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
@@ -268,8 +273,47 @@ export default function DailyCheckInPanel({ progress, setProgress, setActiveTab,
           </div>
         </div>
 
-        {/* Quest 1 */}
+        {/* Quest 1: Enfoque Temático de Hoy (Misión Estrella) */}
         <div className="divide-y divide-stone-100 mt-2">
+          <div
+            onClick={() => handleToggleQuest('focusDone')}
+            className="py-4.5 flex items-center justify-between gap-4 cursor-pointer hover:bg-stone-50/60 px-2 rounded-xl transition-colors"
+          >
+            <div className="flex items-center gap-3.5">
+              <button className="text-stone-300 hover:text-stone-900 cursor-pointer">
+                {questsState.focusDone ? (
+                  <CheckCircle2 className="w-6 h-6 text-emerald-600 fill-emerald-50" />
+                ) : (
+                  <Circle className="w-6 h-6 text-stone-300" />
+                )}
+              </button>
+              <div>
+                <div className="flex items-center gap-2">
+                  <h4 className="font-serif font-bold text-sm text-stone-900">
+                    Misión 1: Enfoque del Día • {todayCurriculum.focus}
+                  </h4>
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-100 text-amber-900 font-bold border border-amber-300">
+                    Misión Estrella ⭐
+                  </span>
+                </div>
+                <p className="text-xs text-stone-500 mt-0.5">
+                  {todayCurriculum.desc} (+15 XP)
+                </p>
+              </div>
+            </div>
+
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setActiveTab(todayCurriculum.tab);
+              }}
+              className="text-xs font-mono font-medium text-amber-800 hover:text-stone-900 underline"
+            >
+              Completar Enfoque →
+            </button>
+          </div>
+
+          {/* Quest 2: Léxico Activo (Sprint de 7 Palabras de Hoy) */}
           <div
             onClick={() => handleToggleQuest('vocabDone')}
             className="py-4.5 flex items-center justify-between gap-4 cursor-pointer hover:bg-stone-50/60 px-2 rounded-xl transition-colors"
@@ -284,10 +328,10 @@ export default function DailyCheckInPanel({ progress, setProgress, setActiveTab,
               </button>
               <div>
                 <h4 className="font-serif font-bold text-sm text-stone-900">
-                  Misión 1: Léxico Activo (Sprint de 7 Palabras)
+                  Misión 2: Léxico Activo • {todaySprintTheme.title.replace(/Tag \d+: /, '')}
                 </h4>
                 <p className="text-xs text-stone-500 mt-0.5">
-                  Completa o repasa la lista temática de 7 palabras del día. (+15 XP)
+                  Aprende o repasa las 7 palabras de hoy ({todaySprintTheme.description}). (+15 XP)
                 </p>
               </div>
             </div>
@@ -299,45 +343,11 @@ export default function DailyCheckInPanel({ progress, setProgress, setActiveTab,
               }}
               className="text-xs font-mono font-medium text-stone-500 hover:text-stone-900 underline"
             >
-              Ir al Sprint →
+              Ir al Sprint de Hoy →
             </button>
           </div>
 
-          {/* Quest 2 */}
-          <div
-            onClick={() => handleToggleQuest('dateDone')}
-            className="py-4.5 flex items-center justify-between gap-4 cursor-pointer hover:bg-stone-50/60 px-2 rounded-xl transition-colors"
-          >
-            <div className="flex items-center gap-3.5">
-              <button className="text-stone-300 hover:text-stone-900 cursor-pointer">
-                {questsState.dateDone ? (
-                  <CheckCircle2 className="w-6 h-6 text-emerald-600 fill-emerald-50" />
-                ) : (
-                  <Circle className="w-6 h-6 text-stone-300" />
-                )}
-              </button>
-              <div>
-                <h4 className="font-serif font-bold text-sm text-stone-900">
-                  Misión 2: Flirt & Date (Conversación Social)
-                </h4>
-                <p className="text-xs text-stone-500 mt-0.5">
-                  Logra una cita exitosa con Lena, Sophie, Hannah, Clara o Mia con más de 70% de encanto. (+15 XP)
-                </p>
-              </div>
-            </div>
-
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                setActiveTab('dating');
-              }}
-              className="text-xs font-mono font-medium text-stone-500 hover:text-stone-900 underline"
-            >
-              Ir a Citas →
-            </button>
-          </div>
-
-          {/* Quest 3 */}
+          {/* Quest 3: Estructura & Rigor */}
           <div
             onClick={() => handleToggleQuest('grammarDone')}
             className="py-4.5 flex items-center justify-between gap-4 cursor-pointer hover:bg-stone-50/60 px-2 rounded-xl transition-colors"

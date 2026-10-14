@@ -10,7 +10,7 @@ export const datingScenarios = [
     archetype: 'Indie & Bohemio',
     city: 'Berlin (Kreuzberg)',
     role: 'Estudiante de Lenguas & Chica Indie',
-    image: '/characters/clara_tandem.jpg',
+    image: 'characters/clara_tandem.jpg',
     location: 'Café Morgenstern (Sprachtandem Meetup)',
     ambience: 'Mesa de madera junto a la ventana. Clara lleva chaqueta vaquera vintage, moño despeinado y tiene su cuaderno de notas abierto.',
     item: {
@@ -128,7 +128,7 @@ export const datingScenarios = [
     archetype: 'Emo / Darks & Misterio',
     city: 'Berlin (Friedrichshain)',
     role: 'Música & Chica Alternativa',
-    image: '/characters/zoe_emo.jpg',
+    image: 'characters/zoe_emo.jpg',
     location: 'Vinyl-Bar am Boxhagener Platz',
     ambience: 'Bar tenue con velas, posters de Joy Division y estantes de discos de vinilo. Zoe lleva delineador oscuro, collar gargantilla y mira la carta con pose distante.',
     item: {
@@ -246,7 +246,7 @@ export const datingScenarios = [
     archetype: 'Punk & Rebelde',
     city: 'Berlin (RAW-Gelände)',
     role: 'Tatuadora & Baterista',
-    image: '/characters/kira_punk.jpg',
+    image: 'characters/kira_punk.jpg',
     location: 'Cassiopeia Sommergarten (RAW-Gelände)',
     ambience: 'Paredes con graffitis coloridos, música rock de fondo y bancos de madera. Kira tiene pelo rosa neon, chaqueta de cuero con parches y botines.',
     item: {
@@ -346,7 +346,7 @@ export const datingScenarios = [
     archetype: 'Deportiva & Fitness',
     city: 'Berlin (BeachMitte)',
     role: 'Jugadora de Vóley Playa & Estudiante',
-    image: '/characters/maya_sport.jpg',
+    image: 'characters/maya_sport.jpg',
     location: 'BeachMitte Sandplätze (Mauerpark)',
     ambience: 'Canchas de arena bajo el sol veraniego. Maya está en la red estirándose tras un partido reñido, con el balón bajo el brazo y una toalla.',
     item: {
@@ -446,7 +446,7 @@ export const datingScenarios = [
     archetype: 'Abierta Sexualmente & Kinky',
     city: 'Berlin (KitKat Club / Bar)',
     role: 'Artista Visual & Modelo de Performance',
-    image: '/characters/roxanne_kinky.jpg',
+    image: 'characters/roxanne_kinky.jpg',
     location: 'Lounge Bar vor dem Club (Köpenicker Straße)',
     ambience: 'Luces rojas tenues, música electrónica envolvente y copas de champán. Roxanne lleva un corsé elegante, antifaz negro y una copa en la mano.',
     item: {
@@ -546,7 +546,7 @@ export const datingScenarios = [
     archetype: 'Chic & Urbana',
     city: 'Berlin (Mitte)',
     role: 'Diseñadora gráfica & Amante del café',
-    image: '/characters/berlin_date_chic.jpg',
+    image: 'characters/berlin_date_chic.jpg',
     location: 'Café & Kultur am Kollwitzplatz',
     ambience: 'Café bohemio iluminado por el sol matutino. Lena está sentada sola junto a la ventana saboreando un capuchino.',
     item: {
@@ -637,7 +637,7 @@ export const datingScenarios = [
     archetype: 'Intelectual & Académica',
     city: 'München (LMU)',
     role: 'Estudiante de Historia del Arte & Filología',
-    image: '/characters/munich_library_date.jpg',
+    image: 'characters/munich_library_date.jpg',
     location: 'Universitätsbibliothek München',
     ambience: 'Biblioteca clásica con mesas de madera noble. Sophie lleva gafas elegantes y está hojeando un gran catálogo de arte.',
     item: {
@@ -719,7 +719,7 @@ export const datingScenarios = [
     archetype: 'Viajera & Relajada',
     city: 'Hamburg (Binnenalster)',
     role: 'Fotógrafa & Amante de los viajes',
-    image: '/characters/hamburg_summer_date.jpg',
+    image: 'characters/hamburg_summer_date.jpg',
     location: 'Sonnenterrasse an der Alster',
     ambience: 'Terraza al atardecer junto al lago Alster con veleros de fondo y spritz espumoso.',
     item: {

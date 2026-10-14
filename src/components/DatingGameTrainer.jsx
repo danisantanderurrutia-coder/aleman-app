@@ -8,6 +8,13 @@ import {
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
+const resolveCharacterImage = (imgPath) => {
+  if (!imgPath) return '';
+  if (imgPath.startsWith('http')) return imgPath;
+  const cleanPath = imgPath.replace(/^\.?\//, '');
+  return `${import.meta.env.BASE_URL}${cleanPath}`;
+};
+
 export default function DatingGameTrainer({ progress, setProgress }) {
   const [selectedScenarioIdx, setSelectedScenarioIdx] = useState(0);
   const [stepIdx, setStepIdx] = useState(0);
@@ -145,8 +152,12 @@ export default function DatingGameTrainer({ progress, setProgress }) {
               }`}
             >
               <img
-                src={sc.image}
+                src={resolveCharacterImage(sc.image)}
                 alt={sc.name}
+                onError={(e) => {
+                  e.currentTarget.onerror = null;
+                  e.currentTarget.src = `./characters/${sc.image.split('/').pop()}`;
+                }}
                 className="w-12 h-12 rounded-xl object-cover border border-stone-200 shadow-2xs shrink-0"
               />
               <div className="overflow-hidden">
@@ -171,8 +182,12 @@ export default function DatingGameTrainer({ progress, setProgress }) {
             <div className="p-4 rounded-3xl bg-white border border-stone-200 shadow-sm">
               <div className="relative rounded-2xl overflow-hidden aspect-[4/3] border border-stone-100 shadow-inner">
                 <img
-                  src={scenario.image}
+                  src={resolveCharacterImage(scenario.image)}
                   alt={scenario.name}
+                  onError={(e) => {
+                    e.currentTarget.onerror = null;
+                    e.currentTarget.src = `./characters/${scenario.image.split('/').pop()}`;
+                  }}
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-stone-950/80 via-stone-950/40 to-transparent p-4 text-white">
@@ -354,7 +369,15 @@ export default function DatingGameTrainer({ progress, setProgress }) {
       {dateState === 'won' && (
         <div className="p-10 sm:p-14 rounded-3xl bg-white border border-emerald-300 shadow-md text-center max-w-xl mx-auto space-y-6">
           <div className="w-24 h-24 rounded-full mx-auto overflow-hidden border-4 border-emerald-400 shadow-sm">
-            <img src={scenario.image} alt={scenario.name} className="w-full h-full object-cover" />
+            <img 
+              src={resolveCharacterImage(scenario.image)} 
+              alt={scenario.name} 
+              onError={(e) => {
+                e.currentTarget.onerror = null;
+                e.currentTarget.src = `./characters/${scenario.image.split('/').pop()}`;
+              }}
+              className="w-full h-full object-cover" 
+            />
           </div>
 
           <div>

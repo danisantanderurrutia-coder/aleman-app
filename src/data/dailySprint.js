@@ -1,4 +1,5 @@
 // El Hack de los 7 Términos Diarios: Microaprendizaje estructurado por áreas temáticas primordiales
+// 14 jornadas progresivas que rotan automáticamente cada día para que siempre haya nuevo vocabulario activo.
 
 export const dailySprintsData = [
   {
@@ -21,7 +22,7 @@ export const dailySprintsData = [
         article: 'die',
         word: 'Hose',
         plural: 'die Hosen',
-        translation: 'el pantalón (en alemán es singular: "una" pantalón)',
+        translation: 'el pantalón (en alemán es femenino singular: "una" pantalón)',
         exampleDe: 'Diese schwarze Hose passt mir sehr gut.',
         exampleEs: 'Este pantalón negro me queda muy bien.'
       },
@@ -77,7 +78,7 @@ export const dailySprintsData = [
     id: 'sprint_supermarkt',
     dayNumber: 2,
     title: '🛒 Tag 2: Supermarkt & Lebensmittel (Supermercado y Alimentación)',
-    description: 'Los 7 términos para desenvolverte con autonomía al hacer las compras cotidianas.',
+    description: 'Los 7 términos para desenvolverte con total autonomía al hacer las compras cotidianas.',
     words: [
       {
         id: 'sm1',
@@ -213,6 +214,294 @@ export const dailySprintsData = [
         translation: 'los gastos comunitarios adicionales (agua, calefacción, basura)',
         exampleDe: 'Die Nebenkosten werden einmal im Jahr genau abgerechnet.',
         exampleEs: 'Los gastos adicionales se liquidan con exactitud una vez al año.'
+      }
+    ]
+  },
+
+  {
+    id: 'sprint_verkehr',
+    dayNumber: 4,
+    title: '🚆 Tag 4: Stadt, Verkehr & Orientierung (Transporte y la Ciudad)',
+    description: 'Los 7 términos imprescindibles para moverte en metro, tren y pedir indicaciones.',
+    words: [
+      {
+        id: 'v1',
+        article: 'der',
+        word: 'Bahnhof',
+        plural: 'die Bahnhöfe',
+        translation: 'la estación de tren (Hauptbahnhof = estación central)',
+        exampleDe: 'Wir treffen uns direkt vor dem Hauptbahnhof.',
+        exampleEs: 'Nos encontramos directamente frente a la estación central.'
+      },
+      {
+        id: 'v2',
+        article: 'das',
+        word: 'Gleis',
+        plural: 'die Gleise',
+        translation: 'la vía / andén del tren',
+        exampleDe: 'Der ICE nach Hamburg fährt heute auf Gleis 4 ab.',
+        exampleEs: 'El tren rápido hacia Hamburgo sale hoy por la vía 4.'
+      },
+      {
+        id: 'v3',
+        article: 'die',
+        word: 'Verspätung',
+        plural: 'die Verspätungen',
+        translation: 'el retraso / demora',
+        exampleDe: 'Der Zug hat leider 20 Minuten Verspätung.',
+        exampleEs: 'El tren tiene lamentablemente 20 minutos de retraso.'
+      },
+      {
+        id: 'v4',
+        article: 'die',
+        word: 'Fahrkarte',
+        plural: 'die Fahrkarten',
+        translation: 'el billete de viaje / ticket de transporte',
+        exampleDe: 'Haben Sie eine gültige Fahrkarte für diesen Bereich?',
+        exampleEs: '¿Tiene un billete válido para esta zona?'
+      },
+      {
+        id: 'v5',
+        article: 'die',
+        word: 'Ampel',
+        plural: 'die Ampeln',
+        translation: 'el semáforo',
+        exampleDe: 'An der nächsten Ampel biegen Sie bitte nach links ab.',
+        exampleEs: 'En el próximo semáforo gire por favor a la izquierda.'
+      },
+      {
+        id: 'v6',
+        article: 'die',
+        word: 'Haltestelle',
+        plural: 'die Haltestellen',
+        translation: 'la parada de autobús o tranvía',
+        exampleDe: 'Die Haltestelle ist nur zwei Minuten zu Fuß entfernt.',
+        exampleEs: 'La parada está a solo dos minutos a pie.'
+      },
+      {
+        id: 'v7',
+        article: 'der',
+        word: 'Fahrplan',
+        plural: 'die Fahrpläne',
+        translation: 'el horario de transportes',
+        exampleDe: 'Ich schaue schnell im Online-Fahrplan nach.',
+        exampleEs: 'Miro rápidamente en el horario online.'
+      }
+    ]
+  },
+
+  {
+    id: 'sprint_gesundheit',
+    dayNumber: 5,
+    title: '🩺 Tag 5: Gesundheit & Beim Arzt (Salud y Consulta Médica)',
+    description: 'Los 7 términos para pedir cita en el médico, describir síntomas y comprar en la farmacia.',
+    words: [
+      {
+        id: 'g1',
+        article: 'der',
+        word: 'Termin',
+        plural: 'die Termine',
+        translation: 'la cita previa / compromiso oficial',
+        exampleDe: 'Ich möchte gerne einen Termin beim Arzt vereinbaren.',
+        exampleEs: 'Me gustaría concertar una cita con el médico.'
+      },
+      {
+        id: 'g2',
+        article: 'die',
+        word: 'Schmerzen',
+        plural: 'die Schmerzen (Plural)',
+        translation: 'los dolores (Kopfschmerzen = dolor de cabeza)',
+        exampleDe: 'Ich habe seit zwei Tagen starke Halsschmerzen.',
+        exampleEs: 'Tengo un fuerte dolor de garganta desde hace dos días.'
+      },
+      {
+        id: 'g3',
+        article: 'das',
+        word: 'Rezept',
+        plural: 'die Rezepte',
+        translation: 'la receta médica (y también receta de cocina)',
+        exampleDe: 'Der Arzt hat mir ein Rezept für Antibiotika ausgestellt.',
+        exampleEs: 'El médico me ha emitido una receta para antibióticos.'
+      },
+      {
+        id: 'g4',
+        article: 'die',
+        word: 'Apotheke',
+        plural: 'die Apotheken',
+        translation: 'la farmacia (distinguir de Drogerie)',
+        exampleDe: 'Medikamente auf Rezept bekommt man nur in der Apotheke.',
+        exampleEs: 'Los medicamentos con receta solo se obtienen en la farmacia.'
+      },
+      {
+        id: 'g5',
+        article: 'das',
+        word: 'Fieber',
+        plural: '-',
+        translation: 'la fiebre',
+        exampleDe: 'Das Kind hat hohes Fieber und muss im Bett bleiben.',
+        exampleEs: 'El niño tiene fiebre alta y debe quedarse en cama.'
+      },
+      {
+        id: 'g6',
+        article: 'die',
+        word: 'Krankenkasse',
+        plural: 'die Krankenkassen',
+        translation: 'el seguro médico / caja de salud',
+        exampleDe: 'Zeigen Sie bitte Ihre elektronische Gesundheitskarte.',
+        exampleEs: 'Muestre por favor su tarjeta sanitaria de la mutua.'
+      },
+      {
+        id: 'g7',
+        article: 'die',
+        word: 'Besserung',
+        plural: '-',
+        translation: 'la mejoría (¡Gute Besserung! = ¡Que te mejores!)',
+        exampleDe: 'Ich wünsche dir von Herzen gute Besserung!',
+        exampleEs: '¡Te deseo de corazón una pronta recuperación!'
+      }
+    ]
+  },
+
+  {
+    id: 'sprint_freizeit',
+    dayNumber: 6,
+    title: '🎭 Tag 6: Freizeit & Ausgehen (Ocio, Cultura y Salir)',
+    description: 'Los 7 términos para planear salidas, quedar con amigos y disfrutar del fin de semana.',
+    words: [
+      {
+        id: 'fz1',
+        article: 'die',
+        word: 'Verabredung',
+        plural: 'die Verabredungen',
+        translation: 'la quedada / cita entre amigos o conocidos',
+        exampleDe: 'Ich habe heute Abend eine Verabredung mit Freunden.',
+        exampleEs: 'Tengo una quedada esta noche con amigos.'
+      },
+      {
+        id: 'fz2',
+        article: 'das',
+        word: 'Konzert',
+        plural: 'die Konzerte',
+        translation: 'el concierto',
+        exampleDe: 'Am Samstag gehen wir auf ein deutsches Indie-Konzert.',
+        exampleEs: 'El sábado vamos a un concierto de indie alemán.'
+      },
+      {
+        id: 'fz3',
+        article: 'die',
+        word: 'Kneipe',
+        plural: 'die Kneipen',
+        translation: 'el bar tradicional / taberna de barrio',
+        exampleDe: 'Lass uns in die gemütliche Kneipe um die Ecke gehen!',
+        exampleEs: '¡Vamos al acogedor bar tradicional de la esquina!'
+      },
+      {
+        id: 'fz4',
+        article: 'die',
+        word: 'Eintrittskarte',
+        plural: 'die Eintrittskarten',
+        translation: 'la entrada / ticket de acceso a un evento o museo',
+        exampleDe: 'Die Eintrittskarten haben wir schon online reserviert.',
+        exampleEs: 'Ya hemos reservado las entradas online.'
+      },
+      {
+        id: 'fz5',
+        article: 'der',
+        word: 'Spaziergang',
+        plural: 'die Spaziergänge',
+        translation: 'el paseo a pie (hacer un paseo = einen Spaziergang machen)',
+        exampleDe: 'Sonntags machen viele Deutsche einen langen Spaziergang.',
+        exampleEs: 'Los domingos muchos alemanes dan un largo paseo.'
+      },
+      {
+        id: 'fz6',
+        article: 'die',
+        word: 'Ausstellung',
+        plural: 'die Ausstellungen',
+        translation: 'la exposición de arte o fotografía',
+        exampleDe: 'Im Museum gibt es eine moderne Fotoausstellung.',
+        exampleEs: 'En el museo hay una exposición de fotografía moderna.'
+      },
+      {
+        id: 'fz7',
+        article: 'der',
+        word: 'Feierabend',
+        plural: '-',
+        translation: 'el final de la jornada laboral / hora de desconectar',
+        exampleDe: 'Schönen Feierabend allerseits!',
+        exampleEs: '¡Buen final de jornada a todos!'
+      }
+    ]
+  },
+
+  {
+    id: 'sprint_arbeit',
+    dayNumber: 7,
+    title: '💼 Tag 7: Beruf, Büro & Arbeitswelt (El Trabajo y la Oficina)',
+    description: 'Los 7 términos para desenvolverte en un entorno profesional o en la búsqueda de empleo.',
+    words: [
+      {
+        id: 'ab1',
+        article: 'die',
+        word: 'Bewerbung',
+        plural: 'die Bewerbungen',
+        translation: 'la solicitud de empleo / candidatura laboral',
+        exampleDe: 'Ich habe gestern meine Bewerbung per E-Mail abgeschickt.',
+        exampleEs: 'Ayer envié mi solicitud de empleo por correo electrónico.'
+      },
+      {
+        id: 'ab2',
+        article: 'das',
+        word: 'Vorstellungsgespräch',
+        plural: 'die Vorstellungsgespräche',
+        translation: 'la entrevista de trabajo',
+        exampleDe: 'Mein Vorstellungsgespräch findet nächsten Dienstag statt.',
+        exampleEs: 'Mi entrevista de trabajo tiene lugar el próximo martes.'
+      },
+      {
+        id: 'ab3',
+        article: 'der',
+        word: 'Kollege',
+        plural: 'die Kollegen',
+        translation: 'el compañero de trabajo (die Kollegin = compañera)',
+        exampleDe: 'Meine neuen Kollegen sind hilfsbereit und freundlich.',
+        exampleEs: 'Mis nuevos compañeros de trabajo son serviciales y amables.'
+      },
+      {
+        id: 'ab4',
+        article: 'die',
+        word: 'Besprechung',
+        plural: 'die Besprechungen',
+        translation: 'la reunión de trabajo (o Meeting)',
+        exampleDe: 'Wir haben um 10 Uhr eine wichtige Teambesprechung.',
+        exampleEs: 'Tenemos una reunión de equipo importante a las 10.'
+      },
+      {
+        id: 'ab5',
+        article: 'das',
+        word: 'Gehalt',
+        plural: 'die Gehälter',
+        translation: 'el sueldo / salario mensual',
+        exampleDe: 'Das Gehalt wird immer am Ende des Monats überwiesen.',
+        exampleEs: 'El sueldo se transfiere siempre a finales de mes.'
+      },
+      {
+        id: 'ab6',
+        article: 'der',
+        word: 'Vertrag',
+        plural: 'die Verträge',
+        translation: 'el contrato (Arbeitsvertrag = contrato laboral)',
+        exampleDe: 'Ich habe den neuen Arbeitsvertrag gestern unterschrieben.',
+        exampleEs: 'Ayer firmé el nuevo contrato de trabajo.'
+      },
+      {
+        id: 'ab7',
+        article: 'die',
+        word: 'Erfahrung',
+        plural: 'die Erfahrungen',
+        translation: 'la experiencia (Berufserfahrung = experiencia profesional)',
+        exampleDe: 'Ich bringe mehrjährige Erfahrung im Projektmanagement mit.',
+        exampleEs: 'Aporto varios años de experiencia en gestión de proyectos.'
       }
     ]
   }
