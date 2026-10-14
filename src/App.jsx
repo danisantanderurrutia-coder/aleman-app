@@ -17,6 +17,9 @@ import PedagogyLibrary from './components/PedagogyLibrary';
 import ProgressDashboard from './components/ProgressDashboard';
 import AppGuideModal from './components/AppGuideModal';
 import ProgressCalendarModal from './components/ProgressCalendarModal';
+import IndieKaraokeTrainer from './components/IndieKaraokeTrainer';
+import TopMusicPlayer from './components/TopMusicPlayer';
+import { indieSongs } from './data/indieSongs';
 import { getProgress } from './utils/storage';
 
 export default function App() {
@@ -24,6 +27,11 @@ export default function App() {
   const [progress, setProgress] = useState(getProgress());
   const [isGuideOpen, setIsGuideOpen] = useState(false);
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+
+  // Global Indie Music State
+  const [activeSong, setActiveSong] = useState(indieSongs[0]);
+  const [isPlayingMusic, setIsPlayingMusic] = useState(false);
+  const [playbackTime, setPlaybackTime] = useState(0);
 
   useEffect(() => {
     setProgress(getProgress());
@@ -36,6 +44,17 @@ export default function App() {
         progress={progress} 
         onOpenGuide={() => setIsGuideOpen(true)} 
         onOpenCalendar={() => setIsCalendarOpen(true)}
+      />
+
+      {/* Top Indie Music Player Bar */}
+      <TopMusicPlayer
+        activeSong={activeSong}
+        setActiveSong={setActiveSong}
+        isPlaying={isPlayingMusic}
+        setIsPlaying={setIsPlayingMusic}
+        playbackTime={playbackTime}
+        setPlaybackTime={setPlaybackTime}
+        onOpenKaraoke={() => setActiveTab('karaoke')}
       />
 
       {/* Main Navigation */}
@@ -53,6 +72,18 @@ export default function App() {
         )}
         {activeTab === 'roadmap' && (
           <ProgressionRoadmap progress={progress} setProgress={setProgress} setActiveTab={setActiveTab} />
+        )}
+        {activeTab === 'karaoke' && (
+          <IndieKaraokeTrainer 
+            progress={progress} 
+            setProgress={setProgress}
+            currentSong={activeSong}
+            setCurrentSong={setActiveSong}
+            isPlaying={isPlayingMusic}
+            setIsPlaying={setIsPlayingMusic}
+            playbackTime={playbackTime}
+            setPlaybackTime={setPlaybackTime}
+          />
         )}
         {activeTab === 'dating' && (
           <DatingGameTrainer progress={progress} setProgress={setProgress} />

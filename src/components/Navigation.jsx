@@ -1,13 +1,14 @@
 import React from 'react';
 import { 
   Sun, Compass, BookOpen, Layers, Dices, Puzzle, MessageSquare, 
-  Ghost, Calendar, Palette, Award, Library, BarChart3, Heart 
+  Ghost, Calendar, Palette, Award, Library, BarChart3, Heart, Music 
 } from 'lucide-react';
 
 export default function Navigation({ activeTab, setActiveTab }) {
   const tabs = [
     { id: 'checkin', label: 'Día & Misiones ☀️', icon: Sun, tag: 'Check-In' },
     { id: 'roadmap', label: 'Ruta B1/B2 🗺️', icon: Compass, tag: 'Progresión' },
+    { id: 'karaoke', label: 'Indie Karaoke 🎸', icon: Music, tag: 'Música' },
     { id: 'dating', label: 'Flirt & Date ❤️', icon: Heart, tag: 'Simulador' },
     { id: 'sprint', label: '7 Palabras', icon: Calendar, tag: 'Sprint Diario' },
     { id: 'grammar', label: 'Gramática A2', icon: BookOpen, tag: 'Doctrina' },

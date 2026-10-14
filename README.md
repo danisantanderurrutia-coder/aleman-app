@@ -35,39 +35,45 @@ npm run dev
 * **Géneros Nominales (*Der • Die • Das*)**: Reglas morfológicas y sufijos sistemáticos (-ung, -heit, -or, -chen).
 * **Casos Gramaticales**: Nominativ, Akkusativ, Dativ y Genitiv, junto a las 9 *Wechselpräpositionen*.
 
-### 4. 🎨 Píxel 8×8 (Ludificación Visual)
+### 4. 🎸 Indie Alemán & Indie Rap (Cancionero Karaoke Bilingüe)
+* **Reproductor Superior Persistente**: Barra de música indie ambiental (AnnenMayKantereit, Kummer/Kraftklub, Provinz, Von Wegen Lisbeth) para ponerle música a la app y acompañar el estudio.
+* **Modo Karaoke Sincronizado**: Resaltado verso a verso en tiempo real con letra en alemán y traducción contrastiva al español.
+* **Notas Filológicas & Slang**: Desglose de contracciones callejeras (*hab'*, *wie's*, *'nen*), modismos (*keinen Kater, Bock haben, zurechtkommen*) y gramática aplicada (Perfekt, subordinadas, modales).
+* **Pronunciación y Dicción**: Botón auditivo por verso para escuchar y practicar la pronunciación fonética nativa.
+
+### 5. 🎨 Píxel 8×8 (Ludificación Visual)
 * **Quiz Visual 8×8**: Identifica el sustantivo y género a partir de su pictograma pixelado (codificación dual imagen-palabra).
 * **Lienzo Libre 8×8**: Dibuja tus propias mnemotecnias píxel a píxel con una paleta de colores interactiva.
 
-### 5. 📅 Sprint Diario de 7 Palabras
+### 6. 📅 Sprint Diario de 7 Palabras
 * Microaprendizaje diario dosificado:
   * Día 1: Ropa y Aspecto (*Kleidung*)
   * Día 2: Supermercado y Alimentos (*Supermarkt*)
   * Día 3: Vivienda y Rutina en Casa (*Wohnung*)
 * Checkbox interactivo, audio nativo y barra de porcentaje de dominio.
 
-### 6. 👻 Cognados y Falsos Amigos (Falsche Freunde)
+### 7. 👻 Cognados y Falsos Amigos (Falsche Freunde)
 * **Alertas Fantasma 👻**: Identificación de trampas frecuentes (*bekommen, Gift, Chef, Gymnasium, aktuell, Wand, Kaution, brav*).
 * **Puentes Germánicos Reales**: Leyes de cambio consonántico para deducir palabras desde el inglés y el español.
 * **Detector Fantasma**: Minijuego de decisión rápida.
 
-### 7. 🏆 Centro de Evaluación (Test Diagnóstico A2)
+### 8. 🏆 Centro de Evaluación (Test Diagnóstico A2)
 * Batería de 10 reactivos diagnósticos con calificación porcentual y dictamen CEFR de nivel A2.
 
-### 8. 📚 Gramática Teórica y Práctica (Doctrina A2)
+### 9. 📚 Gramática Teórica y Práctica (Doctrina A2)
 * *Wechselpräpositionen*, *Nebensätze*, *Das Perfekt*, *Adjektivdeklination*, modales en pasado y reflexivos.
 
-### 9. 🗂️ Léxico SRS (Karteikarten)
+### 10. 🗂️ Léxico SRS (Karteikarten)
 * Vocabulario clasificado por temas con código cromático (Azul Der, Rojo Die, Verde Das) y audio nativo.
 
-### 10. 🎯 Der • Die • Das (Genusbestimmung)
+### 11. 🎯 Der • Die • Das (Genusbestimmung)
 * Automatización de reflejos para la asignación de género nominal.
 
-### 11. 🧩 Sintaxis (Satzbau Trainer)
+### 12. 🧩 Sintaxis (Satzbau Trainer)
 * Puzzles morfosintácticos para ordenar constituyentes de oraciones alemanas.
 
-### 12. 💬 Transcripciones Situacionales (Vida Real)
+### 13. 💬 Transcripciones Situacionales (Vida Real)
 * Diálogos cotidianos autocalibrados (*Beim Arzt, Im Restaurant, Wohnungssuche, Am Bahnhof*).
 
-### 13. 📖 Biblioteca de Pedagogía Lingüística
+### 14. 📖 Biblioteca de Pedagogía Lingüística
 * Tratados sobre los 5 métodos científicos de adquisición de segundas lenguas.
