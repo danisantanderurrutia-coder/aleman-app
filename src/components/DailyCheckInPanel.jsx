@@ -8,10 +8,19 @@ import {
 import confetti from 'canvas-confetti';
 import ProgressionRoadmap from './ProgressionRoadmap';
 
-export default function DailyCheckInPanel({ progress, setProgress, setActiveTab }) {
+export default function DailyCheckInPanel({ progress, setProgress, setActiveTab, onOpenCalendar }) {
   const todayDate = new Date().toISOString().split('T')[0];
   const checkInKey = `daily_checkin_${todayDate}`;
   const isCheckedInToday = !!progress[checkInKey];
+
+  // Live Clock (Hora y día actual en tiempo real)
+  const [liveTime, setLiveTime] = useState(new Date());
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setLiveTime(new Date());
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   // Daily Quests calculation based on user progress today
   const dailyQuestsKey = `quests_${todayDate}`;
@@ -137,17 +146,35 @@ export default function DailyCheckInPanel({ progress, setProgress, setActiveTab 
 
         {/* Weekly Attendance Heatmap / Streak Tracker */}
         <div className="pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3">
             <div className="p-3 rounded-2xl bg-amber-50 border border-amber-200 text-amber-700">
               <Flame className="w-6 h-6 fill-amber-500" />
             </div>
             <div>
-              <span className="font-mono text-xl font-bold text-stone-900 block leading-none">
-                {progress.streak} Días de Racha Activa
-              </span>
-              <span className="text-[11px] text-stone-400 font-sans">
-                Mantén el hábito diario sin romper la cadena
-              </span>
+              <div className="flex items-center gap-2.5">
+                <span className="font-mono text-xl font-bold text-stone-900 block leading-none">
+                  {progress.streak} {progress.streak === 1 ? 'Día Consecutivo' : 'Días Consecutivos'}
+                </span>
+                {/* Emoji de calendario al lado de días consecutivos */}
+                <button
+                  onClick={onOpenCalendar}
+                  title="Abrir Calendario Académico & Registrar Progreso Diario"
+                  className="px-2.5 py-1.5 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-950 font-serif font-bold text-xs flex items-center gap-1.5 cursor-pointer border border-amber-300 transition-all hover:scale-103 shadow-2xs"
+                >
+                  <span className="text-sm">📅</span>
+                  <span className="font-mono text-[11px]">Calendario</span>
+                </button>
+              </div>
+              <div className="flex items-center gap-2 mt-1 text-[11px] text-stone-500 font-mono">
+                <Clock className="w-3.5 h-3.5 text-stone-400" />
+                <span className="font-semibold text-stone-800">
+                  {liveTime.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
+                </span>
+                <span>•</span>
+                <span className="capitalize">
+                  {liveTime.toLocaleDateString('es-ES', { weekday: 'short', day: 'numeric', month: 'short' })}
+                </span>
+              </div>
             </div>
           </div>
 

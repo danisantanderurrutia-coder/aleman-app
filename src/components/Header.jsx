@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Volume2, Sparkles, BookOpen, GraduationCap, Flame, HelpCircle } from 'lucide-react';
 import { speechService } from '../utils/speech';
 
-export default function Header({ progress, onOpenGuide }) {
+export default function Header({ progress, onOpenGuide, onOpenCalendar }) {
   const [speechRate, setSpeechRate] = useState(0.85);
 
   const toggleRate = () => {
@@ -76,6 +76,16 @@ export default function Header({ progress, onOpenGuide }) {
             <Flame className="w-4 h-4 text-amber-600 fill-amber-500" />
             <span>{progress.streak} {progress.streak === 1 ? 'día consecutivo' : 'días consecutivos'}</span>
           </div>
+
+          {/* Calendario con emoji 📅 al lado de días consecutivos */}
+          <button
+            onClick={onOpenCalendar}
+            title="Abrir Calendario Académico y Registro de Progresión Diaria"
+            className="flex items-center gap-1 px-2.5 py-2 rounded-lg bg-amber-100 hover:bg-amber-200/90 text-amber-950 text-xs font-serif font-bold border border-amber-300 transition-all cursor-pointer shadow-2xs hover:scale-103"
+          >
+            <span className="text-sm">📅</span>
+            <span className="hidden md:inline text-[11px] font-mono font-semibold">Calendario</span>
+          </button>
 
           {/* XP Progress */}
           <div className="flex items-center gap-3 px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 text-xs shadow-2xs">

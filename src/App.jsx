@@ -16,12 +16,14 @@ import SelfTest from './components/SelfTest';
 import PedagogyLibrary from './components/PedagogyLibrary';
 import ProgressDashboard from './components/ProgressDashboard';
 import AppGuideModal from './components/AppGuideModal';
+import ProgressCalendarModal from './components/ProgressCalendarModal';
 import { getProgress } from './utils/storage';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('checkin');
   const [progress, setProgress] = useState(getProgress());
   const [isGuideOpen, setIsGuideOpen] = useState(false);
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
 
   useEffect(() => {
     setProgress(getProgress());
@@ -29,8 +31,12 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#faf9f6] text-stone-900 flex flex-col font-sans selection:bg-amber-100 selection:text-amber-900">
-      {/* Top Bar with sparkle button linked to App Guide */}
-      <Header progress={progress} onOpenGuide={() => setIsGuideOpen(true)} />
+      {/* Top Bar with sparkle button linked to App Guide and Calendar button */}
+      <Header 
+        progress={progress} 
+        onOpenGuide={() => setIsGuideOpen(true)} 
+        onOpenCalendar={() => setIsCalendarOpen(true)}
+      />
 
       {/* Main Navigation */}
       <Navigation activeTab={activeTab} setActiveTab={setActiveTab} />
@@ -38,7 +44,12 @@ export default function App() {
       {/* Dynamic View Workspace */}
       <main className="flex-1 pb-20">
         {activeTab === 'checkin' && (
-          <DailyCheckInPanel progress={progress} setProgress={setProgress} setActiveTab={setActiveTab} />
+          <DailyCheckInPanel 
+            progress={progress} 
+            setProgress={setProgress} 
+            setActiveTab={setActiveTab} 
+            onOpenCalendar={() => setIsCalendarOpen(true)}
+          />
         )}
         {activeTab === 'roadmap' && (
           <ProgressionRoadmap progress={progress} setProgress={setProgress} setActiveTab={setActiveTab} />
@@ -85,6 +96,15 @@ export default function App() {
       <AppGuideModal
         isOpen={isGuideOpen}
         onClose={() => setIsGuideOpen(false)}
+        setActiveTab={setActiveTab}
+      />
+
+      {/* Progress Calendar Modal triggered by 📅 Button */}
+      <ProgressCalendarModal
+        isOpen={isCalendarOpen}
+        onClose={() => setIsCalendarOpen(false)}
+        progress={progress}
+        setProgress={setProgress}
         setActiveTab={setActiveTab}
       />
 
