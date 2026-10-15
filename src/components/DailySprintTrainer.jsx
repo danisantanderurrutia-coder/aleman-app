@@ -23,7 +23,7 @@ const categoryIcons = {
   Users: Users
 };
 
-export default function DailySprintTrainer({ progress, setProgress }) {
+export default function DailySprintTrainer({ progress, setProgress, setActiveTab, onOpenCalendar, onAddConsecutiveDay }) {
   // Mode: 'sprint' (7 palabras del día) o 'repository' (archivo / baúl de palabras aprendidas)
   const [viewMode, setViewMode] = useState('sprint');
 
@@ -41,6 +41,12 @@ export default function DailySprintTrainer({ progress, setProgress }) {
   const sprint = dailySprintsData[selectedDayIdx] || dailySprintsData[0];
   const sprintKey = `daily_sprint_${sprint.id}`;
   const masteredInDay = (progress[sprintKey] || []);
+
+  const todayDate = new Date().toISOString().split('T')[0];
+  const questsState = progress[`quests_${todayDate}`] || {};
+  const isSprintFinished = masteredInDay.length >= sprint.words.length;
+  const effectiveVocabDone = questsState.vocabDone || isSprintFinished;
+  const allQuestsDone = !!(questsState.focusDone && effectiveVocabDone && questsState.grammarDone);
 
   // Collect all words across sprint days
   const allSprintWords = dailySprintsData.flatMap(d => 
@@ -93,6 +99,7 @@ export default function DailySprintTrainer({ progress, setProgress }) {
     const isAlreadyMastered = currentList.includes(wordId);
     
     let updatedList;
+    let extraUpdates = {};
     if (isAlreadyMastered) {
       updatedList = currentList.filter(id => id !== wordId);
     } else {
@@ -107,10 +114,20 @@ export default function DailySprintTrainer({ progress, setProgress }) {
           spread: 70,
           origin: { y: 0.6 }
         });
+
+        // Marcar Misión de Léxico Activo como completada en los Quests de Hoy
+        const todayStr = new Date().toISOString().split('T')[0];
+        const questsKey = `quests_${todayStr}`;
+        const currentQuests = progress[questsKey] || {};
+        extraUpdates[questsKey] = {
+          ...currentQuests,
+          vocabDone: true,
+          vocabDone_awarded: true
+        };
       }
     }
 
-    const updated = saveProgress({ [key]: updatedList });
+    const updated = saveProgress({ [key]: updatedList, ...extraUpdates });
     setProgress(updated);
   };
 
@@ -338,6 +355,47 @@ export default function DailySprintTrainer({ progress, setProgress }) {
                 );
               })}
             </div>
+
+            {/* Banner de Finalización con Botón Negro y Letras Blancas */}
+            {isSprintFinished && (
+              <div className="mt-8 p-6 sm:p-8 rounded-2xl bg-stone-50 border border-stone-200 flex flex-col sm:flex-row items-center justify-between gap-6 animate-in fade-in">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-mono font-bold text-emerald-800 uppercase tracking-wider bg-emerald-100 px-2.5 py-1 rounded-md border border-emerald-300">
+                      ✓ ¡Sprint del Día Completado! (+25 XP)
+                    </span>
+                  </div>
+                  <h4 className="text-lg font-serif font-bold text-stone-900 mt-2">
+                    {allQuestsDone 
+                      ? '¡Has completado las 3 misiones de tu jornada!' 
+                      : `¡Excelente! Has dominado las ${sprint.words.length} palabras de ${sprint.title}.`}
+                  </h4>
+                  <p className="text-xs text-stone-600 mt-1 max-w-lg">
+                    {allQuestsDone
+                      ? 'Todas las misiones del día han sido superadas. Añade tu día consecutivo al calendario para celebrar tu racha.'
+                      : 'Continúa con el challenge diario para completar los retos de gramática y sintaxis de hoy.'}
+                  </p>
+                </div>
+
+                <div className="shrink-0 w-full sm:w-auto">
+                  {allQuestsDone ? (
+                    <button
+                      onClick={onAddConsecutiveDay}
+                      className="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-stone-900 hover:bg-black text-white font-serif font-bold text-xs sm:text-sm flex items-center justify-center gap-2.5 cursor-pointer shadow-lg hover:scale-102 transition-all"
+                    >
+                      <span>Añadir día consecutivo 📅</span>
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => setActiveTab && setActiveTab('checkin')}
+                      className="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-stone-900 hover:bg-black text-white font-serif font-bold text-xs sm:text-sm flex items-center justify-center gap-2.5 cursor-pointer shadow-lg hover:scale-102 transition-all"
+                    >
+                      <span>Continuar con el challenge diario →</span>
+                    </button>
+                  )}
+                </div>
+              </div>
+            )}
           </div>
         </>
       )}

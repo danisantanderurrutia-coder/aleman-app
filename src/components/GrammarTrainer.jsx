@@ -10,7 +10,7 @@ import {
 } from 'lucide-react';
 import DeclensionMatrix8x8 from './DeclensionMatrix8x8';
 
-export default function GrammarTrainer({ progress, setProgress }) {
+export default function GrammarTrainer({ progress, setProgress, setActiveTab, onOpenCalendar, onAddConsecutiveDay }) {
   const [selectedTopicId, setSelectedTopicId] = useState(grammarTopics[0].id);
   // Pedagogical Phase Tabs: 'genesis', 'tables', 'rayx', 'practice'
   const [activePhase, setActivePhase] = useState('genesis');
@@ -29,6 +29,10 @@ export default function GrammarTrainer({ progress, setProgress }) {
 
   const completedList = (progress.completedGrammarExercises && progress.completedGrammarExercises[topic.id]) || [];
   const isTopicDone = completedList.length === exercises.length;
+
+  const todayDate = new Date().toISOString().split('T')[0];
+  const questsState = progress[`quests_${todayDate}`] || {};
+  const allQuestsDone = !!(questsState.focusDone && questsState.vocabDone && (questsState.grammarDone || isAnswerChecked));
 
   const handleSelectTopic = (id) => {
     setSelectedTopicId(id);
@@ -49,13 +53,27 @@ export default function GrammarTrainer({ progress, setProgress }) {
 
     const isCorrect = selectedOption === currentExercise.correct;
     if (isCorrect) {
+      const todayStr = new Date().toISOString().split('T')[0];
+      const questsKey = `quests_${todayStr}`;
+      const currentQuests = progress[questsKey] || {};
+      const isGrammarFocus = [1, 2].includes(progress.curriculumDay || 1);
+      const updatedQuests = {
+        ...currentQuests,
+        grammarDone: true,
+        grammarDone_awarded: true,
+        ...(isGrammarFocus ? { focusDone: true, focusDone_awarded: true } : {})
+      };
+
       if (!completedList.includes(currentExerciseIdx)) {
         const newCompleted = [...completedList, currentExerciseIdx];
         const updatedGrammar = {
           ...progress.completedGrammarExercises,
           [topic.id]: newCompleted,
         };
-        const updated = saveProgress({ completedGrammarExercises: updatedGrammar });
+        const updated = saveProgress({ 
+          completedGrammarExercises: updatedGrammar,
+          [questsKey]: updatedQuests
+        });
         addXP(15);
         setProgress(updated);
 
@@ -66,6 +84,9 @@ export default function GrammarTrainer({ progress, setProgress }) {
             origin: { y: 0.6 }
           });
         }
+      } else {
+        const updated = saveProgress({ [questsKey]: updatedQuests });
+        setProgress(updated);
       }
     }
   };
@@ -629,20 +650,40 @@ export default function GrammarTrainer({ progress, setProgress }) {
                     {currentExercise.explanation}
                   </p>
 
-                  <div className="pt-2 flex justify-end">
-                    {currentExerciseIdx < exercises.length - 1 ? (
-                      <button
-                        onClick={handleNextExercise}
-                        className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-stone-900 text-white text-xs font-medium hover:bg-stone-800 transition-all cursor-pointer"
-                      >
-                        <span>Siguiente Ejercicio</span>
-                        <ArrowRight className="w-4 h-4" />
-                      </button>
-                    ) : (
-                      <span className="text-xs font-medium text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-xl border border-emerald-200">
-                        🎉 ¡Has completado la comprobación de este capítulo!
-                      </span>
-                    )}
+                  <div className="pt-3 border-t border-stone-200/60 flex flex-wrap items-center justify-between gap-3">
+                    <div>
+                      {allQuestsDone ? (
+                        <button
+                          onClick={onAddConsecutiveDay}
+                          className="px-6 py-2.5 rounded-xl bg-stone-900 hover:bg-black text-white font-serif font-bold text-xs flex items-center gap-2 cursor-pointer shadow-md transition-all hover:scale-102"
+                        >
+                          <span>Añadir día consecutivo 📅</span>
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => setActiveTab && setActiveTab('checkin')}
+                          className="px-6 py-2.5 rounded-xl bg-stone-900 hover:bg-black text-white font-serif font-bold text-xs flex items-center gap-2 cursor-pointer shadow-md transition-all hover:scale-102"
+                        >
+                          <span>Continuar con el challenge diario →</span>
+                        </button>
+                      )}
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      {currentExerciseIdx < exercises.length - 1 ? (
+                        <button
+                          onClick={handleNextExercise}
+                          className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-stone-100 text-stone-800 text-xs font-medium hover:bg-stone-200 transition-all cursor-pointer border border-stone-200"
+                        >
+                          <span>Siguiente Ejercicio</span>
+                          <ArrowRight className="w-4 h-4" />
+                        </button>
+                      ) : (
+                        <span className="text-xs font-medium text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-xl border border-emerald-200">
+                          🎉 ¡Capítulo completado!
+                        </span>
+                      )}
+                    </div>
                   </div>
                 </div>
               )}

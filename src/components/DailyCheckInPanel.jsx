@@ -9,7 +9,7 @@ import confetti from 'canvas-confetti';
 import ProgressionRoadmap from './ProgressionRoadmap';
 import { dailySprintsData } from '../data/dailySprint';
 
-export default function DailyCheckInPanel({ progress, setProgress, setActiveTab, onOpenCalendar }) {
+export default function DailyCheckInPanel({ progress, setProgress, setActiveTab, onOpenCalendar, onAddConsecutiveDay }) {
   const todayDate = new Date().toISOString().split('T')[0];
   const checkInKey = `daily_checkin_${todayDate}`;
   const isCheckedInToday = !!progress[checkInKey];
@@ -45,10 +45,10 @@ export default function DailyCheckInPanel({ progress, setProgress, setActiveTab,
   // Progression Curriculum System por Día de Estudio (1 a 7)
   const curriculumDayFocus = {
     1: { focus: 'Fundamentos de Casos & Ropa', desc: 'Aprende el origen de Nominativ, Akkusativ y Dativ y las 7 palabras de Ropa.', tab: 'grammar', icon: BookOpen },
-    2: { focus: 'Supermercado & Akkusativ Directo', desc: 'Aplica el acusativo masculino (den/einen) en compras y alimentos.', tab: 'sprint', icon: Target },
+    2: { focus: 'Uso del Acusativo: Compras & Alimentos', desc: 'Domina el cambio morfológico der → den y ein → einen en compras de alimentos (der Käse → den Käse).', tab: 'grammar', icon: Target },
     3: { focus: 'Citas & Conexión con Clara', desc: 'Practica tu encanto y objetos situacionales en Flirt & Date.', tab: 'dating', icon: Heart },
     4: { focus: 'Falsos Amigos & Cazafantasmas 👻', desc: 'Caza trampas cognitivas con el logo fantasma y afina tu oído.', tab: 'cognates', icon: Sparkles },
-    5: { focus: 'Sintaxis & Subordinadas con "weil"', desc: 'Aprende a enviar el verbo conjugado al final de la frase.', tab: 'grammar', icon: Compass },
+    5: { focus: 'Sintaxis & Subordinadas con "weil"', desc: 'Aprende a enviar el verbo conjugado al final de la frase.', tab: 'sentences', icon: Compass },
     6: { focus: 'Ludificación Visual 8×8', desc: 'Asocia pictogramas en matriz y agiliza Der Die Das.', tab: 'pixel', icon: Zap },
     7: { focus: 'Auditoría & Checkpoint A2.1', desc: 'Comprueba tu retención semanal con la batería diagnóstica.', tab: 'test', icon: Trophy },
   };
@@ -404,10 +404,10 @@ export default function DailyCheckInPanel({ progress, setProgress, setActiveTab,
               </button>
               <div>
                 <h4 className="font-serif font-bold text-sm text-stone-900">
-                  Misión 3: Estructura & Rigor (Gramática o Sintaxis)
+                  Misión 3: Estructura & Rigor (Sintaxis y Construcción)
                 </h4>
                 <p className="text-xs text-stone-500 mt-0.5">
-                  Resuelve al menos 1 ejercicio gramatical o construye 1 oración en Satzbau. (+15 XP)
+                  Construye al menos 1 oración correcta en Satzbau o resuelve un reto estructural. (+15 XP)
                 </p>
               </div>
             </div>
@@ -415,14 +415,36 @@ export default function DailyCheckInPanel({ progress, setProgress, setActiveTab,
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                setActiveTab('grammar');
+                setActiveTab('sentences');
               }}
               className="text-xs font-mono font-medium text-stone-500 hover:text-stone-900 underline"
             >
-              Ir a Gramática →
+              Ir a Sintaxis →
             </button>
           </div>
         </div>
+
+        {/* Botón en negro con letras blancas cuando se completan las 3 misiones */}
+        {allQuestsDone && (
+          <div className="mt-8 pt-6 border-t border-stone-100 flex flex-col sm:flex-row items-center justify-between gap-4 bg-stone-50 p-6 rounded-2xl border border-stone-200 animate-in fade-in">
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-mono font-bold text-emerald-800 uppercase tracking-wider">
+                  ¡3 de 3 Misiones Cumplidas! 🎉
+                </span>
+              </div>
+              <p className="text-xs text-stone-600 mt-0.5">
+                Has cumplido todos los objetivos del challenge diario de hoy.
+              </p>
+            </div>
+            <button
+              onClick={onAddConsecutiveDay || handleCheckIn}
+              className="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-stone-900 hover:bg-black text-white font-serif font-bold text-xs sm:text-sm flex items-center justify-center gap-2.5 cursor-pointer shadow-lg hover:scale-102 transition-all shrink-0"
+            >
+              <span>Añadir día consecutivo 📅</span>
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Los 4 Pilares del Alemán (Acceso Directo y Estatus) */}

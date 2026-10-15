@@ -66,3 +66,41 @@ export const addXP = (amount) => {
     todayXP: newTodayXP,
   });
 };
+
+export const getTodayDate = () => new Date().toISOString().split('T')[0];
+
+export const getDailyQuests = (progressState) => {
+  const current = progressState || getProgress();
+  const today = getTodayDate();
+  return current[`quests_${today}`] || {
+    focusDone: false,
+    vocabDone: false,
+    grammarDone: false,
+    claimedBonus: false
+  };
+};
+
+export const updateDailyQuest = (questName, isDone = true) => {
+  const current = getProgress();
+  const today = getTodayDate();
+  const key = `quests_${today}`;
+  const currentQuests = current[key] || {
+    focusDone: false,
+    vocabDone: false,
+    grammarDone: false,
+    claimedBonus: false
+  };
+  
+  const updatedQuests = {
+    ...currentQuests,
+    [questName]: isDone,
+    [`${questName}_awarded`]: true
+  };
+  
+  return saveProgress({ [key]: updatedQuests });
+};
+
+export const areAllQuestsCompleted = (progressState) => {
+  const quests = getDailyQuests(progressState);
+  return !!(quests.focusDone && quests.vocabDone && quests.grammarDone);
+};

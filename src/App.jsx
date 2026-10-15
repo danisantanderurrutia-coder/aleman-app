@@ -20,7 +20,8 @@ import ProgressCalendarModal from './components/ProgressCalendarModal';
 import IndieKaraokeTrainer from './components/IndieKaraokeTrainer';
 import TopMusicPlayer from './components/TopMusicPlayer';
 import { indieSongs } from './data/indieSongs';
-import { getProgress } from './utils/storage';
+import { getProgress, saveProgress, addXP } from './utils/storage';
+import confetti from 'canvas-confetti';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('checkin');
@@ -37,6 +38,56 @@ export default function App() {
     setProgress(getProgress());
   }, []);
 
+  // Añadir día consecutivo, celebrar con confeti y abrir calendario
+  const handleAddConsecutiveDay = () => {
+    const todayDate = new Date().toISOString().split('T')[0];
+    const checkInKey = `daily_checkin_${todayDate}`;
+    const isCheckedInToday = !!progress[checkInKey];
+
+    const currentStreak = progress.streak || 1;
+    const newStreak = isCheckedInToday ? currentStreak : currentStreak + 1;
+    if (!isCheckedInToday) {
+      addXP(50);
+    }
+
+    const currentCurriculumDay = progress.curriculumDay || 1;
+    const completedDays = progress.completedCurriculumDays || [];
+    const newCompletedDays = completedDays.includes(currentCurriculumDay)
+      ? completedDays
+      : [...completedDays, currentCurriculumDay];
+
+    const calendarLogs = progress.calendarLogs || {};
+    const existingLog = calendarLogs[todayDate] || {};
+
+    const updated = saveProgress({
+      [checkInKey]: true,
+      streak: newStreak,
+      lastActiveDate: todayDate,
+      completedCurriculumDays: newCompletedDays,
+      calendarLogs: {
+        ...calendarLogs,
+        [todayDate]: {
+          ...existingLog,
+          date: todayDate,
+          completed: true,
+          syllabusDay: currentCurriculumDay,
+          studyMinutes: existingLog.studyMinutes || 20,
+          updatedAt: new Date().toISOString()
+        }
+      }
+    });
+
+    setProgress(updated);
+
+    confetti({
+      particleCount: 80,
+      spread: 70,
+      origin: { y: 0.6 }
+    });
+
+    setIsCalendarOpen(true);
+  };
+
   return (
     <div className="min-h-screen bg-[#faf9f6] text-stone-900 flex flex-col font-sans selection:bg-amber-100 selection:text-amber-900">
       {/* Top Bar with sparkle button linked to App Guide and Calendar button */}
@@ -44,6 +95,7 @@ export default function App() {
         progress={progress} 
         onOpenGuide={() => setIsGuideOpen(true)} 
         onOpenCalendar={() => setIsCalendarOpen(true)}
+        onGoToDaily={() => setActiveTab('checkin')}
       />
 
       {/* Top Indie Music Player Bar */}
@@ -68,6 +120,7 @@ export default function App() {
             setProgress={setProgress} 
             setActiveTab={setActiveTab} 
             onOpenCalendar={() => setIsCalendarOpen(true)}
+            onAddConsecutiveDay={handleAddConsecutiveDay}
           />
         )}
         {activeTab === 'roadmap' && (
@@ -86,22 +139,52 @@ export default function App() {
           />
         )}
         {activeTab === 'dating' && (
-          <DatingGameTrainer progress={progress} setProgress={setProgress} />
+          <DatingGameTrainer 
+            progress={progress} 
+            setProgress={setProgress} 
+            setActiveTab={setActiveTab}
+            onOpenCalendar={() => setIsCalendarOpen(true)}
+            onAddConsecutiveDay={handleAddConsecutiveDay}
+          />
         )}
         {activeTab === 'sprint' && (
-          <DailySprintTrainer progress={progress} setProgress={setProgress} />
+          <DailySprintTrainer 
+            progress={progress} 
+            setProgress={setProgress} 
+            setActiveTab={setActiveTab}
+            onOpenCalendar={() => setIsCalendarOpen(true)}
+            onAddConsecutiveDay={handleAddConsecutiveDay}
+          />
         )}
         {activeTab === 'grammar' && (
-          <GrammarTrainer progress={progress} setProgress={setProgress} />
+          <GrammarTrainer 
+            progress={progress} 
+            setProgress={setProgress} 
+            setActiveTab={setActiveTab}
+            onOpenCalendar={() => setIsCalendarOpen(true)}
+            onAddConsecutiveDay={handleAddConsecutiveDay}
+          />
         )}
         {activeTab === 'flashcards' && (
           <FlashcardsTrainer progress={progress} setProgress={setProgress} />
         )}
         {activeTab === 'articles' && (
-          <ArticleGame progress={progress} setProgress={setProgress} />
+          <ArticleGame 
+            progress={progress} 
+            setProgress={setProgress} 
+            setActiveTab={setActiveTab}
+            onOpenCalendar={() => setIsCalendarOpen(true)}
+            onAddConsecutiveDay={handleAddConsecutiveDay}
+          />
         )}
         {activeTab === 'sentences' && (
-          <SentenceTrainer progress={progress} setProgress={setProgress} />
+          <SentenceTrainer 
+            progress={progress} 
+            setProgress={setProgress} 
+            setActiveTab={setActiveTab}
+            onOpenCalendar={() => setIsCalendarOpen(true)}
+            onAddConsecutiveDay={handleAddConsecutiveDay}
+          />
         )}
         {activeTab === 'dialogues' && (
           <DialoguesTrainer progress={progress} setProgress={setProgress} />

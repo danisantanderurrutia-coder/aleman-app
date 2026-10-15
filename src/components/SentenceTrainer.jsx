@@ -5,13 +5,17 @@ import { addXP, saveProgress } from '../utils/storage';
 import { Puzzle, Check, X, RotateCcw, Volume2, ArrowRight, Bookmark, Lightbulb } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
-export default function SentenceTrainer({ progress, setProgress }) {
+export default function SentenceTrainer({ progress, setProgress, setActiveTab, onOpenCalendar, onAddConsecutiveDay }) {
   const [puzzleIdx, setPuzzleIdx] = useState(0);
   const [shuffledTokens, setShuffledTokens] = useState([]);
   const [userTokens, setUserTokens] = useState([]);
   const [status, setStatus] = useState('idle');
 
   const currentPuzzle = sentencePuzzles[puzzleIdx] || sentencePuzzles[0];
+
+  const todayDate = new Date().toISOString().split('T')[0];
+  const questsState = progress[`quests_${todayDate}`] || {};
+  const allQuestsDone = !!(questsState.focusDone && questsState.vocabDone && (questsState.grammarDone || status === 'correct'));
 
   useEffect(() => {
     resetPuzzle();
@@ -50,11 +54,26 @@ export default function SentenceTrainer({ progress, setProgress }) {
       setStatus('correct');
       speechService.speak(targetSentence);
       
+      const todayStr = new Date().toISOString().split('T')[0];
+      const questsKey = `quests_${todayStr}`;
+      const currentQuests = progress[questsKey] || {};
+      const updatedQuests = {
+        ...currentQuests,
+        grammarDone: true,
+        grammarDone_awarded: true
+      };
+
       const completedList = progress.completedSentences || [];
       if (!completedList.includes(currentPuzzle.id)) {
         const newCompleted = [...completedList, currentPuzzle.id];
-        const updated = saveProgress({ completedSentences: newCompleted });
+        const updated = saveProgress({ 
+          completedSentences: newCompleted,
+          [questsKey]: updatedQuests
+        });
         addXP(15);
+        setProgress(updated);
+      } else {
+        const updated = saveProgress({ [questsKey]: updatedQuests });
         setProgress(updated);
       }
 
@@ -181,36 +200,56 @@ export default function SentenceTrainer({ progress, setProgress }) {
       )}
 
       {/* Action Footer */}
-      <div className="flex items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
         <button
           onClick={resetPuzzle}
-          className="px-4 py-2.5 rounded-xl bg-white hover:bg-stone-50 text-stone-700 text-xs font-mono font-medium border border-stone-200 flex items-center gap-2 cursor-pointer shadow-2xs"
+          className="px-4 py-2.5 rounded-xl bg-white hover:bg-stone-50 text-stone-700 text-xs font-mono font-medium border border-stone-200 flex items-center gap-2 cursor-pointer shadow-2xs w-full sm:w-auto justify-center"
         >
           <RotateCcw className="w-4 h-4" />
           <span>Restablecer</span>
         </button>
 
-        {status !== 'correct' ? (
-          <button
-            onClick={handleCheck}
-            disabled={userTokens.length === 0}
-            className={`px-7 py-3 rounded-xl font-medium text-xs transition-all cursor-pointer ${
-              userTokens.length > 0
-                ? 'bg-stone-900 hover:bg-stone-800 text-white shadow-xs'
-                : 'bg-stone-200 text-stone-400 cursor-not-allowed'
-            }`}
-          >
-            Verificar Sintaxis
-          </button>
-        ) : (
-          <button
-            onClick={handleNext}
-            className="px-7 py-3 rounded-xl font-medium text-xs bg-stone-900 hover:bg-stone-800 text-white flex items-center gap-2 cursor-pointer shadow-xs"
-          >
-            <span>Siguiente Cláusula</span>
-            <ArrowRight className="w-4 h-4" />
-          </button>
-        )}
+        <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto justify-end">
+          {status === 'correct' && (
+            allQuestsDone ? (
+              <button
+                onClick={onAddConsecutiveDay}
+                className="px-6 py-3 rounded-xl bg-stone-900 hover:bg-black text-white font-serif font-bold text-xs flex items-center gap-2 cursor-pointer shadow-md transition-all hover:scale-102"
+              >
+                <span>Añadir día consecutivo 📅</span>
+              </button>
+            ) : (
+              <button
+                onClick={() => setActiveTab && setActiveTab('checkin')}
+                className="px-6 py-3 rounded-xl bg-stone-900 hover:bg-black text-white font-serif font-bold text-xs flex items-center gap-2 cursor-pointer shadow-md transition-all hover:scale-102"
+              >
+                <span>Continuar con el challenge diario →</span>
+              </button>
+            )
+          )}
+
+          {status !== 'correct' ? (
+            <button
+              onClick={handleCheck}
+              disabled={userTokens.length === 0}
+              className={`px-7 py-3 rounded-xl font-medium text-xs transition-all cursor-pointer ${
+                userTokens.length > 0
+                  ? 'bg-stone-900 hover:bg-stone-800 text-white shadow-xs'
+                  : 'bg-stone-200 text-stone-400 cursor-not-allowed'
+              }`}
+            >
+              Verificar Sintaxis
+            </button>
+          ) : (
+            <button
+              onClick={handleNext}
+              className="px-6 py-3 rounded-xl font-medium text-xs bg-stone-100 hover:bg-stone-200 text-stone-800 border border-stone-300 flex items-center gap-2 cursor-pointer shadow-2xs"
+            >
+              <span>Siguiente Cláusula</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );

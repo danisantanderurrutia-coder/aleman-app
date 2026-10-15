@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Volume2, Sparkles, BookOpen, GraduationCap, Flame, HelpCircle } from 'lucide-react';
 import { speechService } from '../utils/speech';
 
-export default function Header({ progress, onOpenGuide, onOpenCalendar }) {
+export default function Header({ progress, onOpenGuide, onOpenCalendar, onGoToDaily }) {
   const [speechRate, setSpeechRate] = useState(0.85);
 
   const toggleRate = () => {
@@ -24,14 +24,18 @@ export default function Header({ progress, onOpenGuide, onOpenCalendar }) {
   return (
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-stone-200 px-6 py-4 transition-colors">
       <div className="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-6">
-        {/* Brand / Academic Seal */}
-        <div className="flex items-center gap-4">
-          <div className="w-11 h-11 rounded-xl bg-stone-900 text-stone-50 flex items-center justify-center font-serif font-bold text-lg shadow-sm border border-stone-800">
+        {/* Brand / Academic Seal - Clic lleva a Día y Misiones */}
+        <div 
+          onClick={onGoToDaily}
+          className="flex items-center gap-4 cursor-pointer group transition-all"
+          title="Ir a Día y Misiones (Inicio)"
+        >
+          <div className="w-11 h-11 rounded-xl bg-stone-900 text-stone-50 flex items-center justify-center font-serif font-bold text-lg shadow-sm border border-stone-800 group-hover:bg-amber-600 transition-colors">
             D
           </div>
           <div>
             <div className="flex items-center gap-2.5">
-              <h1 className="text-xl font-serif font-bold tracking-tight text-stone-900">
+              <h1 className="text-xl font-serif font-bold tracking-tight text-stone-900 group-hover:text-amber-700 transition-colors">
                 DeutschMeister
               </h1>
               <span className="px-2.5 py-0.5 text-[11px] font-mono font-semibold rounded-md bg-stone-100 text-stone-700 border border-stone-300">
