@@ -9,6 +9,7 @@ import {
   HelpCircle, AlertCircle
 } from 'lucide-react';
 import DeclensionMatrix8x8 from './DeclensionMatrix8x8';
+import FormattedDossierView from './FormattedDossierView';
 
 export default function GrammarTrainer({ progress, setProgress, setActiveTab, onOpenCalendar, onAddConsecutiveDay }) {
   const [selectedTopicId, setSelectedTopicId] = useState(grammarTopics[0].id);
@@ -334,30 +335,9 @@ export default function GrammarTrainer({ progress, setProgress, setActiveTab, on
                 </div>
               )}
 
-              {/* Theoretical Treatise Dossier (Google Docs Deep Theory) */}
+              {/* Theoretical Treatise Dossier (Google Docs Deep Theory con Formato Rico y Color) */}
               {topic.theoreticalDossier && (
-                <div className="space-y-4 pt-4 border-t border-stone-100">
-                  <div className="flex items-center gap-2 text-xs font-mono font-bold text-stone-900 uppercase tracking-wider">
-                    <BookOpen className="w-4 h-4 text-stone-700" />
-                    <span>Dossier Teórico y Conceptual del Módulo</span>
-                  </div>
-
-                  <div className="grid grid-cols-1 gap-4">
-                    {topic.theoreticalDossier.map((dossier, dIdx) => (
-                      <div
-                        key={dIdx}
-                        className="p-6 rounded-2xl bg-stone-50/90 border border-stone-200/90 text-stone-800"
-                      >
-                        <h4 className="font-serif font-bold text-base text-stone-950 mb-2">
-                          {dossier.title}
-                        </h4>
-                        <div className="text-xs sm:text-sm text-stone-700 leading-relaxed font-sans whitespace-pre-line">
-                          {dossier.content}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                <FormattedDossierView dossiers={topic.theoreticalDossier} />
               )}
 
               <div className="pt-4 flex justify-end">

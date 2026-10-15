@@ -9,7 +9,7 @@ import confetti from 'canvas-confetti';
 import ProgressionRoadmap from './ProgressionRoadmap';
 import { dailySprintsData } from '../data/dailySprint';
 
-export default function DailyCheckInPanel({ progress, setProgress, setActiveTab, onOpenCalendar, onAddConsecutiveDay }) {
+export default function DailyCheckInPanel({ progress, setProgress, setActiveTab, onOpenCalendar, onAddConsecutiveDay, onOpenClaraMentor }) {
   const todayDate = new Date().toISOString().split('T')[0];
   const checkInKey = `daily_checkin_${todayDate}`;
   const isCheckedInToday = !!progress[checkInKey];
@@ -252,52 +252,37 @@ export default function DailyCheckInPanel({ progress, setProgress, setActiveTab,
         </div>
       </div>
 
-      {/* Adaptive Daily Curriculum / Focus for Today */}
-      <div className="p-8 rounded-3xl bg-stone-900 text-white shadow-md mb-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-        <div className="flex items-start gap-4">
-          <div className="p-3.5 rounded-2xl bg-stone-800 border border-stone-700 text-amber-400 shrink-0 mt-1">
-            <FocusIcon className="w-6 h-6" />
-          </div>
+      {/* Centro de Control del Desafío Diario (3 Misiones Unificadas y Sincronizadas) */}
+      <div className="p-8 sm:p-10 rounded-3xl bg-white border border-stone-200 shadow-sm mb-8">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-stone-100">
           <div>
-            <div className="flex items-center gap-2">
-              <span className="text-[11px] font-mono font-bold text-amber-400 uppercase tracking-widest">
-                Enfoque Temático de {dayName}
+            <div className="flex flex-wrap items-center gap-2 mb-2">
+              <span className="px-3 py-1 rounded-md text-xs font-mono font-bold bg-stone-900 text-white uppercase tracking-wider">
+                Desafío del Día de Estudio {currentCurriculumDay}
               </span>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-stone-800 text-stone-300">
-                Rotación Adaptativa
+              <span className="text-xs font-mono font-semibold text-amber-800 bg-amber-50 px-2.5 py-1 rounded-md border border-amber-200">
+                {todaySprintTheme.dayTitle} • {dayName}
               </span>
             </div>
-            <h3 className="text-xl font-serif font-bold text-white mt-1">
-              {todayCurriculum.focus}
+            <h3 className="text-2xl sm:text-3xl font-serif font-bold text-stone-900">
+              3 Misiones de Aprendizaje ({completedQuestsCount}/3 Completadas)
             </h3>
-            <p className="text-xs text-stone-300 mt-1 max-w-xl leading-relaxed">
-              {todayCurriculum.desc}
+            <p className="text-xs text-stone-500 mt-1 max-w-xl">
+              Completa las 3 metas clave de hoy (enfoque temático, vocabulario activo y estructura) para consolidar tu avance y registrar tu día consecutivo.
             </p>
           </div>
-        </div>
 
-        <button
-          onClick={() => setActiveTab(todayCurriculum.tab)}
-          className="px-6 py-3 rounded-xl bg-white hover:bg-stone-100 text-stone-900 font-medium text-xs flex items-center gap-2 cursor-pointer shadow-xs shrink-0 self-start md:self-auto"
-        >
-          <span>Comenzar Enfoque de Hoy</span>
-          <ArrowRight className="w-3.5 h-3.5" />
-        </button>
-      </div>
+          <div className="flex flex-wrap items-center gap-3">
+            {/* Botón al Cuaderno Pedagógico de Clara */}
+            <button
+              onClick={onOpenClaraMentor}
+              className="px-4 py-2.5 rounded-2xl bg-amber-100/80 hover:bg-amber-200 text-amber-950 font-serif font-bold text-xs flex items-center gap-2 cursor-pointer border border-amber-300 shadow-2xs transition-all hover:scale-102"
+              title="Ver por qué aprendemos esto hoy y consejos pedagógicos de Clara"
+            >
+              <span>✍️ Cuaderno de Clara</span>
+              <span className="text-[10px] bg-amber-300/80 px-1.5 py-0.5 rounded font-mono font-semibold">¿Por qué hoy?</span>
+            </button>
 
-      {/* Daily Quests Board (3 Misiones Diarias) */}
-      <div className="p-8 sm:p-10 rounded-3xl bg-white border border-stone-200 shadow-sm">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-stone-100">
-          <div>
-            <span className="text-xs font-mono font-bold text-stone-400 uppercase tracking-widest">
-              Tägliche Quests • Objetivos del Día
-            </span>
-            <h3 className="text-2xl font-serif font-bold text-stone-900 mt-1">
-              3 Misiones para Completar Hoy ({completedQuestsCount}/3)
-            </h3>
-          </div>
-
-          <div className="flex items-center gap-3">
             {allQuestsDone && !questsState.claimedBonus && (
               <button
                 onClick={handleClaimBonus}

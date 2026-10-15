@@ -21,7 +21,7 @@ export default function Navigation({ activeTab, setActiveTab }) {
     { id: 'pixel', label: '🎨 Píxel 8×8 🎨', icon: Palette },
     { id: 'test', label: '🏆 Test A2 🏆', icon: Award },
     { id: 'pedagogy', label: '📚 Biblioteca 📚', icon: Library },
-    { id: 'dashboard', label: '📊 Expediente 📊', icon: BarChart3 },
+    { id: 'dashboard', label: '📊 Dashboard 📊', icon: BarChart3 },
   ];
 
   return (

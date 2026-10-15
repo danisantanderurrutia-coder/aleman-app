@@ -17,6 +17,7 @@ import PedagogyLibrary from './components/PedagogyLibrary';
 import ProgressDashboard from './components/ProgressDashboard';
 import AppGuideModal from './components/AppGuideModal';
 import ProgressCalendarModal from './components/ProgressCalendarModal';
+import ClaraMentorModal from './components/ClaraMentorModal';
 import IndieKaraokeTrainer from './components/IndieKaraokeTrainer';
 import TopMusicPlayer from './components/TopMusicPlayer';
 import { indieSongs } from './data/indieSongs';
@@ -28,6 +29,7 @@ export default function App() {
   const [progress, setProgress] = useState(getProgress());
   const [isGuideOpen, setIsGuideOpen] = useState(false);
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const [isClaraMentorOpen, setIsClaraMentorOpen] = useState(false);
 
   // Global Indie Music State
   const [activeSong, setActiveSong] = useState(indieSongs[0]);
@@ -96,6 +98,7 @@ export default function App() {
         onOpenGuide={() => setIsGuideOpen(true)} 
         onOpenCalendar={() => setIsCalendarOpen(true)}
         onGoToDaily={() => setActiveTab('checkin')}
+        onOpenClaraMentor={() => setIsClaraMentorOpen(true)}
       />
 
       {/* Top Indie Music Player Bar */}
@@ -121,6 +124,7 @@ export default function App() {
             setActiveTab={setActiveTab} 
             onOpenCalendar={() => setIsCalendarOpen(true)}
             onAddConsecutiveDay={handleAddConsecutiveDay}
+            onOpenClaraMentor={() => setIsClaraMentorOpen(true)}
           />
         )}
         {activeTab === 'roadmap' && (
@@ -202,7 +206,11 @@ export default function App() {
           <PedagogyLibrary setActiveTab={setActiveTab} />
         )}
         {activeTab === 'dashboard' && (
-          <ProgressDashboard progress={progress} setActiveTab={setActiveTab} />
+          <ProgressDashboard 
+            progress={progress} 
+            setActiveTab={setActiveTab} 
+            onOpenClaraMentor={() => setIsClaraMentorOpen(true)}
+          />
         )}
       </main>
 
@@ -219,6 +227,14 @@ export default function App() {
         onClose={() => setIsCalendarOpen(false)}
         progress={progress}
         setProgress={setProgress}
+        setActiveTab={setActiveTab}
+      />
+
+      {/* Clara Mentor Notebook Modal */}
+      <ClaraMentorModal
+        isOpen={isClaraMentorOpen}
+        onClose={() => setIsClaraMentorOpen(false)}
+        progress={progress}
         setActiveTab={setActiveTab}
       />
 

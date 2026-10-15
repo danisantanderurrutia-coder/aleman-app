@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Volume2, Sparkles, BookOpen, GraduationCap, Flame, HelpCircle } from 'lucide-react';
 import { speechService } from '../utils/speech';
 
-export default function Header({ progress, onOpenGuide, onOpenCalendar, onGoToDaily }) {
+export default function Header({ progress, onOpenGuide, onOpenCalendar, onGoToDaily, onOpenClaraMentor }) {
   const [speechRate, setSpeechRate] = useState(0.85);
 
   const toggleRate = () => {
@@ -50,23 +50,35 @@ export default function Header({ progress, onOpenGuide, onOpenCalendar, onGoToDa
 
         {/* Academic Utilities & Metrics */}
         <div className="flex items-center flex-wrap gap-3">
-          {/* Audio Speed Controller */}
+          {/* Audio Speed & Neural AI Voice Controller */}
           <button
             onClick={toggleRate}
-            title={`Velocidad fonética: ${speechRate === 0.85 ? 'Pausada (0.85x estudio)' : 'Estándar (1.0x)'}`}
-            className="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-stone-50 hover:bg-stone-100 text-xs font-medium text-stone-700 border border-stone-200 transition-all cursor-pointer shadow-2xs"
+            title={`Voz Neural IA en alemán activa. Velocidad fonética: ${speechRate === 0.85 ? 'Pausada (0.85x estudio)' : 'Estándar (1.0x)'}`}
+            className="flex items-center gap-2 px-3 py-2 rounded-lg bg-stone-50 hover:bg-stone-100 text-xs font-medium text-stone-700 border border-stone-200 transition-all cursor-pointer shadow-2xs"
           >
-            <Volume2 className="w-4 h-4 text-stone-600" />
+            <Volume2 className="w-4 h-4 text-emerald-600" />
             <span className="text-stone-500">Fonética:</span>
             <span className="font-mono font-semibold text-stone-900">
-              {speechRate === 0.85 ? '0.85× Pausada' : '1.0× Estándar'}
+              {speechRate === 0.85 ? '0.85×' : '1.0×'}
             </span>
+            <span className="px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-mono font-bold">
+              IA Neural
+            </span>
+          </button>
+
+          {/* Clara's Mentor Notebook Button */}
+          <button
+            onClick={onOpenClaraMentor}
+            className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-amber-50 hover:bg-amber-100 text-amber-950 border border-amber-300 text-xs font-serif font-semibold transition-all cursor-pointer shadow-2xs"
+            title="Cuaderno pedagógico de Clara: Por qué aprendes esto y progresión semanal"
+          >
+            <span>✍️ Cuaderno de Clara</span>
           </button>
 
           {/* Sparkle Guide Button: Plays audio and opens App Guide menu */}
           <button
             onClick={handleSparkleClick}
-            className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 text-xs font-serif font-semibold transition-all cursor-pointer shadow-2xs"
+            className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-800 border border-stone-300 text-xs font-serif font-semibold transition-all cursor-pointer shadow-2xs"
             title="Manual didáctico y guía de la aplicación"
           >
             <Sparkles className="w-4 h-4 text-amber-600 animate-pulse" />
