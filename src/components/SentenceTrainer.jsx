@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { sentencePuzzles } from '../data/sentenceBuilder';
 import { speechService } from '../utils/speech';
-import { addXP, saveProgress } from '../utils/storage';
+import { addXP, saveProgress, getTodayDate } from '../utils/storage';
 import { Puzzle, Check, X, RotateCcw, Volume2, ArrowRight, Bookmark, Lightbulb } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
@@ -13,7 +13,7 @@ export default function SentenceTrainer({ progress, setProgress, setActiveTab, o
 
   const currentPuzzle = sentencePuzzles[puzzleIdx] || sentencePuzzles[0];
 
-  const todayDate = new Date().toISOString().split('T')[0];
+  const todayDate = getTodayDate();
   const questsState = progress[`quests_${todayDate}`] || {};
   const allQuestsDone = !!(questsState.focusDone && questsState.vocabDone && (questsState.grammarDone || status === 'correct'));
 
@@ -54,7 +54,7 @@ export default function SentenceTrainer({ progress, setProgress, setActiveTab, o
       setStatus('correct');
       speechService.speak(targetSentence);
       
-      const todayStr = new Date().toISOString().split('T')[0];
+      const todayStr = getTodayDate();
       const questsKey = `quests_${todayStr}`;
       const currentQuests = progress[questsKey] || {};
       const updatedQuests = {

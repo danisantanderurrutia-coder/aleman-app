@@ -2,12 +2,30 @@
 
 const STORAGE_KEY = 'deutschmeister_a2_progress';
 
+// Helper de fecha local inmutable a diferencias de zona horaria (UTC vs Local)
+export const getLocalDateString = (d = new Date()) => {
+  if (typeof d === 'string') {
+    if (/^\d{4}-\d{2}-\d{2}$/.test(d)) return d;
+    d = new Date(d);
+  }
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
+
+export const getYesterdayLocalDateString = (d = new Date()) => {
+  const prev = new Date(d);
+  prev.setDate(prev.getDate() - 1);
+  return getLocalDateString(prev);
+};
+
 const defaultState = {
   xp: 0,
   streak: 1,
   curriculumDay: 1,
   completedCurriculumDays: [],
-  lastActiveDate: new Date().toISOString().split('T')[0],
+  lastActiveDate: getLocalDateString(),
   completedGrammarExercises: {}, // { [topicId]: [exerciseIndex, ...] }
   masteredVocab: [], // IDs de palabras dominadas
   learningVocab: [], // IDs de palabras en proceso
@@ -24,10 +42,10 @@ export const getProgress = () => {
     if (!raw) return defaultState;
     const data = JSON.parse(raw);
     
-    // Verificar racha diaria
-    const today = new Date().toISOString().split('T')[0];
+    // Verificar racha diaria respetando la hora local del usuario
+    const today = getLocalDateString();
     if (data.lastActiveDate !== today) {
-      const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
+      const yesterday = getYesterdayLocalDateString();
       if (data.lastActiveDate === yesterday) {
         // Mantiene racha
       } else {
@@ -67,7 +85,7 @@ export const addXP = (amount) => {
   });
 };
 
-export const getTodayDate = () => new Date().toISOString().split('T')[0];
+export const getTodayDate = () => getLocalDateString();
 
 export const getDailyQuests = (progressState) => {
   const current = progressState || getProgress();

@@ -5,7 +5,7 @@ import {
   Target, Bookmark, ArrowRight
 } from 'lucide-react';
 import { curriculumRoadmap } from '../data/curriculumRoadmap';
-import { saveProgress, addXP } from '../utils/storage';
+import { saveProgress, addXP, getLocalDateString } from '../utils/storage';
 import confetti from 'canvas-confetti';
 
 export default function ProgressCalendarModal({ isOpen, onClose, progress, setProgress, setActiveTab }) {
@@ -22,8 +22,8 @@ export default function ProgressCalendarModal({ isOpen, onClose, progress, setPr
   // Calendar View Month/Year State
   const [viewDate, setViewDate] = useState(new Date());
   
-  // Selected Day in Calendar (defaults to today formatted as YYYY-MM-DD)
-  const todayFormatted = new Date().toISOString().split('T')[0];
+  // Selected Day in Calendar (defaults to today formatted as YYYY-MM-DD local)
+  const todayFormatted = getLocalDateString();
   const [selectedDateStr, setSelectedDateStr] = useState(todayFormatted);
 
   // Form states for the selected date
@@ -76,10 +76,11 @@ export default function ProgressCalendarModal({ isOpen, onClose, progress, setPr
   // Previous month trailing days
   const prevMonthLastDay = new Date(year, month, 0).getDate();
   for (let i = startingDayOfWeek - 1; i >= 0; i--) {
+    const dObj = new Date(year, month - 1, prevMonthLastDay - i);
     daysGrid.push({
       dayNum: prevMonthLastDay - i,
       monthOffset: -1,
-      dateStr: new Date(year, month - 1, prevMonthLastDay - i).toISOString().split('T')[0]
+      dateStr: getLocalDateString(dObj)
     });
   }
   // Current month days
@@ -94,11 +95,11 @@ export default function ProgressCalendarModal({ isOpen, onClose, progress, setPr
   // Next month leading days to complete full 7-col weeks
   const remainingCells = 42 - daysGrid.length;
   for (let d = 1; d <= (remainingCells % 7 === 0 ? (remainingCells > 7 ? 0 : remainingCells) : remainingCells); d++) {
-    const dStr = `${year}-${String(month + 2).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+    const dObj = new Date(year, month + 1, d);
     daysGrid.push({
       dayNum: d,
       monthOffset: 1,
-      dateStr: dStr
+      dateStr: getLocalDateString(dObj)
     });
   }
 
@@ -177,7 +178,7 @@ export default function ProgressCalendarModal({ isOpen, onClose, progress, setPr
   const handleJumpToToday = () => {
     const now = new Date();
     setViewDate(now);
-    setSelectedDateStr(now.toISOString().split('T')[0]);
+    setSelectedDateStr(getLocalDateString(now));
   };
 
   const selectedSyllabusData = curriculumRoadmap.find(d => d.day === Number(selectedDaySyllabus)) || curriculumRoadmap[0];

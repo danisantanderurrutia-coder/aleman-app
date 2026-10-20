@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { grammarTopics } from '../data/grammar';
 import { speechService } from '../utils/speech';
-import { addXP, saveProgress } from '../utils/storage';
+import { addXP, saveProgress, getTodayDate } from '../utils/storage';
 import confetti from 'canvas-confetti';
 import { 
   BookOpen, CheckCircle2, XCircle, ArrowRight, Volume2, 
@@ -31,7 +31,7 @@ export default function GrammarTrainer({ progress, setProgress, setActiveTab, on
   const completedList = (progress.completedGrammarExercises && progress.completedGrammarExercises[topic.id]) || [];
   const isTopicDone = completedList.length === exercises.length;
 
-  const todayDate = new Date().toISOString().split('T')[0];
+  const todayDate = getTodayDate();
   const questsState = progress[`quests_${todayDate}`] || {};
   const allQuestsDone = !!(questsState.focusDone && questsState.vocabDone && (questsState.grammarDone || isAnswerChecked));
 
@@ -54,7 +54,7 @@ export default function GrammarTrainer({ progress, setProgress, setActiveTab, on
 
     const isCorrect = selectedOption === currentExercise.correct;
     if (isCorrect) {
-      const todayStr = new Date().toISOString().split('T')[0];
+      const todayStr = getTodayDate();
       const questsKey = `quests_${todayStr}`;
       const currentQuests = progress[questsKey] || {};
       const isGrammarFocus = [1, 2].includes(progress.curriculumDay || 1);

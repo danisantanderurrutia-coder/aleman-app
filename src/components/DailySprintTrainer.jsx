@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { dailySprintsData } from '../data/dailySprint';
 import { repositoryWords, vocabularyCategories } from '../data/vocabularyRepository';
 import { speechService } from '../utils/speech';
-import { addXP, saveProgress } from '../utils/storage';
+import { addXP, saveProgress, getTodayDate } from '../utils/storage';
 import { 
   CheckCircle2, Circle, Volume2, Sparkles, Bookmark, Calendar, 
   ArrowRight, Check, Search, BookOpen, Layers, Award, RotateCcw, Filter,
@@ -42,7 +42,7 @@ export default function DailySprintTrainer({ progress, setProgress, setActiveTab
   const sprintKey = `daily_sprint_${sprint.id}`;
   const masteredInDay = (progress[sprintKey] || []);
 
-  const todayDate = new Date().toISOString().split('T')[0];
+  const todayDate = getTodayDate();
   const questsState = progress[`quests_${todayDate}`] || {};
   const isSprintFinished = masteredInDay.length >= sprint.words.length;
   const effectiveVocabDone = questsState.vocabDone || isSprintFinished;
@@ -116,7 +116,7 @@ export default function DailySprintTrainer({ progress, setProgress, setActiveTab
         });
 
         // Marcar Misión de Léxico Activo como completada en los Quests de Hoy
-        const todayStr = new Date().toISOString().split('T')[0];
+        const todayStr = getTodayDate();
         const questsKey = `quests_${todayStr}`;
         const currentQuests = progress[questsKey] || {};
         extraUpdates[questsKey] = {

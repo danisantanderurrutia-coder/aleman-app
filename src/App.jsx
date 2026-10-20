@@ -21,7 +21,7 @@ import ClaraMentorModal from './components/ClaraMentorModal';
 import IndieKaraokeTrainer from './components/IndieKaraokeTrainer';
 import TopMusicPlayer from './components/TopMusicPlayer';
 import { indieSongs } from './data/indieSongs';
-import { getProgress, saveProgress, addXP } from './utils/storage';
+import { getProgress, saveProgress, addXP, getLocalDateString } from './utils/storage';
 import confetti from 'canvas-confetti';
 
 export default function App() {
@@ -42,7 +42,7 @@ export default function App() {
 
   // Añadir día consecutivo, celebrar con confeti y abrir calendario
   const handleAddConsecutiveDay = () => {
-    const todayDate = new Date().toISOString().split('T')[0];
+    const todayDate = getLocalDateString();
     const checkInKey = `daily_checkin_${todayDate}`;
     const isCheckedInToday = !!progress[checkInKey];
 

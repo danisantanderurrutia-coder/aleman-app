@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { addXP, getProgress, saveProgress } from '../utils/storage';
+import { addXP, getProgress, saveProgress, getLocalDateString } from '../utils/storage';
 import { 
   Calendar, Flame, CheckCircle2, Circle, Gift, 
   ArrowRight, Sparkles, Trophy, Target, BookOpen, Heart, Zap, Clock,
@@ -10,7 +10,7 @@ import ProgressionRoadmap from './ProgressionRoadmap';
 import { dailySprintsData } from '../data/dailySprint';
 
 export default function DailyCheckInPanel({ progress, setProgress, setActiveTab, onOpenCalendar, onAddConsecutiveDay, onOpenClaraMentor }) {
-  const todayDate = new Date().toISOString().split('T')[0];
+  const todayDate = getLocalDateString();
   const checkInKey = `daily_checkin_${todayDate}`;
   const isCheckedInToday = !!progress[checkInKey];
 
@@ -129,7 +129,22 @@ export default function DailyCheckInPanel({ progress, setProgress, setActiveTab,
   const completedQuestsCount = [questsState.focusDone, questsState.vocabDone, questsState.grammarDone].filter(Boolean).length;
   const allQuestsDone = completedQuestsCount === 3;
 
-  const weekDays = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
+  // Calcular los 7 días de la semana actual (Lunes a Domingo) de forma local y exacta
+  const currDate = new Date();
+  const currDayOfWeek = currDate.getDay(); // 0 es Domingo, 1 es Lunes...
+  const distToMonday = (currDayOfWeek + 6) % 7; // 0 para Lun, 1 para Mar, ..., 6 para Dom
+  const mondayOfThisWeek = new Date(currDate);
+  mondayOfThisWeek.setDate(currDate.getDate() - distToMonday);
+
+  const weekDayLabels = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
+  const weekDaysData = weekDayLabels.map((label, idx) => {
+    const d = new Date(mondayOfThisWeek);
+    d.setDate(mondayOfThisWeek.getDate() + idx);
+    const dateStr = getLocalDateString(d);
+    const isToday = dateStr === todayDate;
+    const isDone = !!(progress.calendarLogs?.[dateStr]?.completed || (isToday && isCheckedInToday));
+    return { label, dateStr, isToday, isDone };
+  });
 
   return (
     <div className="max-w-5xl mx-auto px-6 py-10">
@@ -225,26 +240,26 @@ export default function DailyCheckInPanel({ progress, setProgress, setActiveTab,
             </div>
           </div>
 
-          {/* 7-Day Dots */}
+          {/* 7-Day Dots de la semana actual con estado verídico */}
           <div className="flex items-center gap-2 self-stretch sm:self-auto justify-between sm:justify-start">
-            {weekDays.map((d, idx) => {
-              // rough approximation: if day matches current weekday
-              const isToday = (idx + 1) % 7 === dayOfWeekIdx;
-              const isPastOrToday = idx <= (dayOfWeekIdx === 0 ? 6 : dayOfWeekIdx - 1);
-
+            {weekDaysData.map((item) => {
               return (
-                <div key={d} className="text-center">
+                <div key={item.dateStr} className="text-center">
                   <div
+                    title={`${item.dateStr} (${item.label}): ${item.isDone ? 'Asistencia / Jornada Completada' : 'Pendiente'}`}
                     className={`w-9 h-9 rounded-xl flex items-center justify-center font-mono text-xs font-bold transition-all border ${
-                      isToday
-                        ? 'bg-stone-900 text-white border-stone-900 ring-2 ring-amber-400 ring-offset-2'
-                        : isPastOrToday && isCheckedInToday
+                      item.isToday
+                        ? item.isDone
+                          ? 'bg-emerald-600 text-white border-emerald-600 ring-2 ring-emerald-400 ring-offset-2 shadow-xs'
+                          : 'bg-stone-900 text-white border-stone-900 ring-2 ring-amber-400 ring-offset-2'
+                        : item.isDone
                         ? 'bg-emerald-50 text-emerald-800 border-emerald-300'
                         : 'bg-stone-50 text-stone-400 border-stone-200'
                     }`}
                   >
-                    {d}
+                    {item.isDone ? '✓' : item.label}
                   </div>
+                  <span className="text-[9px] font-mono text-stone-400 block mt-0.5">{item.label}</span>
                 </div>
               );
             })}
