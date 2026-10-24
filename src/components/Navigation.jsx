@@ -9,7 +9,7 @@ export default function Navigation({ activeTab, setActiveTab }) {
   const tabs = [
     { id: 'checkin', label: '☀️ Día y Misiones ☀️', icon: Sun },
     { id: 'roadmap', label: '🗺️ Ruta B1/B2 🗺️', icon: Compass },
-    { id: 'karaoke', label: '🎸 Indie Karaoke 🎸', icon: Music },
+    { id: 'karaoke', label: '🎸 Indie Lyrics 🎸', icon: Music },
     { id: 'dating', label: '❤️ Flirt & Date ❤️', icon: Heart },
     { id: 'sprint', label: '⚡ 7 Palabras ⚡', icon: Calendar },
     { id: 'grammar', label: '📖 Gramática A2 📖', icon: BookOpen },

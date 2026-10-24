@@ -1,478 +1,323 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { indieSongs } from '../data/indieSongs';
-import { indieAudioEngine } from '../utils/indieAudioEngine';
 import { speechService } from '../utils/speech';
 import { addXP, saveProgress } from '../utils/storage';
 import { 
-  Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, 
-  Music, Mic, Bookmark, Sparkles, BookOpen, Clock, Heart, 
-  RotateCcw, CheckCircle2, ChevronRight, Info
+  Volume2, Bookmark, Sparkles, BookOpen, Clock, Heart, 
+  RotateCcw, CheckCircle2, ChevronRight, Info, ExternalLink,
+  Music, Mic, Check, Play, Globe
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
-export default function IndieKaraokeTrainer({ 
-  progress, 
-  setProgress,
-  currentSong,
-  setCurrentSong,
-  isPlaying,
-  setIsPlaying,
-  playbackTime,
-  setPlaybackTime
-}) {
-  // If parent didn't provide global state, fall back to local
-  const [localSong, setLocalSong] = useState(indieSongs[0]);
-  const activeSong = currentSong || localSong;
-  const selectSong = setCurrentSong || setLocalSong;
+export default function IndieKaraokeTrainer({ progress, setProgress }) {
+  const [selectedSongId, setSelectedSongId] = useState(indieSongs[0].id);
+  const [activeViewMode, setActiveViewMode] = useState('didactic'); // 'didactic' | 'singalong'
+  const [activeSpokenLine, setActiveSpokenLine] = useState(null);
 
-  const [localIsPlaying, setLocalIsPlaying] = useState(false);
-  const playing = isPlaying !== undefined ? isPlaying : localIsPlaying;
-  const setPlaying = setIsPlaying || setLocalIsPlaying;
+  const activeSong = indieSongs.find(s => s.id === selectedSongId) || indieSongs[0];
+  const completedSongs = progress.completedSongs || [];
+  const isSongCompleted = completedSongs.includes(activeSong.id);
 
-  const [localTime, setLocalTime] = useState(0);
-  const time = playbackTime !== undefined ? playbackTime : localTime;
-  const setTime = setPlaybackTime || setLocalTime;
+  const handleSpeakLine = (lineDe, idx) => {
+    setActiveSpokenLine(idx);
+    speechService.speak(lineDe);
+    setTimeout(() => setActiveSpokenLine(null), 3500);
+  };
 
-  const [volume, setVolume] = useState(0.6);
-  const [isMuted, setIsMuted] = useState(false);
-  const [autoScroll, setAutoScroll] = useState(true);
-  const [completedSongs, setCompletedSongs] = useState(progress.completedSongs || []);
-
-  const lyricsContainerRef = useRef(null);
-  const activeLineRef = useRef(null);
-
-  // Sync with indieAudioEngine time updates
-  useEffect(() => {
-    indieAudioEngine.onTimeUpdateCallback = (currTime) => {
-      setTime(currTime);
-    };
-
-    indieAudioEngine.onTrackEndCallback = () => {
-      // Award XP when track completes
-      if (!completedSongs.includes(activeSong.id)) {
-        addXP(30);
-        const updated = [...completedSongs, activeSong.id];
-        setCompletedSongs(updated);
-        const updatedProgress = saveProgress({ completedSongs: updated });
-        if (setProgress) setProgress(updatedProgress);
-        confetti({
-          particleCount: 70,
-          spread: 70,
-          origin: { y: 0.6 }
-        });
-      }
-    };
-  }, [activeSong, completedSongs, setTime, setProgress]);
-
-  // Load track when activeSong changes
-  useEffect(() => {
-    indieAudioEngine.loadTrack(activeSong);
-    setTime(0);
-    if (playing) {
-      indieAudioEngine.play();
-    }
-  }, [activeSong]);
-
-  // Auto-scroll lyrics smoothly to active line
-  useEffect(() => {
-    if (autoScroll && activeLineRef.current && lyricsContainerRef.current) {
-      activeLineRef.current.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center'
+  const handleMarkComplete = () => {
+    if (!isSongCompleted) {
+      addXP(40);
+      const updated = [...completedSongs, activeSong.id];
+      const updatedProgress = saveProgress({ completedSongs: updated });
+      if (setProgress) setProgress(updatedProgress);
+      confetti({
+        particleCount: 80,
+        spread: 80,
+        origin: { y: 0.6 }
       });
     }
-  }, [time, autoScroll]);
-
-  // Play / Pause toggle
-  const togglePlay = () => {
-    if (playing) {
-      indieAudioEngine.pause();
-      setPlaying(false);
-    } else {
-      indieAudioEngine.loadTrack(activeSong);
-      indieAudioEngine.seek(time);
-      indieAudioEngine.play();
-      setPlaying(true);
-    }
   };
-
-  // Jump to specific line in song
-  const handleLineClick = (lineTime, lineDe) => {
-    indieAudioEngine.seek(lineTime);
-    setTime(lineTime);
-    if (!playing) {
-      indieAudioEngine.play();
-      setPlaying(true);
-    }
-    // Also pronounce with speech
-    speechService.speak(lineDe);
-  };
-
-  // Volume slider
-  const handleVolumeChange = (e) => {
-    const val = parseFloat(e.target.value);
-    setVolume(val);
-    setIsMuted(val === 0);
-    indieAudioEngine.setVolume(val);
-  };
-
-  const toggleMute = () => {
-    if (isMuted) {
-      setIsMuted(false);
-      indieAudioEngine.setVolume(volume || 0.6);
-    } else {
-      setIsMuted(true);
-      indieAudioEngine.setVolume(0);
-    }
-  };
-
-  // Find active line index based on time
-  const activeLineIndex = activeSong.lyrics.findIndex((line, idx) => {
-    const nextLine = activeSong.lyrics[idx + 1];
-    if (nextLine) {
-      return time >= line.time && time < nextLine.time;
-    }
-    return time >= line.time;
-  });
-
-  const currentLine = activeSong.lyrics[activeLineIndex] || activeSong.lyrics[0];
-
-  const formatSeconds = (sec) => {
-    const mins = Math.floor(sec / 60);
-    const secs = Math.floor(sec % 60);
-    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
-  };
-
-  const duration = activeSong.duration || 60;
-  const progressPercent = Math.min(100, (time / duration) * 100);
 
   return (
-    <div className="max-w-6xl mx-auto px-6 py-12">
+    <div className="max-w-5xl mx-auto px-6 py-12">
       {/* Header */}
       <div className="mb-10">
-        <div className="flex items-center gap-2 mb-2 text-stone-500 text-xs font-mono tracking-widest uppercase">
+        <div className="flex items-center gap-2 mb-1 text-stone-500 text-xs font-mono tracking-widest uppercase">
           <Music className="w-3.5 h-3.5 text-stone-700" />
-          <span>Indie-Musik & Karaoke • Aprendizaje Inmersivo por Ritmo y Poesía</span>
+          <span>Deutsche Indie-Kultur • Letras Reales & Cancionero Auténtico</span>
         </div>
-        <h2 className="text-3xl font-serif font-bold text-stone-900 tracking-tight">
-          Indie Alemán & Indie Rap: Cancionero Karaoke Bilingüe
+        <h2 className="text-3xl font-serif font-bold text-stone-900">
+          Lyrics del Indie Alemán (Letras Reales Completas)
         </h2>
-        <p className="text-stone-600 text-sm mt-2 max-w-2xl leading-relaxed">
-          Aprende el alemán real, poético y urbano a través de canciones icónicas. Sigue la letra sincronizada verso a verso con traducción al español y análisis de expresiones coloquiales.
+        <p className="text-xs text-stone-500 mt-1 max-w-2xl leading-relaxed">
+          Aprende el alemán vivo de la calle y los clubes berlineses a través de letras 100% auténticas, sin sintetizadores artificiales. Escucha los temas originales en Spotify o YouTube mientras analizas cada estrofa verso a verso.
         </p>
 
-        {/* Song Selector Pills / Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
-          {indieSongs.map((song) => {
-            const isSelected = song.id === activeSong.id;
-            const isCompleted = completedSongs.includes(song.id);
+        {/* Song Selector Strip */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2 mt-6">
+          {indieSongs.map((s) => {
+            const isSelected = s.id === activeSong.id;
+            const isDone = completedSongs.includes(s.id);
 
             return (
               <button
-                key={song.id}
-                onClick={() => {
-                  selectSong(song);
-                  indieAudioEngine.loadTrack(song);
-                  indieAudioEngine.seek(0);
-                  if (playing) indieAudioEngine.play();
-                }}
-                className={`text-left p-4 sm:p-5 rounded-2xl border transition-all cursor-pointer relative ${
+                key={s.id}
+                onClick={() => setSelectedSongId(s.id)}
+                className={`p-3 rounded-2xl border text-left transition-all cursor-pointer relative overflow-hidden flex flex-col justify-between ${
                   isSelected
-                    ? 'bg-stone-900 text-white border-stone-900 shadow-md ring-2 ring-amber-400 ring-offset-2'
-                    : 'bg-white hover:bg-stone-50 border-stone-200/90 shadow-2xs text-stone-900'
+                    ? 'bg-stone-900 text-white border-stone-900 shadow-md ring-2 ring-amber-400 ring-offset-1'
+                    : 'bg-white hover:bg-stone-50 border-stone-200 text-stone-800'
                 }`}
               >
-                <div className="flex items-center justify-between gap-2 mb-2">
-                  <span className={`text-[10px] font-mono px-2 py-0.5 rounded uppercase font-bold ${
-                    isSelected ? 'bg-stone-800 text-amber-300' : 'bg-stone-100 text-stone-600'
-                  }`}>
-                    {song.genre.split('/')[0]}
-                  </span>
-                  {isCompleted && (
-                    <span className="text-emerald-500 text-xs font-mono flex items-center gap-1 font-bold">
-                      ✓ Cantada
+                <div>
+                  <div className="flex items-center justify-between">
+                    <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${
+                      isSelected ? 'bg-stone-800 text-amber-300' : 'bg-stone-100 text-stone-500'
+                    }`}>
+                      {s.year}
                     </span>
-                  )}
-                </div>
-
-                <h3 className="font-serif font-bold text-base leading-snug line-clamp-1">
-                  {song.title}
-                </h3>
-                <p className={`text-xs mt-0.5 font-sans line-clamp-1 ${isSelected ? 'text-stone-300' : 'text-stone-500'}`}>
-                  {song.artist} ({song.year})
-                </p>
-
-                {/* Animated sound wave bars if currently playing this song */}
-                {isSelected && playing && (
-                  <div className="flex items-end gap-1 mt-3 h-3">
-                    <span className="w-1 bg-amber-400 rounded-full animate-bounce h-3"></span>
-                    <span className="w-1 bg-amber-400 rounded-full animate-bounce h-2 delay-100"></span>
-                    <span className="w-1 bg-amber-400 rounded-full animate-bounce h-3.5 delay-200"></span>
-                    <span className="w-1 bg-amber-400 rounded-full animate-bounce h-1.5 delay-150"></span>
+                    {isDone && (
+                      <span className="text-[10px] text-emerald-500 font-bold">✓</span>
+                    )}
                   </div>
-                )}
+                  <h4 className="font-serif font-bold text-xs mt-1.5 leading-snug line-clamp-1">
+                    {s.title}
+                  </h4>
+                  <p className={`text-[11px] truncate ${isSelected ? 'text-stone-300' : 'text-stone-500'}`}>
+                    {s.artist}
+                  </p>
+                </div>
               </button>
             );
           })}
         </div>
       </div>
 
-      {/* Main Two-Column Layout (Left = Karaoke Teleprompter, Right = Audio Player & Colloquial Glosas) */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        
-        {/* Left Column: Live Synchronized Karaoke Display (7 cols) */}
-        <div className="lg:col-span-7 bg-white rounded-3xl border border-stone-200 shadow-sm p-6 sm:p-8 flex flex-col h-[680px]">
-          
-          {/* Karaoke Bar Header */}
-          <div className="flex items-center justify-between pb-4 border-b border-stone-100 shrink-0">
-            <div>
-              <span className="text-[10px] font-mono font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200 uppercase tracking-wider">
-                Modo Karaoke Activo 🎤
+      {/* Active Song Hero Banner */}
+      <div className="p-8 sm:p-10 rounded-3xl bg-white border border-stone-200 shadow-xs mb-8">
+        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 pb-6 border-b border-stone-100">
+          <div>
+            <div className="flex flex-wrap items-center gap-2 mb-2">
+              <span className="px-2.5 py-0.5 rounded-md bg-stone-900 text-white font-mono text-xs font-bold uppercase tracking-wider">
+                {activeSong.genre}
               </span>
-              <h3 className="text-lg font-serif font-bold text-stone-900 mt-1">
-                {activeSong.title} — {activeSong.artist}
-              </h3>
+              <span className="text-xs font-mono text-stone-500">
+                Álbum: {activeSong.album} ({activeSong.year})
+              </span>
             </div>
-
-            <div className="flex items-center gap-2">
-              <button
-                onClick={() => setAutoScroll(!autoScroll)}
-                className={`text-[11px] font-mono px-2.5 py-1 rounded-lg border transition-colors cursor-pointer ${
-                  autoScroll 
-                    ? 'bg-stone-900 text-white border-stone-900' 
-                    : 'bg-stone-100 text-stone-600 border-stone-200'
-                }`}
-                title="Desplazamiento automático de letra"
-              >
-                {autoScroll ? 'Auto-scroll ON' : 'Auto-scroll OFF'}
-              </button>
-            </div>
+            <h1 className="text-3xl sm:text-4xl font-serif font-bold text-stone-900">
+              {activeSong.title}
+            </h1>
+            <h2 className="text-lg font-serif italic text-amber-800 mt-0.5">
+              por {activeSong.artist}
+            </h2>
+            <p className="text-xs text-stone-600 mt-2 max-w-2xl leading-relaxed">
+              {activeSong.description}
+            </p>
           </div>
 
-          {/* Current Active Line Spotlight Banner */}
-          <div className="my-4 p-5 rounded-2xl bg-amber-50/70 border border-amber-300 shadow-2xs shrink-0">
-            <div className="flex items-center justify-between gap-2 mb-1.5">
-              <span className="text-[10px] font-mono text-amber-900 font-bold uppercase tracking-widest">
-                Verso en Reproducción ({formatSeconds(time)})
-              </span>
-              <button
-                onClick={() => speechService.speak(currentLine.de)}
-                className="flex items-center gap-1 text-[11px] font-serif font-semibold text-amber-900 hover:text-amber-950 underline cursor-pointer"
-                title="Pronunciar este verso"
-              >
-                <Volume2 className="w-3.5 h-3.5" />
-                <span>Oír Dicción</span>
-              </button>
-            </div>
-            <p className="text-lg sm:text-xl font-serif font-bold text-stone-950 leading-snug">
-              "{currentLine.de}"
-            </p>
-            <p className="text-sm font-sans text-stone-700 mt-1 italic">
-              {currentLine.es}
-            </p>
-            {currentLine.notes && (
-              <div className="mt-2.5 pt-2 border-t border-amber-200/80 text-[11px] font-mono text-amber-950 flex items-start gap-1.5">
-                <Info className="w-3.5 h-3.5 shrink-0 mt-0.5 text-amber-700" />
-                <span><strong>Filología:</strong> {currentLine.notes}</span>
-              </div>
-            )}
-          </div>
+          {/* Links to Official Streaming and Completion Status */}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0 w-full lg:w-auto">
+            {/* Spotify search button */}
+            <a
+              href={`https://open.spotify.com/search/${encodeURIComponent(activeSong.spotifyQuery)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-2.5 rounded-xl bg-[#1DB954] hover:bg-[#1aa34a] text-white font-serif font-bold text-xs flex items-center justify-center gap-2 cursor-pointer shadow-xs transition-transform hover:scale-102"
+              title="Abrir canción original en Spotify"
+            >
+              <span>🎧 Escuchar en Spotify</span>
+              <ExternalLink className="w-3.5 h-3.5 opacity-80" />
+            </a>
 
-          {/* Full Synchronized Verses Teleprompter */}
-          <div 
-            ref={lyricsContainerRef}
-            className="flex-1 overflow-y-auto space-y-3 pr-2 scrollbar-thin scrollbar-thumb-stone-200"
-          >
-            {activeSong.lyrics.map((line, idx) => {
-              const isActive = idx === activeLineIndex;
-              const isPast = line.time < time;
+            {/* YouTube official search button */}
+            <a
+              href={`https://www.youtube.com/results?search_query=${encodeURIComponent(activeSong.youtubeQuery)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-2.5 rounded-xl bg-[#FF0000] hover:bg-[#cc0000] text-white font-serif font-bold text-xs flex items-center justify-center gap-2 cursor-pointer shadow-xs transition-transform hover:scale-102"
+              title="Ver videoclip oficial en YouTube"
+            >
+              <span>▶️ Ver en YouTube</span>
+              <ExternalLink className="w-3.5 h-3.5 opacity-80" />
+            </a>
 
-              return (
-                <div
-                  key={idx}
-                  ref={isActive ? activeLineRef : null}
-                  onClick={() => handleLineClick(line.time, line.de)}
-                  className={`p-4 rounded-2xl transition-all border cursor-pointer group ${
-                    isActive
-                      ? 'bg-stone-900 text-white border-stone-900 shadow-md scale-101 ring-2 ring-amber-400'
-                      : isPast
-                      ? 'bg-stone-50/50 hover:bg-stone-100 border-stone-200/80 text-stone-700'
-                      : 'bg-white hover:bg-stone-50 border-stone-200 text-stone-800'
-                  }`}
-                >
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="flex-1">
-                      <p className={`font-serif text-base ${isActive ? 'font-bold text-amber-300' : 'font-medium'}`}>
-                        {line.de}
-                      </p>
-                      <p className={`text-xs mt-1 font-sans ${isActive ? 'text-stone-300' : 'text-stone-500'}`}>
-                        {line.es}
-                      </p>
-                    </div>
-
-                    <div className="text-right shrink-0">
-                      <span className={`text-[10px] font-mono ${isActive ? 'text-amber-400' : 'text-stone-400'}`}>
-                        {formatSeconds(line.time)}
-                      </span>
-                      <div className="opacity-0 group-hover:opacity-100 transition-opacity mt-1">
-                        <Volume2 className="w-3.5 h-3.5 text-stone-400 hover:text-stone-900" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+            {/* Mark as mastered button */}
+            <button
+              onClick={handleMarkComplete}
+              className={`px-4 py-2.5 rounded-xl border text-xs font-serif font-bold flex items-center justify-center gap-2 cursor-pointer transition-all ${
+                isSongCompleted
+                  ? 'bg-emerald-50 text-emerald-800 border-emerald-300'
+                  : 'bg-stone-100 hover:bg-stone-200 text-stone-800 border-stone-200'
+              }`}
+            >
+              {isSongCompleted ? (
+                <>
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                  <span>Letra Dominada (+40 XP)</span>
+                </>
+              ) : (
+                <>
+                  <Check className="w-4 h-4" />
+                  <span>Marcar como estudiada</span>
+                </>
+              )}
+            </button>
           </div>
         </div>
 
-        {/* Right Column: Audio Console & Colloquial Lexicon (5 cols) */}
-        <div className="lg:col-span-5 space-y-6">
-          
-          {/* Main Music Control Deck */}
-          <div className="bg-stone-900 text-white p-7 rounded-3xl shadow-lg border border-stone-800">
-            <div className="flex items-center justify-between gap-4 pb-4 border-b border-stone-800">
-              <div>
-                <span className="text-[10px] font-mono text-amber-400 uppercase tracking-widest block font-bold">
-                  Reproductor de Música Indie
-                </span>
-                <h4 className="font-serif font-bold text-lg text-white mt-0.5">
-                  {activeSong.title}
-                </h4>
-                <p className="text-xs text-stone-400">
-                  {activeSong.artist} • {activeSong.bpm} BPM
-                </p>
-              </div>
-
-              {/* Animated Equalizer Visualizer */}
-              <div className="flex items-end gap-1 h-8 px-3 py-1 bg-stone-800 rounded-xl border border-stone-700">
-                <span className={`w-1 bg-amber-400 rounded-full ${playing ? 'animate-bounce h-6' : 'h-2'}`}></span>
-                <span className={`w-1 bg-amber-400 rounded-full ${playing ? 'animate-bounce h-4 delay-100' : 'h-3'}`}></span>
-                <span className={`w-1 bg-amber-400 rounded-full ${playing ? 'animate-bounce h-7 delay-200' : 'h-1.5'}`}></span>
-                <span className={`w-1 bg-amber-400 rounded-full ${playing ? 'animate-bounce h-5 delay-150' : 'h-2'}`}></span>
-                <span className={`w-1 bg-amber-400 rounded-full ${playing ? 'animate-bounce h-3 delay-75' : 'h-1'}`}></span>
-              </div>
-            </div>
-
-            {/* Scrubber / Progress Bar */}
-            <div className="mt-5 space-y-1.5">
-              <div 
-                onClick={(e) => {
-                  const rect = e.currentTarget.getBoundingClientRect();
-                  const pos = (e.clientX - rect.left) / rect.width;
-                  const seekTime = pos * duration;
-                  indieAudioEngine.seek(seekTime);
-                  setTime(seekTime);
-                }}
-                className="w-full h-2 bg-stone-800 hover:h-2.5 rounded-full cursor-pointer relative transition-all overflow-hidden"
-              >
-                <div 
-                  className="h-full bg-amber-400 rounded-full transition-all duration-100"
-                  style={{ width: `${progressPercent}%` }}
-                />
-              </div>
-              <div className="flex justify-between text-[11px] font-mono text-stone-400">
-                <span>{formatSeconds(time)}</span>
-                <span>{formatSeconds(duration)}</span>
-              </div>
-            </div>
-
-            {/* Playback Buttons */}
-            <div className="flex items-center justify-between gap-4 mt-6">
-              <button
-                onClick={() => {
-                  indieAudioEngine.seek(0);
-                  setTime(0);
-                }}
-                className="p-3 rounded-2xl bg-stone-800 hover:bg-stone-700 text-stone-300 cursor-pointer transition-colors"
-                title="Reiniciar canción"
-              >
-                <RotateCcw className="w-4 h-4" />
-              </button>
-
-              <button
-                onClick={togglePlay}
-                className="px-8 py-3.5 rounded-2xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-serif font-bold text-sm flex items-center gap-2 cursor-pointer shadow-lg shadow-amber-500/20 transition-all hover:scale-103"
-              >
-                {playing ? (
-                  <>
-                    <Pause className="w-5 h-5 fill-stone-950" />
-                    <span>Pausar Música</span>
-                  </>
-                ) : (
-                  <>
-                    <Play className="w-5 h-5 fill-stone-950 ml-0.5" />
-                    <span>Poner Música Indie</span>
-                  </>
-                )}
-              </button>
-
-              {/* Volume Controller */}
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={toggleMute}
-                  className="p-2 text-stone-400 hover:text-white cursor-pointer"
-                >
-                  {isMuted || volume === 0 ? (
-                    <VolumeX className="w-4 h-4 text-red-400" />
-                  ) : (
-                    <Volume2 className="w-4 h-4" />
-                  )}
-                </button>
-                <input
-                  type="range"
-                  min="0"
-                  max="1"
-                  step="0.05"
-                  value={isMuted ? 0 : volume}
-                  onChange={handleVolumeChange}
-                  className="w-16 h-1.5 bg-stone-700 accent-amber-400 rounded-lg cursor-pointer"
-                  title="Volumen"
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Song Didactic Context Box */}
-          <div className="p-6 rounded-3xl bg-white border border-stone-200 shadow-xs">
-            <span className="text-[10px] font-mono font-bold text-stone-400 uppercase tracking-widest block mb-2">
-              Contexto Cultural & Gramatical
+        {/* Pedagogical Dossier Pills */}
+        <div className="pt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="p-4 rounded-2xl bg-amber-50/70 border border-amber-200 text-xs text-amber-950">
+            <span className="font-mono font-bold uppercase tracking-wider block mb-1 text-amber-900">
+              🎯 Foco Gramatical del Tema:
             </span>
-            <h4 className="font-serif font-bold text-stone-900 text-base">
-              ¿Por qué estudiar con "{activeSong.title}"?
-            </h4>
-            <p className="text-xs text-stone-600 mt-1.5 leading-relaxed">
-              {activeSong.description}
+            <p className="leading-relaxed">
+              {activeSong.grammaticalFocus}
             </p>
-
-            <div className="mt-4 p-3.5 rounded-2xl bg-stone-50 border border-stone-200 text-xs">
-              <span className="font-mono font-bold text-stone-800 block mb-1">
-                🎯 Enfoque Pedagógico A2/B1:
-              </span>
-              <p className="text-stone-600 font-sans">
-                {activeSong.grammaticalFocus}
-              </p>
-            </div>
           </div>
 
-          {/* Colloquial Lexicon & Slang Dossier */}
-          <div className="p-6 rounded-3xl bg-white border border-stone-200 shadow-xs">
-            <span className="text-[10px] font-mono font-bold text-stone-400 uppercase tracking-widest block mb-2">
-              Léxico Coloquial & Slang Alemán de la Canción
+          <div className="p-4 rounded-2xl bg-stone-50 border border-stone-200 text-xs text-stone-800">
+            <span className="font-mono font-bold uppercase tracking-wider block mb-1 text-stone-500">
+              📚 Vocabulario y Giros Idiomáticos:
             </span>
-            <div className="space-y-2.5 mt-3">
-              {activeSong.vocabNotes.map((vocab, idx) => (
-                <div key={idx} className="p-3 rounded-xl bg-stone-50 border border-stone-200 flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-xs">
-                  <span className="font-mono font-bold text-stone-900">
-                    {vocab.de}
-                  </span>
-                  <span className="text-stone-500 font-serif italic text-[11px]">
-                    = {vocab.es}
-                  </span>
+            <div className="space-y-1">
+              {activeSong.vocabNotes.map((vn, idx) => (
+                <div key={idx} className="flex items-baseline gap-2">
+                  <span className="font-mono font-bold text-stone-900">{vn.de}:</span>
+                  <span className="text-stone-600 italic">{vn.es}</span>
                 </div>
               ))}
             </div>
           </div>
         </div>
+
+        {/* Mode Switcher */}
+        <div className="mt-8 pt-4 border-t border-stone-100 flex items-center justify-between">
+          <span className="text-xs font-mono font-bold text-stone-400 uppercase tracking-wider">
+            Modo de Visualización:
+          </span>
+          <div className="flex items-center gap-1 bg-stone-100 p-1 rounded-xl">
+            <button
+              onClick={() => setActiveViewMode('didactic')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-serif font-bold transition-all cursor-pointer ${
+                activeViewMode === 'didactic'
+                  ? 'bg-white text-stone-900 shadow-2xs'
+                  : 'text-stone-600 hover:text-stone-900'
+              }`}
+            >
+              📖 Modo Didáctico (Verso + Notas)
+            </button>
+            <button
+              onClick={() => setActiveViewMode('singalong')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-serif font-bold transition-all cursor-pointer ${
+                activeViewMode === 'singalong'
+                  ? 'bg-white text-stone-900 shadow-2xs'
+                  : 'text-stone-600 hover:text-stone-900'
+              }`}
+            >
+              🎤 Modo Canto / Letra Continua
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* ======================= LYRICS CONTAINER ======================= */}
+      <div className="space-y-8">
+        {activeSong.sections.map((section, sIdx) => (
+          <div key={sIdx} className="p-6 sm:p-8 rounded-3xl bg-white border border-stone-200 shadow-xs">
+            {/* Section Title */}
+            <div className="flex items-center gap-2 mb-6 pb-3 border-b border-stone-100">
+              <span className="px-2.5 py-0.5 rounded-md bg-stone-100 font-mono text-xs font-bold text-stone-700">
+                {section.name}
+              </span>
+            </div>
+
+            {/* Lines List */}
+            <div className="space-y-4">
+              {section.lines.map((line, lIdx) => {
+                const uniqueKey = `${sIdx}-${lIdx}`;
+                const isSpeakingThis = activeSpokenLine === uniqueKey;
+
+                if (activeViewMode === 'singalong') {
+                  // Mode: Singalong (Clean large text)
+                  return (
+                    <div
+                      key={lIdx}
+                      className="py-2.5 px-4 rounded-xl hover:bg-stone-50 transition-colors flex items-center justify-between group"
+                    >
+                      <div>
+                        <p className="text-xl sm:text-2xl font-serif font-bold text-stone-900 leading-relaxed">
+                          {line.de}
+                        </p>
+                        <p className="text-xs text-stone-500 italic mt-0.5">
+                          {line.es}
+                        </p>
+                      </div>
+
+                      <button
+                        onClick={() => handleSpeakLine(line.de, uniqueKey)}
+                        className="opacity-0 group-hover:opacity-100 p-2 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-700 cursor-pointer transition-opacity"
+                        title="Escuchar pronunciación"
+                      >
+                        <Volume2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                  );
+                }
+
+                // Mode: Didactic (Line + Audio + Meaning + Grammar note)
+                return (
+                  <div
+                    key={lIdx}
+                    className={`p-4 rounded-2xl border transition-all ${
+                      isSpeakingThis
+                        ? 'bg-amber-50/60 border-amber-300 ring-2 ring-amber-300'
+                        : 'bg-stone-50/60 hover:bg-stone-50 border-stone-200/80'
+                    }`}
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="space-y-1">
+                        {/* German Lyric */}
+                        <div className="flex items-baseline gap-2">
+                          <p className="text-base sm:text-lg font-serif font-bold text-stone-900">
+                            {line.de}
+                          </p>
+                        </div>
+
+                        {/* Spanish Translation */}
+                        <p className="text-xs sm:text-sm text-stone-600 font-sans italic">
+                          {line.es}
+                        </p>
+
+                        {/* Grammatical breakdown pill */}
+                        {line.notes && (
+                          <div className="pt-1.5 flex items-center gap-1.5 text-[11px] font-mono text-amber-900">
+                            <span className="font-bold">💡 Nota:</span>
+                            <span>{line.notes}</span>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Line Audio button */}
+                      <button
+                        onClick={() => handleSpeakLine(line.de, uniqueKey)}
+                        className={`p-2 rounded-xl border text-stone-700 cursor-pointer shadow-2xs transition-all ${
+                          isSpeakingThis
+                            ? 'bg-amber-500 text-stone-950 border-amber-500 scale-105'
+                            : 'bg-white hover:bg-stone-100 border-stone-200'
+                        }`}
+                        title="Escuchar locución alemana con voz nativa"
+                      >
+                        <Volume2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

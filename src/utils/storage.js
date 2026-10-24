@@ -14,10 +14,52 @@ export const getLocalDateString = (d = new Date()) => {
   return `${year}-${month}-${day}`;
 };
 
+// Regla del búho nocturno (Night Owl):
+// Si el usuario practica antes de las 4 AM (00:00 a 03:59), la sesión se considera
+// parte de la jornada académica del día anterior. A partir de las 04:00 AM inicia el nuevo día.
+export const getCurrentStudyDate = (now = new Date(), cutoffHour = 4) => {
+  const d = new Date(now);
+  if (d.getHours() < cutoffHour) {
+    d.setDate(d.getDate() - 1);
+  }
+  return getLocalDateString(d);
+};
+
 export const getYesterdayLocalDateString = (d = new Date()) => {
   const prev = new Date(d);
   prev.setDate(prev.getDate() - 1);
   return getLocalDateString(prev);
+};
+
+// Recalcular racha de días consecutivos ininterrumpidos a partir de calendarLogs
+export const calculateStreakFromLogs = (calendarLogs = {}, currentStudyDate = getCurrentStudyDate()) => {
+  let streak = 0;
+  let checkDate = new Date(currentStudyDate);
+
+  // Si hoy está marcado como completado, suma 1 y mira los días previos
+  const todayStr = getLocalDateString(checkDate);
+  const isTodayCompleted = !!calendarLogs[todayStr]?.completed;
+
+  if (isTodayCompleted) {
+    streak++;
+    checkDate.setDate(checkDate.getDate() - 1);
+  } else {
+    // Si hoy aún no se completa, evaluar desde ayer para no romper la racha mientras estudia hoy
+    checkDate.setDate(checkDate.getDate() - 1);
+  }
+
+  // Contar días consecutivos hacia atrás
+  while (true) {
+    const dStr = getLocalDateString(checkDate);
+    if (calendarLogs[dStr]?.completed) {
+      streak++;
+      checkDate.setDate(checkDate.getDate() - 1);
+    } else {
+      break;
+    }
+  }
+
+  return Math.max(1, streak);
 };
 
 const defaultState = {
@@ -25,7 +67,7 @@ const defaultState = {
   streak: 1,
   curriculumDay: 1,
   completedCurriculumDays: [],
-  lastActiveDate: getLocalDateString(),
+  lastActiveDate: getCurrentStudyDate(),
   completedGrammarExercises: {}, // { [topicId]: [exerciseIndex, ...] }
   masteredVocab: [], // IDs de palabras dominadas
   learningVocab: [], // IDs de palabras en proceso
@@ -34,6 +76,7 @@ const defaultState = {
   completedSentences: [],
   dailyGoalXP: 50,
   todayXP: 0,
+  calendarLogs: {},
 };
 
 export const getProgress = () => {
@@ -42,15 +85,16 @@ export const getProgress = () => {
     if (!raw) return defaultState;
     const data = JSON.parse(raw);
     
-    // Verificar racha diaria respetando la hora local del usuario
-    const today = getLocalDateString();
+    // Verificar racha diaria con la regla de corte a las 4 AM
+    const today = getCurrentStudyDate();
     if (data.lastActiveDate !== today) {
-      const yesterday = getYesterdayLocalDateString();
+      const yesterday = getYesterdayLocalDateString(new Date(today));
       if (data.lastActiveDate === yesterday) {
         // Mantiene racha
       } else {
-        // Se rompió la racha o nuevo día
-        data.streak = 1;
+        // Si no fue ayer, verificar si los logs del calendario confirman días consecutivos
+        const computedStreak = calculateStreakFromLogs(data.calendarLogs || {}, today);
+        data.streak = computedStreak;
       }
       data.lastActiveDate = today;
       data.todayXP = 0; // Reiniciar meta diaria de XP
@@ -85,7 +129,7 @@ export const addXP = (amount) => {
   });
 };
 
-export const getTodayDate = () => getLocalDateString();
+export const getTodayDate = () => getCurrentStudyDate();
 
 export const getDailyQuests = (progressState) => {
   const current = progressState || getProgress();

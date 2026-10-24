@@ -131,6 +131,40 @@ export default function DailySprintTrainer({ progress, setProgress, setActiveTab
     setProgress(updated);
   };
 
+  const handleMasterAllInSprint = () => {
+    const key = `daily_sprint_${sprint.id}`;
+    const allIds = sprint.words.map(w => w.id);
+    const wasAlreadyFinished = isSprintFinished;
+
+    let extraUpdates = {};
+    if (!wasAlreadyFinished) {
+      addXP(35);
+      confetti({
+        particleCount: 70,
+        spread: 80,
+        origin: { y: 0.6 }
+      });
+
+      const todayStr = getTodayDate();
+      const questsKey = `quests_${todayStr}`;
+      const currentQuests = progress[questsKey] || {};
+      extraUpdates[questsKey] = {
+        ...currentQuests,
+        vocabDone: true,
+        vocabDone_awarded: true
+      };
+
+      // Si el día del sprint corresponde al plan, añadir a completedCurriculumDays
+      const completedDays = progress.completedCurriculumDays || [];
+      if (!completedDays.includes(sprint.dayNumber)) {
+        extraUpdates.completedCurriculumDays = [...completedDays, sprint.dayNumber];
+      }
+    }
+
+    const updated = saveProgress({ [key]: allIds, ...extraUpdates });
+    setProgress(updated);
+  };
+
   const getArticleColor = (art) => {
     switch (art?.toLowerCase()) {
       case 'der': return 'text-blue-900 bg-blue-50 border-blue-200';
@@ -272,7 +306,24 @@ export default function DailySprintTrainer({ progress, setProgress, setActiveTab
               </div>
 
               {/* Progress counter & XP bonus */}
-              <div className="flex items-center gap-3 bg-stone-50 p-3 rounded-2xl border border-stone-200 shrink-0">
+              <div className="flex flex-wrap items-center gap-3 bg-stone-50 p-3 rounded-2xl border border-stone-200 shrink-0">
+                {!isSprintFinished ? (
+                  <button
+                    type="button"
+                    onClick={handleMasterAllInSprint}
+                    className="px-3 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-serif font-bold text-xs flex items-center gap-1.5 cursor-pointer transition-all shadow-xs hover:scale-102"
+                    title="Marcar todas las 7 palabras como aprendidas de un solo clic"
+                  >
+                    <Check className="w-3.5 h-3.5" />
+                    <span>Marcar 7 como aprendidas (+35 XP)</span>
+                  </button>
+                ) : (
+                  <span className="px-3 py-1 rounded-xl bg-emerald-50 text-emerald-800 border border-emerald-300 font-mono text-xs font-bold flex items-center gap-1.5">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                    <span>Sprint Superado</span>
+                  </span>
+                )}
+
                 <div className="text-right">
                   <span className="font-mono text-sm font-bold text-stone-900 block leading-tight">
                     {masteredInDay.length} de {sprint.words.length}

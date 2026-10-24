@@ -19,9 +19,7 @@ import AppGuideModal from './components/AppGuideModal';
 import ProgressCalendarModal from './components/ProgressCalendarModal';
 import ClaraMentorModal from './components/ClaraMentorModal';
 import IndieKaraokeTrainer from './components/IndieKaraokeTrainer';
-import TopMusicPlayer from './components/TopMusicPlayer';
-import { indieSongs } from './data/indieSongs';
-import { getProgress, saveProgress, addXP, getLocalDateString } from './utils/storage';
+import { getProgress, saveProgress, addXP, getLocalDateString, getTodayDate } from './utils/storage';
 import confetti from 'canvas-confetti';
 
 export default function App() {
@@ -29,12 +27,13 @@ export default function App() {
   const [progress, setProgress] = useState(getProgress());
   const [isGuideOpen, setIsGuideOpen] = useState(false);
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const [calendarInitialDate, setCalendarInitialDate] = useState(null);
   const [isClaraMentorOpen, setIsClaraMentorOpen] = useState(false);
 
-  // Global Indie Music State
-  const [activeSong, setActiveSong] = useState(indieSongs[0]);
-  const [isPlayingMusic, setIsPlayingMusic] = useState(false);
-  const [playbackTime, setPlaybackTime] = useState(0);
+  const handleOpenCalendar = (dateStr = null) => {
+    setCalendarInitialDate(dateStr);
+    setIsCalendarOpen(true);
+  };
 
   useEffect(() => {
     setProgress(getProgress());
@@ -42,7 +41,7 @@ export default function App() {
 
   // Añadir día consecutivo, celebrar con confeti y abrir calendario
   const handleAddConsecutiveDay = () => {
-    const todayDate = getLocalDateString();
+    const todayDate = getTodayDate();
     const checkInKey = `daily_checkin_${todayDate}`;
     const isCheckedInToday = !!progress[checkInKey];
 
@@ -96,20 +95,9 @@ export default function App() {
       <Header 
         progress={progress} 
         onOpenGuide={() => setIsGuideOpen(true)} 
-        onOpenCalendar={() => setIsCalendarOpen(true)}
+        onOpenCalendar={() => handleOpenCalendar()} 
         onGoToDaily={() => setActiveTab('checkin')}
         onOpenClaraMentor={() => setIsClaraMentorOpen(true)}
-      />
-
-      {/* Top Indie Music Player Bar */}
-      <TopMusicPlayer
-        activeSong={activeSong}
-        setActiveSong={setActiveSong}
-        isPlaying={isPlayingMusic}
-        setIsPlaying={setIsPlayingMusic}
-        playbackTime={playbackTime}
-        setPlaybackTime={setPlaybackTime}
-        onOpenKaraoke={() => setActiveTab('karaoke')}
       />
 
       {/* Main Navigation */}
@@ -122,7 +110,7 @@ export default function App() {
             progress={progress} 
             setProgress={setProgress} 
             setActiveTab={setActiveTab} 
-            onOpenCalendar={() => setIsCalendarOpen(true)}
+            onOpenCalendar={handleOpenCalendar}
             onAddConsecutiveDay={handleAddConsecutiveDay}
             onOpenClaraMentor={() => setIsClaraMentorOpen(true)}
           />
@@ -134,12 +122,6 @@ export default function App() {
           <IndieKaraokeTrainer 
             progress={progress} 
             setProgress={setProgress}
-            currentSong={activeSong}
-            setCurrentSong={setActiveSong}
-            isPlaying={isPlayingMusic}
-            setIsPlaying={setIsPlayingMusic}
-            playbackTime={playbackTime}
-            setPlaybackTime={setPlaybackTime}
           />
         )}
         {activeTab === 'dating' && (
@@ -228,6 +210,7 @@ export default function App() {
         progress={progress}
         setProgress={setProgress}
         setActiveTab={setActiveTab}
+        initialDate={calendarInitialDate}
       />
 
       {/* Clara Mentor Notebook Modal */}

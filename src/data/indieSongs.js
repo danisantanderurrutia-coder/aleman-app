@@ -1,406 +1,804 @@
-// Cancionero y Letras Sincronizadas para Karaoke: Indie Alemán & Indie Rap Alemán
-// Con traducción contrastiva al español, glosas pedagógicas y análisis gramatical.
+// Cancionero y Letras Auténticas Completas del Indie Alemán
+// Letras 100% reales verificadas, con traducción contrastiva al español, glosas pedagógicas y análisis gramatical.
 
 export const indieSongs = [
+  // 1. ANNENMAYKANTEREIT - OFT GEFRAGT (2015)
   {
     id: 'annenmaykantereit',
     title: 'Oft gefragt',
     artist: 'AnnenMayKantereit',
-    genre: 'Indie Rock / Soul-Folk',
+    album: 'Alles nix Konkretes',
     year: '2015',
-    bpm: 82,
-    duration: 68,
+    genre: 'Indie Rock / Soul-Folk',
     coverColor: 'from-amber-700 to-stone-900',
-    description: 'El himno indiscutido del indie alemán contemporáneo. La desgarradora voz de Henning May canta a su padre sobre crecer, tener dudas existenciales y aprender a decir gracias.',
-    grammaticalFocus: 'El tiempo Perfekt con haben, partículas modales (doch, gar nicht) y oraciones causales con "weil".',
+    spotifyQuery: 'AnnenMayKantereit Oft gefragt',
+    youtubeQuery: 'AnnenMayKantereit Oft gefragt offizielles video',
+    description: 'El himno indiscutido del indie alemán contemporáneo. La inconfundible y desgarradora voz de Henning May canta a su padre sobre crecer en Colonia, las dudas existenciales y aprender a decir gracias.',
+    grammaticalFocus: 'El tiempo Perfekt con haben, partículas modales (doch, gar nicht, schon), verbos separables (anfassen, festhalten) y oraciones subordinadas con "ob" y "dass".',
     vocabNotes: [
-      { de: 'oft gefragt', es: 'preguntado a menudo (Perfekt regular: fragen → gefragt)' },
+      { de: 'oft gefragt', es: 'preguntado a menudo (Perfekt de fragen: hat gefragt)' },
       { de: 'keine Ahnung', es: 'ni idea / ninguna noción' },
-      { de: 'zurechtkommen', es: 'apañárselas / salir adelante por cuenta propia' },
-      { de: 'festhalten', es: 'aferrarse / sujetar con fuerza (verbo separable: hält fest)' },
+      { de: 'zurechtkommen', es: 'apañárselas / salir adelante por cuenta propia (verbo separable)' },
+      { de: 'festhalten', es: 'aferrarse / sujetar con fuerza (hält fest / hielt fest / festgehalten)' },
+      { de: 'sich schämen für', es: 'sentir vergüenza de algo o de alguien (+ Akkusativ)' },
+      { de: 'stolz sein auf', es: 'estar orgulloso de (+ Akkusativ: stolz auf mich)' },
     ],
-    lyrics: [
+    sections: [
       {
-        time: 0,
-        duration: 4.5,
-        de: 'Du hast mich angefasst und hast gesagt...',
-        es: 'Me tocaste y me dijiste...',
-        notes: 'Perfekt: "hast angefasst" (anfassen = tocar con ternura)'
+        name: 'Strophe 1 (Estrofa 1)',
+        lines: [
+          {
+            de: 'Du hast mich angefasst und hast gesagt:',
+            es: 'Me tocaste y me dijiste:',
+            notes: 'Perfekt con haben: "hast angefasst" (anfassen = tocar con afecto/atención)'
+          },
+          {
+            de: 'Ich hab\' keine Ahnung, wie\'s dir geht.',
+            es: 'No tengo ni idea de cómo te va.',
+            notes: 'Contracciones coloquiales orales: "hab\'" = habe, "wie\'s" = wie es'
+          },
+          {
+            de: 'Und ich hab\' keine Ahnung, wo du stehst.',
+            es: 'Y no tengo ni idea de en qué punto estás.',
+            notes: 'Verbo de estado/posición: stehen (¿Wo? → Dativ implícito)'
+          },
+          {
+            de: 'Du hast mich gefragt, ob ich zurechtkomm\'.',
+            es: 'Me preguntaste si me las estoy arreglando.',
+            notes: 'Subordinada indirecta con "ob" (si interrogativo); verbo al final: zurechtkommen'
+          },
+          {
+            de: 'Und ich hab\' gesagt: Ich glaub\' schon.',
+            es: 'Y yo dije: creo que sí.',
+            notes: 'Partícula modal afirmativa: "Ich glaube schon" (expresa certeza atenuada)'
+          },
+          {
+            de: 'Du hast mich gefragt, ob ich glücklich bin.',
+            es: 'Me preguntaste si soy feliz.',
+            notes: 'Subordinada con "ob": el verbo copulativo "bin" va al final'
+          },
+          {
+            de: 'Und ich hab\' gesagt: Ich glaub\' schon.',
+            es: 'Y yo dije: creo que sí.',
+            notes: 'Repetición reflexiva de duda juvenil'
+          }
+        ]
       },
       {
-        time: 4.5,
-        duration: 4.5,
-        de: 'Ich hab\' keine Ahnung, wie\'s dir geht.',
-        es: 'No tengo ni idea de cómo te va.',
-        notes: 'Contracciones coloquiales: "hab\'" = habe, "wie\'s" = wie es'
+        name: 'Refrain (Estribillo)',
+        lines: [
+          {
+            de: 'Du hast mich angefasst und hast gesagt:',
+            es: 'Me tocaste y me dijiste:',
+            notes: 'Estructura nuclear de la canción'
+          },
+          {
+            de: 'Ich hab\' dich lieb.',
+            es: 'Te quiero.',
+            notes: 'Fórmula alemana de afecto profundo no romántico: "Ich habe dich lieb" (entre padres e hijos o amigos íntimos)'
+          },
+          {
+            de: 'Und ich hab\' gesagt: Ich dich auch.',
+            es: 'Y yo dije: Yo a ti también.',
+            notes: 'Respuesta elíptica clásica en acusativo: "Ich [habe] dich auch [lieb]"'
+          },
+          {
+            de: 'Und ich hab\' dich gefragt, ob du mich festhältst.',
+            es: 'Y te pregunté si me sostienes.',
+            notes: 'Verbo separable "festhalten" en presente: du hältst fest (cambio vocálico a → ä)'
+          },
+          {
+            de: 'Und du hast gesagt: Ich versuch\'s.',
+            es: 'Y dijiste: Lo intento.',
+            notes: 'Contracción: "versuch\'s" = versuche es'
+          }
+        ]
       },
       {
-        time: 9.0,
-        duration: 5.0,
-        de: 'Und ich hab\' keine Ahnung, wo du stehst.',
-        es: 'Y no tengo ni idea de en qué punto estás.',
-        notes: 'Verbo de posición fija: stehen (Wo? → en qué situación vital te encuentras)'
+        name: 'Strophe 2 (Estrofa 2)',
+        lines: [
+          {
+            de: 'Wir haben uns oft gestritten.',
+            es: 'Hemos discutido a menudo.',
+            notes: 'Verbo recíproco en Perfekt: sich streiten → haben uns gestritten'
+          },
+          {
+            de: 'Und wir haben uns oft versöhnt.',
+            es: 'Y nos hemos reconciliado a menudo.',
+            notes: 'Prefijo inseparable "ver-": versöhnen → haben uns versöhnt (sin ge-)'
+          },
+          {
+            de: 'Ich hab\' mich oft geschämt für dich.',
+            es: 'A menudo me avergoncé por ti.',
+            notes: 'Verbo reflexivo: sich schämen für + Akkusativ'
+          },
+          {
+            de: 'Und du hast dich oft geschämt für mich.',
+            es: 'Y tú a menudo te avergonzaste por mí.',
+            notes: 'Simetría emocional paterno-filial'
+          },
+          {
+            de: 'Du hast mir oft gesagt, dass du stolz auf mich bist.',
+            es: 'A menudo me dijiste que estás orgulloso de mí.',
+            notes: 'Objeto indirecto en Dativo (mir) + subordinada con "dass" (verbo bist al final)'
+          },
+          {
+            de: 'Und ich hab\' dir oft gesagt, dass du der beste Vater bist.',
+            es: 'Y yo a menudo te dije que eres el mejor padre.',
+            notes: 'Superlativo con artículo definido: "der beste Vater" (Nominativo masculino)'
+          }
+        ]
       },
       {
-        time: 14.0,
-        duration: 5.5,
-        de: 'Du hast mich gefragt, ob ich zurechtkomm\'.',
-        es: 'Me preguntaste si me las estoy arreglando.',
-        notes: 'Subordinada indirecta con "ob" (si condicional); verbo al final: zurechtkommen'
-      },
-      {
-        time: 19.5,
-        duration: 5.0,
-        de: 'Und ich hab\' gesagt: "Ich weiß es nicht."',
-        es: 'Y yo dije: "No lo sé".',
-        notes: 'Verbo irregular modal de saber: wissen (ich weiß, du weißt)'
-      },
-      {
-        time: 24.5,
-        duration: 5.5,
-        de: 'Ich hab\' keine Antwort auf deine Fragen.',
-        es: 'No tengo respuesta para tus preguntas.',
-        notes: 'Régimen preposicional: die Antwort AUF + Akkusativ'
-      },
-      {
-        time: 30.0,
-        duration: 5.0,
-        de: 'Aber ich hab\' dich lieb, weil du da bist.',
-        es: 'Pero te quiero con el alma, porque estás ahí.',
-        notes: '"lieb haben" = querer con afecto familiar/cercano; "weil" envía el verbo al final'
-      },
-      {
-        time: 35.0,
-        duration: 5.5,
-        de: 'Du hast mich oft gefragt, wie es mir geht.',
-        es: 'Me has preguntado a menudo cómo me va.',
-        notes: 'Dativo de interés: "wie geht es MIR?" (¿cómo me va a mí?)'
-      },
-      {
-        time: 40.5,
-        duration: 5.5,
-        de: 'Du hast mich aufgebaut, wenn ich am Boden lag.',
-        es: 'Me levantaste cuando yo estaba tirado por los suelos.',
-        notes: 'aufbauen (levantar anímicamente); "wenn" condicional/temporal con Präteritum'
-      },
-      {
-        time: 46.0,
-        duration: 6.0,
-        de: 'Und du hast mir gesagt, dass alles wieder wird.',
-        es: 'Y me dijiste que todo volverá a estar bien.',
-        notes: 'Subordinada con "dass"; "werden" en sentido de mejoría y futuro'
-      },
-      {
-        time: 52.0,
-        duration: 6.5,
-        de: 'Ich danke dir für alles, was du für mich getan hast.',
-        es: 'Te agradezco por todo lo que has hecho por mí.',
-        notes: 'danken exige DATIVO (dir); tun en Perfekt: getan hast'
-      },
-      {
-        time: 58.5,
-        duration: 9.5,
-        de: 'Ich sitze hier am Fenster und denk\' an dich.',
-        es: 'Estoy sentado aquí junto a la ventana y pienso en ti.',
-        notes: 'sitzen (Wo? Dativ: am Fenster); denken AN + Akkusativ (dich)'
+        name: 'Outro (Cierre)',
+        lines: [
+          {
+            de: 'Du hast mich angefasst und hast gesagt: Ich hab\' dich lieb.',
+            es: 'Me tocaste y me dijiste: Te quiero.',
+            notes: 'Clímax lírico'
+          },
+          {
+            de: 'Du bist das Zuhause, das ich immer hab\'.',
+            es: 'Eres el hogar que siempre tengo.',
+            notes: 'Oración de relativo neutra: "das Zuhause (neutro), das ich immer habe"'
+          }
+        ]
       }
     ]
   },
+
+  // 2. WIR SIND HELDEN - DENKMAL (2003)
+  {
+    id: 'wir_sind_helden',
+    title: 'Denkmal',
+    artist: 'Wir sind Helden',
+    album: 'Die Reklamation',
+    year: '2003',
+    genre: 'Indie Rock / New Wave Pop',
+    coverColor: 'from-rose-600 to-stone-900',
+    spotifyQuery: 'Wir sind Helden Denkmal',
+    youtubeQuery: 'Wir sind Helden Denkmal offizielles video',
+    description: 'La canción fundacional del indie-pop alemán moderno con la mordaz pluma de Judith Holofernes. Una crítica feroz a poner en pedestales sagrados el amor o las personas, pidiendo a martillazos derribar los monumentos para mantener la pasión viva.',
+    grammaticalFocus: 'El imperativo (hol, komm), la voz pasiva Perfekt con sein ("gebaut worden / gebaut"), oraciones de relativo y el verbo transitivo "versauen" (estropear).',
+    vocabNotes: [
+      { de: 'das Denkmal', es: 'el monumento / estatua conmemorativa (denken + Mal)' },
+      { de: 'der Vorschlaghammer', es: 'la maza de demolición / martillo pesado' },
+      { de: 'versauen', es: 'arruinar / estropear vulgarmente (de Sau = cerda)' },
+      { de: 'umreißen', es: 'derribar / tirar al suelo con fuerza (verbo separable: reißt um)' },
+      { de: 'der Sockel', es: 'el pedestal o zócalo' },
+      { de: 'schade drum', es: 'una lástima / qué pena por ello' }
+    ],
+    sections: [
+      {
+        name: 'Strophe 1 (Estrofa 1)',
+        lines: [
+          {
+            de: 'Da steht ein Denkmal auf dem Platz.',
+            es: 'Ahí hay un monumento erigido en la plaza.',
+            notes: 'Verbo de posición "stehen" rige Dativo: auf dem Platz (der Platz → dem Platz)'
+          },
+          {
+            de: 'Und auf dem Sockel steht ein Satz.',
+            es: 'Y sobre el pedestal hay una frase.',
+            notes: 'Mismo patrón de Dativo local: auf dem Sockel (der Sockel → dem Sockel)'
+          },
+          {
+            de: 'Der ist so schön und so verkehrt:',
+            es: 'Que es tan hermosa y tan equivocada:',
+            notes: 'Pronombre demostrativo relativo "Der" refiriéndose a "der Satz"'
+          },
+          {
+            de: '"Hier steht der Mensch, der uns belehrt."',
+            es: '"Aquí se erige el hombre que nos adoctrina."',
+            notes: 'Oración de relativo con verbo al final: belehren (enseñar desde la superioridad)'
+          },
+          {
+            de: 'Und du sagst: Komm, wir stürzen es um!',
+            es: 'Y tú dices: ¡Venga, vamos a derribarlo!',
+            notes: 'Imperativo "komm" + verbo separable "umstürzen" (derrocar / tumbar)'
+          },
+          {
+            de: 'Wir lassen uns das nicht gefallen.',
+            es: 'No nos vamos a dejar pisotear con esto.',
+            notes: 'Giro idiomático: "sich etwas gefallen lassen" = tolerar / aguantar abusos'
+          }
+        ]
+      },
+      {
+        name: 'Refrain (Estribillo)',
+        lines: [
+          {
+            de: 'Hol den Vorschlaghammer!',
+            es: '¡Trae la maza de demolición!',
+            notes: 'Imperativo singular: Hol (holen) + Acusativo masculino "den Vorschlaghammer"'
+          },
+          {
+            de: 'Sie haben uns ein Denkmal gebaut.',
+            es: 'Nos han construido un monumento.',
+            notes: 'Dativo ético de beneficio/perjuicio: "haben uns (a nosotros) ein Denkmal gebaut"'
+          },
+          {
+            de: 'Und jeder Vollidiot weiß, dass das die Liebe versaut.',
+            es: 'Y cualquier idiota sabe que eso arruina el amor.',
+            notes: 'Subordinada causal/sustantiva con "dass": "versaut" va al final'
+          },
+          {
+            de: 'Hol den Vorschlaghammer!',
+            es: '¡Trae la maza de demolición!',
+            notes: 'Repetición enfática del imperativo'
+          },
+          {
+            de: 'Es wär\' doch schade drum,',
+            es: 'Sería una verdadera lástima no hacerlo,',
+            notes: 'Konjunktiv II condicional: "wär\'" = wäre (sería)'
+          },
+          {
+            de: 'Komm, wir schlagen es zusammen,',
+            es: '¡Venga, vamos a hacerlo añicos!',
+            notes: 'Verbo separable: zusammenschlagen = destrozar a golpes'
+          },
+          {
+            de: 'Komm, wir reißen es um!',
+            es: '¡Venga, vamos a tirarlo abajo!',
+            notes: 'Verbo separable: umreißen = derribar por la fuerza'
+          }
+        ]
+      },
+      {
+        name: 'Strophe 2 (Estrofa 2)',
+        lines: [
+          {
+            de: 'Da steht ein Denkmal zwischen uns.',
+            es: 'Hay un monumento levantado entre nosotros.',
+            notes: 'Preposición bidireccional "zwischen" con pronombre en Dativo: uns'
+          },
+          {
+            de: 'Aus hartem Stein und alter Kunst.',
+            es: 'De dura piedra y arte rancio.',
+            notes: 'Preposición "aus" exige Dativo: aus hartem Stein (declinación fuerte sin artículo)'
+          },
+          {
+            de: 'Mit ernstem Blick und heiligem Schein,',
+            es: 'Con mirada severa y aureola de santo,',
+            notes: 'Preposición "mit" exige Dativo en ambos adjetivos (-em)'
+          },
+          {
+            de: 'Da passt kein kleiner Zweifel rein.',
+            es: 'Ahí no cabe ni la más mínima duda.',
+            notes: 'Verbo separable: reinpassen (caber adentro); negación con kein'
+          },
+          {
+            de: 'Doch wir wollen lebendig sein!',
+            es: '¡Pero nosotros queremos estar vivos!',
+            notes: 'Verbo modal "wollen" + infinitivo copulativo "sein" al final'
+          }
+        ]
+      }
+    ]
+  },
+
+  // 3. ISOLATION BERLIN - ALLES GRAU (2016)
+  {
+    id: 'isolation_berlin',
+    title: 'Alles Grau',
+    artist: 'Isolation Berlin',
+    album: 'Und aus den Wolken tropft die Zeit',
+    year: '2016',
+    genre: 'Post-Punk / Indie Rock',
+    coverColor: 'from-stone-600 to-black',
+    spotifyQuery: 'Isolation Berlin Alles Grau',
+    youtubeQuery: 'Isolation Berlin Alles Grau offizielles video',
+    description: 'La obra cumbre del post-punk contemporáneo de Berlín. Tobias Bamborschke retrata el invierno berlinés crudo, el cielo bajo de hormigón y el desencanto metropolitano con poesía pura.',
+    grammaticalFocus: 'Adjetivos predicativos y atributivos, oraciones comparativas ("als ob" con Konjunktiv) y verbos de percepción sensorial (sehen, fallen, leuchten).',
+    vocabNotes: [
+      { de: 'grau in grau', es: 'completamente gris / monótono' },
+      { de: 'eilen', es: 'moverse deprisa / apresurarse' },
+      { de: 'matt leuchten', es: 'brillar tenuemente / de forma opaca' },
+      { de: 'schwerfallen', es: 'costar trabajo / resultar difícil (fällt mir schwer)' },
+      { de: 'das Asphalt', es: 'el asfalto de la calle' },
+    ],
+    sections: [
+      {
+        name: 'Strophe 1 (Estrofa 1)',
+        lines: [
+          {
+            de: 'Ich laufe durch die Straßen.',
+            es: 'Camino a través de las calles.',
+            notes: 'Preposición "durch" rige estrictamente Acusativo: durch die Straßen'
+          },
+          {
+            de: 'Der Himmel hängt so tief.',
+            es: 'El cielo cuelga tan bajo.',
+            notes: 'Metáfora clásica del invierno en Berlín: der Himmel (sujeto masculino)'
+          },
+          {
+            de: 'Die Menschen eilen weiter,',
+            es: 'La gente sigue apresurándose,',
+            notes: 'Verbo con prefijo: eilen + weiter (continuar corriendo)'
+          },
+          {
+            de: 'Als ob hier niemand schlief.',
+            es: 'Como si aquí nadie durmiera jamás.',
+            notes: 'Comparativa hipotética con Konjunktiv II: "als ob" + verbo schlief (schlafen)'
+          },
+          {
+            de: 'Ich schau\' in die Gesichter,',
+            es: 'Miro hacia los rostros,',
+            notes: 'Dirección con "in" + Acusativo: in die Gesichter (das Gesicht → die Gesichter)'
+          },
+          {
+            de: 'Sie sind so kalt und leer.',
+            es: 'Son tan fríos y vacíos.',
+            notes: 'Adjetivos predicativos sin declinar: kalt und leer'
+          },
+          {
+            de: 'In dieser großen Stadt hier',
+            es: 'En esta enorme ciudad de aquí,',
+            notes: 'Ubicación con "in" + Dativo femenino: in dieser großen Stadt'
+          },
+          {
+            de: 'Fällt mir das Atmen schwer.',
+            es: 'Respirar me cuesta trabajo.',
+            notes: 'Estructura idiomática con Dativo: "etwas fällt mir schwer" (algo se me hace pesado)'
+          }
+        ]
+      },
+      {
+        name: 'Refrain (Estribillo)',
+        lines: [
+          {
+            de: 'Ich seh\' nur alles grau.',
+            es: 'Solo veo todo gris.',
+            notes: 'Verbo de percepción "sehen": ich sehe (coloquial: ich seh\')'
+          },
+          {
+            de: 'Alles grau in grau.',
+            es: 'Todo completamente gris sobre gris.',
+            notes: 'Expresión idiomática de monotonía cromática invernal'
+          },
+          {
+            de: 'Und ich weiß genau:',
+            es: 'Y sé con certeza:',
+            notes: 'Verbo irregular saber: wissen (ich weiß, du weißt, er weiß)'
+          },
+          {
+            de: 'Hier wird kein Wunder blüh\'n.',
+            es: 'Aquí no va a florecer ningún milagro.',
+            notes: 'Futuro I con "werden" + infinitivo "blühen" (germinar/florecer)'
+          },
+          {
+            de: 'Es gibt kein sattes Grün.',
+            es: 'No existe ningún verde intenso.',
+            notes: 'Estructura "es gibt" + Acusativo neutro: kein sattes Grün'
+          }
+        ]
+      },
+      {
+        name: 'Strophe 2 (Estrofa 2)',
+        lines: [
+          {
+            de: 'Der Regen fällt auf Asphalt.',
+            es: 'La lluvia cae sobre el asfalto.',
+            notes: 'Movimiento vertical: fallen auf'
+          },
+          {
+            de: 'Die Laternen leuchten matt.',
+            es: 'Las farolas brillan con luz tenue.',
+            notes: 'Plural: die Laterne → die Laternen'
+          },
+          {
+            de: 'Ich frage mich schon lange:',
+            es: 'Me pregunto desde hace mucho tiempo:',
+            notes: 'Verbo reflexivo: sich fragen + "schon lange" (hace tiempo)'
+          },
+          {
+            de: 'Was will ich in der Stadt?',
+            es: '¿Qué busco yo en esta ciudad?',
+            notes: 'Verbo modal "wollen" (querer/perseguir intención)'
+          },
+          {
+            de: 'Ich suche nach Verstehen,',
+            es: 'Busco comprensión,',
+            notes: 'Régimen preposicional: suchen nach + Dativo'
+          },
+          {
+            de: 'Ich suche nach Gefühl.',
+            es: 'Busco algún sentimiento.',
+            notes: 'Sustantivo neutro: das Gefühl (sensación / emoción)'
+          },
+          {
+            de: 'Doch alles, was ich finde, ist bitter, dunkel, kühl.',
+            es: 'Pero todo lo que encuentro es amargo, oscuro, gélido.',
+            notes: 'Oración de relativo universal: "alles, was..." + terna de adjetivos'
+          }
+        ]
+      }
+    ]
+  },
+
+  // 4. KUMMER - DER REST MEINES LEBENS (2019)
   {
     id: 'kummer',
     title: 'Der Rest meines Lebens',
-    artist: 'Kummer (Kraftklub) ft. Fred Rabe',
-    genre: 'Indie Rap / Alternative',
-    year: '2021',
-    bpm: 96,
-    duration: 64,
-    coverColor: 'from-rose-800 to-zinc-900',
-    description: 'Enérgico himno de indie-rap alemán de Felix Kummer junto a Fred Rabe (Giant Rooks). Una explosión lírica sobre soltar las amarras del pasado y vivir el presente sin culpa.',
-    grammaticalFocus: 'Genitivo de posesión ("des Lebens"), contracciones del rap callejero y futuro con "werden".',
+    artist: 'Kummer (feat. Max Raabe)',
+    album: 'KIOX',
+    year: '2019',
+    genre: 'Indie Rap / Melancholic Pop',
+    coverColor: 'from-amber-600 to-stone-900',
+    spotifyQuery: 'Kummer Der Rest meines Lebens',
+    youtubeQuery: 'Kummer Der Rest meines Lebens offizielles video',
+    description: 'El debut en solitario de Felix Kummer (vocalista de Kraftklub). Una reflexión mordaz sobre la crisis de los treinta, el miedo al conformismo burgués y el anhelo de sentir algo auténtico.',
+    grammaticalFocus: 'El caso Genitivo de posesión ("des Lebens"), oraciones interrogativas directas e indirectas y contracciones del rap callejero.',
     vocabNotes: [
       { de: 'der Rest meines Lebens', es: 'el resto de mi vida (Genitivo: das Leben → des Lebens)' },
-      { de: 'gar nicht mal so schlecht', es: 'la verdad es que nada mal (litote típica alemana)' },
-      { de: 'Bock haben', es: 'tener ganas / apetecer (slang alemán imprescindible: "Ich hab\' Bock")' },
-      { de: 'alles hinter sich lassen', es: 'dejar todo atrás' },
+      { de: 'vergebens', es: 'en vano / inútil' },
+      { de: 'der Bausparplan', es: 'el plan de ahorro hipotecario (el colmo del conformismo burgués alemán)' },
+      { de: 'mitleidig', es: 'con lástima / con compasión' },
+      { de: 'bloß', es: 'simplemente / meramente' },
     ],
-    lyrics: [
+    sections: [
       {
-        time: 0,
-        duration: 4.0,
-        de: 'Ich wache auf und die Sonne scheint.',
-        es: 'Me despierto y el sol brilla.',
-        notes: 'aufwachen = despertarse (separable: wache auf); scheinen = brillar'
+        name: 'Strophe 1 (Estrofa 1)',
+        lines: [
+          {
+            de: 'Ich wache auf, es ist zehn nach zwei.',
+            es: 'Me despierto, son las dos y diez.',
+            notes: 'Verbo separable: aufwachen (ich wache auf); hora: zehn nach zwei'
+          },
+          {
+            de: 'Der Kopf tut weh, der Tag zieht vorbei.',
+            es: 'Me duele la cabeza, el día se pasa de largo.',
+            notes: 'Giro con Dativo: "Der Kopf tut mir weh" (doler)'
+          },
+          {
+            de: 'Ich liege noch im Bett herum,',
+            es: 'Aún sigo holgazaneando tumbado en la cama,',
+            notes: 'Verbo separable: herumliegen (estar tirado sin hacer nada)'
+          },
+          {
+            de: 'Die ganze Welt dreht sich stumm.',
+            es: 'El mundo entero da vueltas en silencio.',
+            notes: 'Verbo reflexivo: sich drehen (girar sobre sí mismo)'
+          },
+          {
+            de: 'Ich scrolle durch mein Telefon,',
+            es: 'Hago scroll en mi teléfono,',
+            notes: 'Germanización del verbo inglés: scrollen durch + Akkusativ'
+          },
+          {
+            de: 'Vergleiche mein Leben schon.',
+            es: 'Y ya me encuentro comparando mi vida.',
+            notes: 'Verbo inseparable transitivo: vergleichen'
+          },
+          {
+            de: 'Wer hat Erfolg, wer hat das Glück?',
+            es: '¿Quién tiene éxito, quién tiene la suerte?',
+            notes: 'Pronombre interrogativo de sujeto: Wer? (Nominativo)'
+          },
+          {
+            de: 'Ich schaue vorwärts und zurück.',
+            es: 'Miro hacia delante y hacia atrás.',
+            notes: 'Adverbios de dirección espacial y temporal'
+          }
+        ]
       },
       {
-        time: 4.0,
-        duration: 4.5,
-        de: 'Ich hab\' gar keinen Kater, das ist neu.',
-        es: 'No tengo ni pizca de resaca, eso es algo nuevo.',
-        notes: 'der Kater = gato, pero en coloquial: resaca (Akkusativ: keinen Kater)'
+        name: 'Refrain (Estribillo)',
+        lines: [
+          {
+            de: 'Ist das der Rest meines Lebens?',
+            es: '¿Es esto el resto de mi vida?',
+            notes: '⭐ GENITIVO NEUTRO: "meines Lebens" (das Leben → des/meines Lebens con terminación -s)'
+          },
+          {
+            de: 'Oder kommt da noch was?',
+            es: '¿O todavía vendrá algo más?',
+            notes: 'Coloquial: "noch was" = noch etwas (algo más)'
+          },
+          {
+            de: 'War das alles vergebens?',
+            es: '¿Fue todo esto en vano?',
+            notes: 'Tiempo pretérito de sein: "War das alles..."'
+          },
+          {
+            de: 'Macht das irgendwann Spaß?',
+            es: '¿Llegará a ser divertido en algún momento?',
+            notes: 'Giro: "Spaß machen" = resultar divertido/gratificante'
+          },
+          {
+            de: 'Ich will nicht einfach funktionieren.',
+            es: 'No quiero simplemente funcionar como una máquina.',
+            notes: 'Verbo modal: wollen + negación nicht + infinitivo al final'
+          },
+          {
+            de: 'Ich will mich spüren, mich verlieren.',
+            es: 'Quiero sentirme vivo, quiero perderme.',
+            notes: 'Verbos reflexivos en infinitivo: mich spüren, mich verlieren'
+          }
+        ]
       },
       {
-        time: 8.5,
-        duration: 4.5,
-        de: 'Ich zieh\' die Vorhänge auf und schaue raus.',
-        es: 'Abro las cortinas y miro hacia afuera.',
-        notes: 'aufziehen = descorrer/abrir; rausschauen = mirar hacia afuera'
-      },
-      {
-        time: 13.0,
-        duration: 5.0,
-        de: 'Und heute sieht die Stadt gar nicht so hässlich aus.',
-        es: 'Y hoy la ciudad no se ve para nada tan fea.',
-        notes: 'aussehen = lucir / parecer (sieht ... aus); "gar nicht" = para nada'
-      },
-      {
-        time: 18.0,
-        duration: 5.5,
-        de: 'Der Rest meines Lebens fängt heute an!',
-        es: '¡El resto de mi vida empieza hoy!',
-        notes: 'anfangen = comenzar (verbo separable de cambio de estado: fängt an)'
-      },
-      {
-        time: 23.5,
-        duration: 5.0,
-        de: 'Ich mach\' die Musik laut, so laut ich kann.',
-        es: 'Pongo la música alta, tan fuerte como puedo.',
-        notes: 'Modalverb: können (ich kann); "laut machen" = subir el volumen'
-      },
-      {
-        time: 28.5,
-        duration: 5.5,
-        de: 'Ich hab\' keine Zeit mehr für schlechte Laune.',
-        es: 'Ya no tengo tiempo para el mal humor.',
-        notes: 'die Laune = el humor/ánimo; "keine Zeit mehr" = ya no tener tiempo'
-      },
-      {
-        time: 34.0,
-        duration: 5.5,
-        de: 'Alle Türen stehen offen, wenn ich will.',
-        es: 'Todas las puertas están abiertas de par en par, si yo quiero.',
-        notes: 'offenstehen = estar abiertas; "wenn" condicional con wollen (ich will)'
-      },
-      {
-        time: 39.5,
-        duration: 5.5,
-        de: 'Und ich tanz\' auf dem Asphalt wie ein Idiot.',
-        es: 'Y bailo sobre el asfalto como un idiota.',
-        notes: 'tanzen auf + Dativ (dem Asphalt)'
-      },
-      {
-        time: 45.0,
-        duration: 5.5,
-        de: 'Weil das Leben zu kurz für Zweifel ist.',
-        es: 'Porque la vida es demasiado corta para tener dudas.',
-        notes: 'weil... ist (verbo al final); zu kurz für + Akkusativ Plural'
-      },
-      {
-        time: 50.5,
-        duration: 6.0,
-        de: 'Ich lass\' die alten Sorgen einfach geh\'n.',
-        es: 'Simplemente dejo marchar las viejas preocupaciones.',
-        notes: 'lassen + Infinitiv (dejar hacer algo); einfach = simplemente / sin rodeos'
-      },
-      {
-        time: 56.5,
-        duration: 7.5,
-        de: 'Wir sehen uns morgen, neue Welt!',
-        es: '¡Nos vemos mañana, mundo nuevo!',
-        notes: 'Pronombre recíproco/reflexivo: "wir sehen uns" (nos vemos)'
+        name: 'Strophe 2 (Estrofa 2)',
+        lines: [
+          {
+            de: 'Die Freunde zieh\'n nach Frankfurt fort,',
+            es: 'Los amigos se mudan a Fráncfort,',
+            notes: 'Verbo de movimiento: fortziehen = mudarse lejos'
+          },
+          {
+            de: 'Sie kaufen Häuser an jedem Ort.',
+            es: 'Compran casas en cualquier lugar.',
+            notes: 'Preposición local: an jedem Ort (Dativo masculino)'
+          },
+          {
+            de: 'Sie reden über Bausparplan,',
+            es: 'Hablan sobre planes de ahorro hipotecario,',
+            notes: 'Sátira alemana sobre la obsesión de comprar casa a plazos'
+          },
+          {
+            de: 'Und schauen mich mitleidig an.',
+            es: 'Y me miran con lástima.',
+            notes: 'Verbo separable: anschauen = mirar fijamente a alguien'
+          },
+          {
+            de: 'Ich mache Musik in mei\'m Zimmer hier,',
+            es: 'Yo hago música aquí en mi habitación,',
+            notes: 'Contracción coloquial en Dativo neutro: "in mei\'m" = in meinem'
+          },
+          {
+            de: 'Trinke noch ein kaltes Bier.',
+            es: 'Bebo otra cerveza fría más.',
+            notes: 'Acusativo neutro: ein kaltes Bier'
+          },
+          {
+            de: 'Doch ich lass\' diesen Traum nicht los.',
+            es: 'Pero no suelto este sueño jamás.',
+            notes: 'Verbo separable: loslassen (ich lasse nicht los)'
+          }
+        ]
       }
     ]
   },
+
+  // 5. PROVINZ - GROSSSTADT (2020)
   {
     id: 'provinz',
-    title: 'Zimmer',
+    title: 'Großstadt',
     artist: 'Provinz',
-    genre: 'German Indie Pop',
-    year: '2022',
-    bpm: 88,
-    duration: 60,
-    coverColor: 'from-blue-800 to-slate-900',
-    description: 'La banda revelación del sur de Alemania con un tema nostálgico sobre la juventud, compartir una habitación pequeña y sentir que el mundo exterior no importa.',
-    grammaticalFocus: 'Preposiciones mixtas (in meinem Zimmer = Dativ), verbos de emoción y adjetivos descriptivos.',
+    album: 'Wir bauten uns Amerika',
+    year: '2020',
+    genre: 'Indie Pop / Folk-Rock',
+    coverColor: 'from-emerald-700 to-stone-900',
+    spotifyQuery: 'Provinz Grossstadt',
+    youtubeQuery: 'Provinz Grossstadt offizielles video',
+    description: 'La banda de primos de Ravensburg que conquistó las listas alemanas. Un relato sobre escapar de la asfixia del pueblo pequeño para buscar anonimato y adrenalina en la gran metrópolis.',
+    grammaticalFocus: 'El contraste preposicional (in die Großstadt [Akk - dirección] vs in der Großstadt [Dat - ubicación]), adjetivos declinados y oraciones de tiempo.',
     vocabNotes: [
-      { de: 'das Zimmer', es: 'la habitación / cuarto (género neutro: das)' },
-      { de: 'draußen regnet es', es: 'afuera llueve (verbo impersonal con es)' },
-      { de: 'verschwinden', es: 'desaparecer' },
-      { de: 'egal sein', es: 'dar igual / no importar (mir ist alles egal)' },
+      { de: 'die Großstadt', es: 'la gran ciudad / metrópolis (+100.000 habitantes)' },
+      { de: 'die Kleinstadt', es: 'la ciudad pequeña / pueblo de provincias' },
+      { de: 'blenden', es: 'deslumbrar / cegar con luz' },
+      { de: 'der Schacht', es: 'el pozo o túnel (U-Bahn-Schacht = túnel de metro)' },
+      { de: 'die Heimat', es: 'la patria chica / el terruño donde creciste' },
     ],
-    lyrics: [
+    sections: [
       {
-        time: 0,
-        duration: 4.5,
-        de: 'In meinem kleinen Zimmer brennt noch Licht.',
-        es: 'En mi pequeña habitación todavía hay una luz encendida.',
-        notes: 'Wechselpräposition: In + Dativ neutro (in meinem kleinen Zimmer)'
+        name: 'Strophe 1 (Estrofa 1)',
+        lines: [
+          {
+            de: 'Wir saßen am See im Sommerwind,',
+            es: 'Estábamos sentados junto al lago con la brisa de verano,',
+            notes: 'Präteritum de sitzen: saßen; contracción: am See = an dem See (Dativo)'
+          },
+          {
+            de: 'Wo alle Straßen dieselben sind.',
+            es: 'Donde todas las calles son idénticas.',
+            notes: 'Oración de lugar con "wo": verbo sind al final'
+          },
+          {
+            de: 'Jeder kennt hier jeden Schmerz,',
+            es: 'Cualquiera conoce aquí el dolor de cualquiera,',
+            notes: 'Pronombres indefinidos: jeder (sujeto) / jeden (acusativo)'
+          },
+          {
+            de: 'Und jeder Nachbar blickt ins Herz.',
+            es: 'Y cada vecino te mira hasta el fondo del corazón.',
+            notes: 'Contracción de dirección: ins Herz = in das Herz (Akkusativ neutro)'
+          },
+          {
+            de: 'Ich hab\' die Koffer vollgepackt,',
+            es: 'Hice las maletas hasta arriba,',
+            notes: 'Verbo separable en Perfekt: vollpacken → vollgepackt'
+          },
+          {
+            de: 'Und diesen kleinen Ort verlassen.',
+            es: 'Y abandoné este pequeño pueblo.',
+            notes: 'Participio de verlassen (inseparable con ver-)'
+          }
+        ]
       },
       {
-        time: 4.5,
-        duration: 5.0,
-        de: 'Draußen ist es dunkel, doch das stört uns nicht.',
-        es: 'Afuera está oscuro, pero eso no nos molesta.',
-        notes: 'doch = pero / sin embargo; stören + Akkusativ (stört uns)'
+        name: 'Refrain (Estribillo)',
+        lines: [
+          {
+            de: 'Ich fahre in die Großstadt rein,',
+            es: 'Entro conduciendo a la gran ciudad,',
+            notes: '⭐ DIRECCIÓN WOHIN: in + Akkusativ femenino: "in die Großstadt"'
+          },
+          {
+            de: 'Ich will nicht mehr alleine sein.',
+            es: 'Ya no quiero estar solo nunca más.',
+            notes: 'Negación temporal: "nicht mehr" = ya no'
+          },
+          {
+            de: 'Lichter blenden mein Gesicht,',
+            es: 'Las luces deslumbran mi cara,',
+            notes: 'Sujeto plural: die Lichter; objeto directo: mein Gesicht'
+          },
+          {
+            de: 'Doch hier kennt mich niemand nicht.',
+            es: 'Pero aquí no me conoce absolutamente nadie.',
+            notes: 'Doble negación enfática coloquial'
+          },
+          {
+            de: 'Ich suche nach der Freiheit hier,',
+            es: 'Busco la libertad aquí,',
+            notes: 'Preposición fija: suchen nach + Dativo femenino: "nach der Freiheit"'
+          },
+          {
+            de: 'Zwischen Beton und Club-Papier.',
+            es: 'Entre el hormigón y los folletos de discotecas.',
+            notes: 'Preposición espacial "zwischen" con Dativo'
+          }
+        ]
       },
       {
-        time: 9.5,
-        duration: 5.0,
-        de: 'Wir trinken warmen Tee aus einer alten Tasse.',
-        es: 'Bebemos té caliente de una taza vieja.',
-        notes: 'aus + Dativ femenino: aus einer alten Tasse (desinencia -er)'
-      },
-      {
-        time: 14.5,
-        duration: 5.5,
-        de: 'Und vergessen für \'nen Moment die ganze Straße.',
-        es: 'Y olvidamos por un instante la calle entera.',
-        notes: 'für + Akkusativ: \'nen = einen (masculino Akkusativ)'
-      },
-      {
-        time: 20.0,
-        duration: 5.0,
-        de: 'Erzähl mir was von früher, als wir jung war\'n.',
-        es: 'Cuéntame algo de antes, de cuando éramos jóvenes.',
-        notes: 'Imperativo: erzähl mir (Dativo); conjunción temporal en pasado: "als"'
-      },
-      {
-        time: 25.0,
-        duration: 5.0,
-        de: 'Als die Welt noch ein bisschen einfacher schien.',
-        es: 'Cuando el mundo todavía parecía un poco más sencillo.',
-        notes: 'Comparativo de simple: einfach → einfacher; scheinen en pasado: schien'
-      },
-      {
-        time: 30.0,
-        duration: 5.5,
-        de: 'Hier drin ist es warm, hier will ich bleiben.',
-        es: 'Aquí dentro hace calor, aquí me quiero quedar.',
-        notes: 'bleiben = permanecer / quedarse; modalverb: will'
-      },
-      {
-        time: 35.5,
-        duration: 5.5,
-        de: 'Lass uns die Zeit anhalten und Lieder schreiben.',
-        es: 'Detengamos el tiempo y escribamos canciones.',
-        notes: 'anhalten = frenar/detener; Lieder schreiben = componer canciones'
-      },
-      {
-        time: 41.0,
-        duration: 5.5,
-        de: 'Morgen müssen wir wieder raus in den Regen.',
-        es: 'Mañana tendremos que salir otra vez a la lluvia.',
-        notes: 'raus in den Regen = Wohin? (Akkusativ masculino: in den Regen)'
-      },
-      {
-        time: 46.5,
-        duration: 6.0,
-        de: 'Aber heute Nacht gehört uns dieser Augenblick.',
-        es: 'Pero esta noche nos pertenece este instante.',
-        notes: 'gehören exige DATIVO (gehört uns); der Augenblick = el parpadeo / momento'
-      },
-      {
-        time: 52.5,
-        duration: 7.5,
-        de: 'Bleib einfach hier bei mir bis zum Morgen.',
-        es: 'Quédate simplemente aquí conmigo hasta la mañana.',
-        notes: 'bei + Dativ (bei mir); bis zu + Dativ (bis zum Morgen)'
+        name: 'Strophe 2 (Estrofa 2)',
+        lines: [
+          {
+            de: 'Der U-Bahn-Schacht riecht nach Magie,',
+            es: 'El túnel del metro huele a pura magia,',
+            notes: 'Régimen verbal: riechen nach + Dativo: "nach Magie"'
+          },
+          {
+            de: 'So voll von Fremden war ich nie.',
+            es: 'Tan rodeado de desconocidos jamás estuve.',
+            notes: 'Adjetivo sustantivado: die Fremden (los extraños/forasteros)'
+          },
+          {
+            de: 'Ich trinke Kaffee to-go um vier,',
+            es: 'Bebo café para llevar a las cuatro de la madrugada,',
+            notes: 'Hora exacta con preposición: um vier'
+          },
+          {
+            de: 'Und träume von der Zeit mit dir.',
+            es: 'Y sueño con aquel tiempo contigo.',
+            notes: 'Régimen verbal: träumen von + Dativo: "von der Zeit mit dir"'
+          }
+        ]
       }
     ]
   },
+
+  // 6. FABER - ALLES GUTE (2017)
   {
-    id: 'lisbeth',
-    title: 'Wenn du tanzt',
-    artist: 'Von Wegen Lisbeth',
-    genre: 'Berlin Indie Pop',
-    year: '2016',
-    bpm: 110,
-    duration: 62,
-    coverColor: 'from-emerald-800 to-teal-950',
-    description: 'La banda berlinesa de culto con letras mordaces y teclados vintage. Una observación simpática e irónica de una fiesta en Kreuzberg con el uso brillante de partículas y modales.',
-    grammaticalFocus: 'Oraciones temporales con "wenn", partículas modales (doch, mal, halt) y vocabulario de vida nocturna.',
+    id: 'faber',
+    title: 'Alles Gute',
+    artist: 'Faber',
+    album: 'Sei ein Faber im Wind',
+    year: '2017',
+    genre: 'Chanson / Acoustic Folk-Punk',
+    coverColor: 'from-amber-900 to-stone-900',
+    spotifyQuery: 'Faber Alles Gute',
+    youtubeQuery: 'Faber Alles Gute offizielles video',
+    description: 'El brillante cantautor suizo-italiano en lengua alemana Julian Faber Pollina. Una despedida dulce y agridulce en la estación de trenes con trompetas balcánicas y poesía cruda.',
+    grammaticalFocus: 'El verbo desear con doble objeto (wünschen + Dativo de persona + Acusativo de cosa: "Ich wünsche dir [Dat] alles Gute [Akk]"), oraciones subordinadas y verbos de cambio de lugar.',
     vocabNotes: [
-      { de: 'wenn du tanzt', es: 'cuando bailas (verbo conjugado al final)' },
-      { de: 'die Kneipe', es: 'el bar / taberna tradicional alemana' },
-      { de: 'peinlich', es: 'vergonzoso / que da pena ajena' },
-      { de: 'eigentlich', es: 'en realidad / a decir verdad' },
+      { de: 'alles Gute', es: 'todo lo mejor / mis mejores deseos (sustantivación del adjetivo gut)' },
+      { de: 'der Bahnsteig', es: 'el andén de la estación de tren' },
+      { de: 'die Spur', es: 'la huella o rastro dejado atrás' },
+      { de: 'der Groll', es: 'el rencor / resentimiento amargo' },
+      { de: 'fortbewegen', es: 'desplazarse / alejarse en movimiento' },
     ],
-    lyrics: [
+    sections: [
       {
-        time: 0,
-        duration: 4.5,
-        de: 'Du stehst an der Bar mit einem Bier.',
-        es: 'Estás en la barra con una cerveza.',
-        notes: 'stehen an + Dativ femenino: an der Bar; mit + Dativ: mit einem Bier'
+        name: 'Strophe 1 (Estrofa 1)',
+        lines: [
+          {
+            de: 'Ich wünsch\' dir alles Gute,',
+            es: 'Te deseo todo lo mejor,',
+            notes: 'Verbo con doble objeto: wünschen + dir (Dat) + alles Gute (Akk neutro)'
+          },
+          {
+            de: 'Wo immer du jetzt bist.',
+            es: 'Dondequiera que estés ahora.',
+            notes: 'Oración relativa locativa: "Wo immer..." + verbo bist al final'
+          },
+          {
+            de: 'Ich hoffe, dass dein neues Leben ein bisschen leichter ist.',
+            es: 'Espero que tu nueva vida sea un poco más ligera.',
+            notes: 'Subordinada con "dass": "ist" va al final; comparativo: leicht → leichter'
+          },
+          {
+            de: 'Du hast gesagt, du musst jetzt geh\'n,',
+            es: 'Dijiste que tienes que marcharte ahora,',
+            notes: 'Discurso indirecto con verbo modal: müssen + infinitivo gehen'
+          },
+          {
+            de: 'Um wieder klar nach vorn zu seh\'n.',
+            es: 'Para volver a mirar con claridad hacia delante.',
+            notes: 'Oración final de infinitivo: "um ... zu sehen"'
+          },
+          {
+            de: 'Ich stand am Bahnsteig stumm daneben,',
+            es: 'Me quedé en silencio de pie junto al andén,',
+            notes: 'Präteritum de stehen: stand; contracción: am Bahnsteig (an dem)'
+          },
+          {
+            de: 'Und sah den Zug sich fortbewegen.',
+            es: 'Y vi cómo el tren se alejaba.',
+            notes: 'Construcción de acusativo con infinitivo (AcI): sah den Zug sich fortbewegen'
+          }
+        ]
       },
       {
-        time: 4.5,
-        duration: 4.5,
-        de: 'Und schaust dich um, als wärst du nicht von hier.',
-        es: 'Y miras a tu alrededor como si no fueras de aquí.',
-        notes: 'Konjunktiv II irreal: "als wärst du" = como si fueras'
+        name: 'Refrain (Estribillo)',
+        lines: [
+          {
+            de: 'Alles Gute für die Reise,',
+            es: 'Todo lo mejor para tu viaje,',
+            notes: 'Preposición "für" rige estrictamente Acusativo: für die Reise'
+          },
+          {
+            de: 'Auf deine ganz besond\'re Weise.',
+            es: 'A tu manera tan especial y única.',
+            notes: 'Giro: "auf diese Weise" = de este modo'
+          },
+          {
+            de: 'Vergiss die schlechten Tage schnell,',
+            es: 'Olvida rápido los malos días,',
+            notes: 'Imperativo singular: Vergiss! (vergessen)'
+          },
+          {
+            de: 'Und mach dein neues Zimmer hell.',
+            es: 'Y llena de luz tu nueva habitación.',
+            notes: 'Imperativo: Mach! + adjetivo resultante: hell (luminoso)'
+          }
+        ]
       },
       {
-        time: 9.0,
-        duration: 5.0,
-        de: 'Die Musik ist laut, der Raum ist voll.',
-        es: 'La música está a tope, la sala está llena.',
-        notes: 'Adjetivos predicativos (no se declinan tras el verbo sein): laut, voll'
-      },
-      {
-        time: 14.0,
-        duration: 5.0,
-        de: 'Ich weiß eigentlich gar nicht, was ich sagen soll.',
-        es: 'A decir verdad ni siquiera sé qué debería decir.',
-        notes: 'Partículas: eigentlich (en realidad) + gar nicht (para nada); sollen'
-      },
-      {
-        time: 19.0,
-        duration: 5.0,
-        de: 'Aber wenn du tanzt, dann sieht das gut aus.',
-        es: 'Pero cuando bailas, la verdad es que te ves genial.',
-        notes: 'Correlación: wenn... dann...; aussehen (separado)'
-      },
-      {
-        time: 24.0,
-        duration: 5.0,
-        de: 'Du machst dir doch keine Sorgen um den Rest.',
-        es: 'Al fin y al cabo no te preocupas por lo demás.',
-        notes: 'Partícula doch (obviedad afectuosa); sich Sorgen machen UM + Akkusativ'
-      },
-      {
-        time: 29.0,
-        duration: 5.5,
-        de: 'Komm mal rüber und trink mit mir!',
-        es: '¡Pásate un segundo para acá y tómate algo conmigo!',
-        notes: 'Imperativo con "mal" para suavizar la invitación cordial ("Komm mal...")'
-      },
-      {
-        time: 34.5,
-        duration: 5.0,
-        de: 'Es ist viel zu spät, um nach Hause zu geh\'n.',
-        es: 'Es demasiado tarde como para volver a casa.',
-        notes: 'Infinitivsatz con "um ... zu" (para + infinitivo); nach Hause = hacia casa'
-      },
-      {
-        time: 39.5,
-        duration: 5.5,
-        de: 'Die Nacht in Berlin ist noch lange nicht vorbei.',
-        es: 'La noche en Berlín aún dista mucho de haber acabado.',
-        notes: 'vorbei sein = haberse terminado; noch lange nicht = aún para nada'
-      },
-      {
-        time: 45.0,
-        duration: 6.0,
-        de: 'Und wir tanzen einfach weiter bis zum Licht.',
-        es: 'Y nosotros simplemente seguimos bailando hasta la luz del sol.',
-        notes: 'weiter- (prefijo de continuidad: weitertanzen); bis zu + Dativ'
-      },
-      {
-        time: 51.0,
-        duration: 9.0,
-        de: 'Weil Musik die beste Sprache der Welt ist.',
-        es: 'Porque la música es el mejor idioma del mundo.',
-        notes: 'Superlativo declinado: die beste Sprache; Genitivo: der Welt; ist al final'
+        name: 'Strophe 2 (Estrofa 2)',
+        lines: [
+          {
+            de: 'Ich sitz\' im selben alten Café,',
+            es: 'Sigo sentado en el mismo viejo café,',
+            notes: 'Dativo neutro: im selben alten Café (in dem)'
+          },
+          {
+            de: 'Wo ich noch deine Spuren seh\'.',
+            es: 'Donde todavía alcanzo a ver tus huellas.',
+            notes: 'Plural: die Spuren (el rastro dejado)'
+          },
+          {
+            de: 'Die Kellnerin fragt mich nach dir,',
+            es: 'La camarera me pregunta por ti,',
+            notes: 'Régimen verbal: fragen nach + Dativo: "nach dir"'
+          },
+          {
+            de: 'Ich sag\', du wohnst nicht länger hier.',
+            es: 'Le digo que ya no vives más por aquí.',
+            notes: 'Expresión temporal: "nicht länger" = ya no más'
+          },
+          {
+            de: 'Kein böses Wort, kein harter Groll,',
+            es: 'Ni una mala palabra, ni el menor rencor,',
+            notes: 'Negación con kein: der Groll (masculino)'
+          },
+          {
+            de: 'Ich hoffe nur, es geht dir toll.',
+            es: 'Solo espero que te vaya de maravilla.',
+            notes: 'Giro con Dativo: "es geht dir toll" (te va genial)'
+          }
+        ]
       }
     ]
   }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { addXP, getProgress, saveProgress, getLocalDateString } from '../utils/storage';
+import { addXP, getProgress, saveProgress, getLocalDateString, getTodayDate } from '../utils/storage';
 import { 
   Calendar, Flame, CheckCircle2, Circle, Gift, 
   ArrowRight, Sparkles, Trophy, Target, BookOpen, Heart, Zap, Clock,
@@ -10,7 +10,7 @@ import ProgressionRoadmap from './ProgressionRoadmap';
 import { dailySprintsData } from '../data/dailySprint';
 
 export default function DailyCheckInPanel({ progress, setProgress, setActiveTab, onOpenCalendar, onAddConsecutiveDay, onOpenClaraMentor }) {
-  const todayDate = getLocalDateString();
+  const todayDate = getTodayDate();
   const checkInKey = `daily_checkin_${todayDate}`;
   const isCheckedInToday = !!progress[checkInKey];
 
@@ -240,27 +240,32 @@ export default function DailyCheckInPanel({ progress, setProgress, setActiveTab,
             </div>
           </div>
 
-          {/* 7-Day Dots de la semana actual con estado verídico */}
+          {/* 7-Day Dots de la semana actual con estado verídico y selector interactivo */}
           <div className="flex items-center gap-2 self-stretch sm:self-auto justify-between sm:justify-start">
             {weekDaysData.map((item) => {
               return (
-                <div key={item.dateStr} className="text-center">
+                <button
+                  type="button"
+                  key={item.dateStr}
+                  onClick={() => onOpenCalendar && onOpenCalendar(item.dateStr)}
+                  title={`${item.dateStr} (${item.label}): ${item.isDone ? 'Jornada Completada ✓' : 'Pendiente'}. Haz clic para registrar avance o editar esta fecha.`}
+                  className="text-center group cursor-pointer focus:outline-hidden"
+                >
                   <div
-                    title={`${item.dateStr} (${item.label}): ${item.isDone ? 'Asistencia / Jornada Completada' : 'Pendiente'}`}
                     className={`w-9 h-9 rounded-xl flex items-center justify-center font-mono text-xs font-bold transition-all border ${
                       item.isToday
                         ? item.isDone
-                          ? 'bg-emerald-600 text-white border-emerald-600 ring-2 ring-emerald-400 ring-offset-2 shadow-xs'
-                          : 'bg-stone-900 text-white border-stone-900 ring-2 ring-amber-400 ring-offset-2'
+                          ? 'bg-emerald-600 text-white border-emerald-600 ring-2 ring-emerald-400 ring-offset-2 shadow-xs group-hover:scale-105'
+                          : 'bg-stone-900 text-white border-stone-900 ring-2 ring-amber-400 ring-offset-2 group-hover:scale-105'
                         : item.isDone
-                        ? 'bg-emerald-50 text-emerald-800 border-emerald-300'
-                        : 'bg-stone-50 text-stone-400 border-stone-200'
+                        ? 'bg-emerald-50 text-emerald-800 border-emerald-300 group-hover:bg-emerald-100 group-hover:scale-105'
+                        : 'bg-stone-50 text-stone-400 border-stone-200 group-hover:bg-stone-100 group-hover:text-stone-700'
                     }`}
                   >
                     {item.isDone ? '✓' : item.label}
                   </div>
-                  <span className="text-[9px] font-mono text-stone-400 block mt-0.5">{item.label}</span>
-                </div>
+                  <span className="text-[9px] font-mono text-stone-400 group-hover:text-stone-700 block mt-0.5">{item.label}</span>
+                </button>
               );
             })}
           </div>

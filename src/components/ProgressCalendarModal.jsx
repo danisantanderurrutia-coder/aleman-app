@@ -5,10 +5,10 @@ import {
   Target, Bookmark, ArrowRight
 } from 'lucide-react';
 import { curriculumRoadmap } from '../data/curriculumRoadmap';
-import { saveProgress, addXP, getLocalDateString } from '../utils/storage';
+import { saveProgress, addXP, getLocalDateString, getCurrentStudyDate, calculateStreakFromLogs } from '../utils/storage';
 import confetti from 'canvas-confetti';
 
-export default function ProgressCalendarModal({ isOpen, onClose, progress, setProgress, setActiveTab }) {
+export default function ProgressCalendarModal({ isOpen, onClose, progress, setProgress, setActiveTab, initialDate = null }) {
   // Live Clock State (updates every second)
   const [currentTime, setCurrentTime] = useState(new Date());
 
@@ -22,9 +22,17 @@ export default function ProgressCalendarModal({ isOpen, onClose, progress, setPr
   // Calendar View Month/Year State
   const [viewDate, setViewDate] = useState(new Date());
   
-  // Selected Day in Calendar (defaults to today formatted as YYYY-MM-DD local)
-  const todayFormatted = getLocalDateString();
+  // Selected Day in Calendar (defaults to current study day formatted as YYYY-MM-DD local, respetando regla 4 AM)
+  const todayFormatted = getCurrentStudyDate();
   const [selectedDateStr, setSelectedDateStr] = useState(todayFormatted);
+
+  useEffect(() => {
+    if (isOpen) {
+      const target = initialDate || getCurrentStudyDate();
+      setSelectedDateStr(target);
+      setViewDate(new Date(target));
+    }
+  }, [isOpen, initialDate]);
 
   // Form states for the selected date
   const calendarLogs = progress.calendarLogs || {};
@@ -161,11 +169,15 @@ export default function ProgressCalendarModal({ isOpen, onClose, progress, setPr
       newCurriculumDay = Math.min(curriculumRoadmap.length, Number(selectedDaySyllabus) + 1);
     }
 
+    // Recalcular racha ininterrumpida
+    const newStreak = calculateStreakFromLogs(newCalendarLogs);
+
     // Save to storage
     const updated = saveProgress({
       calendarLogs: newCalendarLogs,
       completedCurriculumDays: newCompletedCurriculumDays,
       curriculumDay: newCurriculumDay,
+      streak: newStreak,
       lastActiveDate: todayFormatted
     });
     setProgress(updated);
