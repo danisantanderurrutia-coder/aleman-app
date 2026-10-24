@@ -1,18 +1,18 @@
-// Base de datos exhaustiva y enciclopédica de Cognados Reales y Falsos Amigos
-// Diseñada para hispanohablantes aprendiendo alemán (A2 - B2) con puentes en español e inglés.
+// Base de datos exhaustiva y enciclopédica de Cognados Reales, Leyes Fonéticas y Falsos Amigos
+// Diseñada para acelerar el aprendizaje de hispanohablantes usando el inglés y el latín/español.
 
 export const cognatesData = {
   // =========================================================================
-  // 1. FALSOS AMIGOS (Falsche Freunde 👻) - Peligro de trampa léxica y de género
+  // 1. FALSOS AMIGOS (Falsche Freunde 👻) - Trampas cognitivas y de género
   // =========================================================================
   falseFriends: [
     {
       id: 'ff_schluessel_schuessel',
       german: 'der Schlüssel vs. die Schüssel',
       looksLikeEn: 'Schlüssel ↔ key / Schüssel ↔ bowl',
-      looksLikeEs: 'Trampa doble de género con el español: "la llave" y "el tazón"',
+      looksLikeEs: 'Trampa doble de género: "la llave" y "el tazón"',
       actualMeaning: 'der Schlüssel = LA LLAVE (Masc) | die Schüssel = EL TAZÓN / CUENCO (Fem)',
-      ghostAlert: '⭐ ¡LA GRAN TRAMPA DE GÉNERO CRUZADA!\n1. En español decimos "LA llave" (femenino), pero en alemán es estrictamente MASCULINO: "der Schlüssel" (del verbo schließen = cerrar/abrir cerraduras).\n2. En español decimos "EL tazón / el cuenco" (masculino), pero en alemán es FEMENINO: "die Schüssel" (fuente o bol de ensalada).\n¡Muchos estudiantes hispanohablantes confunden ambas palabras creyendo que hay un error de ortografía, cuando en realidad ambas existen con géneros exactamente invertidos respecto al español!',
+      ghostAlert: '⭐ ¡LA GRAN TRAMPA DE GÉNERO CRUZADA!\n1. En español decimos "LA llave" (femenino), pero en alemán es MASCULINO: "der Schlüssel" (del verbo schließen = cerrar cerraduras).\n2. En español decimos "EL tazón / cuenco" (masculino), pero en alemán es FEMENINO: "die Schüssel" (fuente o bol de ensalada).\n¡Ambas palabras existen pero tienen sus géneros exactamente invertidos respecto al español!',
       exampleDe: 'Wo ist der Schlüssel (Masc)? Er liegt neben der Schüssel (Fem).',
       exampleEs: '¿Dónde está la llave? Está junto al tazón/ensaladera.',
       trick: '👻 Regla nemotécnica: Schlüssel (con "l" de llave) es DER. Schüssel (el cuenco donde comes) es DIE.'
@@ -81,7 +81,7 @@ export const cognatesData = {
       ghostAlert: 'Si dices que un texto es "sehr prägnant", estás diciendo que es claro, sintético y al grano. ¡No tiene nada que ver con un embarazo! Para decir embarazada se dice "schwanger".',
       exampleDe: 'Seine Erklärung war kurz und sehr prägnant.',
       exampleEs: 'Su explicación fue breve y muy concisa.',
-      trick: '👻 Prägnant = Conciso / claro. Schwanger = Embarazada.'
+      trick: '👻标志 Prägnant = Conciso / claro. Schwanger = Embarazada.'
     },
     {
       id: 'ff_rente',
@@ -199,7 +199,7 @@ export const cognatesData = {
       looksLikeEn: 'dose (dosis de medicamento)',
       looksLikeEs: 'parece "dosis médica"',
       actualMeaning: 'LA LATA / BOTE METÁLICO',
-      ghostAlert: '"Eine Dose Cola" es una lata de Coca-Cola. La dosis médica en alemán se dice "die Dosis".',
+      ghostAlert: '"Eine Dose Cola" es una lata de refresco. La dosis médica en alemán se dice "die Dosis".',
       exampleDe: 'Ich trinke gerne eine Dose kaltes Bier nach Feierabend.',
       exampleEs: 'Me gusta beber una lata de cerveza fría tras salir de trabajar.',
       trick: '👻 Die Dose = La lata / bote. Die Dosis = La dosis médica.'
@@ -221,7 +221,7 @@ export const cognatesData = {
       looksLikeEn: 'mist (niebla fina)',
       looksLikeEs: 'parece "misterio o niebla"',
       actualMeaning: 'ESTIÉRCOL / PORQUERÍA / ¡MALDICIÓN!',
-      ghostAlert: 'En alemán exclamar "So ein Mist!" es como decir "¡Vaya mierda / Qué fastidio!". La niebla suave en inglés (mist) en alemán es "der Nebel" o "der Dunst".',
+      ghostAlert: 'En alemán exclamar "So ein Mist!" es como decir "¡Vaya porquería / Qué fastidio!". La niebla suave en inglés (mist) en alemán es "der Nebel" o "der Dunst".',
       exampleDe: 'Mist! Ich habe meinen Zug um eine Minute verpasst.',
       exampleEs: '¡Maldición! He perdido mi tren por un minuto.',
       trick: '👻 Mist = Estiércol / Qué fastidio. Nebel = Niebla.'
@@ -262,206 +262,401 @@ export const cognatesData = {
   ],
 
   // =========================================================================
-  // 2. PUENTES REALES GERMÁNICOS (Wortbrücken con el Inglés 🇬🇧)
-  // Palabras con raíz indoeuropea idéntica y mutaciones fonéticas predecibles
+  // 2. LAS 7 LEYES FONÉTICAS CON EL INGLÉS (Zweite Lautverschiebung 🇬🇧 ↔ 🇩🇪)
+  // Las reglas de mutación que convierten cientos de palabras inglesas a alemán
   // =========================================================================
-  germanicCognates: [
+  phoneticRulesEn: [
     {
-      id: 'gc_water',
-      german: 'das Wasser',
-      english: 'water',
-      spanish: 'el agua',
-      pattern: 'Mutación fonética: La "t" inglesa se transforma en "ss / s" en alemán (water → Wasser).',
-      exampleDe: 'Trinkst du lieber stilles Wasser oder mit Sprudel?',
-      exampleEs: '¿Prefieres beber agua sin gas o con gas?'
+      id: 'pr_t_ss_z',
+      name: 'Ley 1: La "T" inglesa muta en "SS / S" o "Z / TZ"',
+      rule: 'Cuando el inglés tiene una "T", el alemán sistemáticamente la fricativa en "ss/s" tras vocal, o en "z/tz" al inicio o tras consonante.',
+      examples: [
+        { en: 'water', de: 'das Wasser', es: 'el agua' },
+        { en: 'better', de: 'besser', es: 'mejor' },
+        { en: 'street', de: 'die Straße', es: 'la calle' },
+        { en: 'to eat', de: 'essen', es: 'comer' },
+        { en: 'to bite', de: 'beißen', es: 'morder' },
+        { en: 'white', de: 'weiß', es: 'blanco' },
+        { en: 'foot', de: 'der Fuß', es: 'el pie' },
+        { en: 'cat', de: 'die Katze', es: 'el gato' },
+        { en: 'heart', de: 'das Herz', es: 'el corazón' },
+        { en: 'ten', de: 'zehn', es: 'diez' },
+        { en: 'time', de: 'die Zeit', es: 'el tiempo / la hora' },
+        { en: 'tongue', de: 'die Zunge', es: 'la lengua' },
+        { en: 'two', de: 'zwei', es: 'dos' },
+        { en: 'to sit', de: 'sitzen', es: 'estar sentado' },
+        { en: 'to let', de: 'lassen', es: 'dejar / permitir' },
+        { en: 'to hate', de: 'hassen', es: 'odiar' },
+        { en: 'hot', de: 'heiß', es: 'caliente' },
+        { en: 'to shoot', de: 'schießen', es: 'disparar' }
+      ]
     },
     {
-      id: 'gc_house',
-      german: 'das Haus',
-      english: 'house',
-      spanish: 'la casa',
-      pattern: 'Idéntica pronunciación y raíz: house → Haus (plural: die Häuser).',
-      exampleDe: 'Wir suchen ein kleines Haus mit Garten.',
-      exampleEs: 'Buscamos una casa pequeña con jardín.'
+      id: 'pr_p_pf_f',
+      name: 'Ley 2: La "P" inglesa muta en "PF" o "F / FF"',
+      rule: 'El sonido oclusivo labial "P" se abrió en alemán en una africada "pf" o fricativa "f/ff".',
+      examples: [
+        { en: 'apple', de: 'der Apfel', es: 'la manzana' },
+        { en: 'pepper', de: 'der Pfeffer', es: 'la pimienta' },
+        { en: 'pipe', de: 'die Pfeife', es: 'la pipa' },
+        { en: 'pound', de: 'das Pfund', es: 'la libra' },
+        { en: 'plant', de: 'die Pflanze', es: 'la planta' },
+        { en: 'ship', de: 'das Schiff', es: 'el barco' },
+        { en: 'to sleep', de: 'schlafen', es: 'dormir' },
+        { en: 'deep', de: 'tief', es: 'profundo' },
+        { en: 'open', de: 'offen', es: 'abierto' },
+        { en: 'to hope', de: 'hoffen', es: 'esperar con esperanza' },
+        { en: 'to help', de: 'helfen', es: 'ayudar' },
+        { en: 'sharp', de: 'scharf', es: 'picante / afilado' },
+        { en: 'ape', de: 'der Affe', es: 'el mono' },
+        { en: 'soap', de: 'die Seife', es: 'el jabón' },
+        { en: 'drop', de: 'der Tropfen', es: 'la gota' }
+      ]
     },
     {
-      id: 'gc_book',
-      german: 'das Buch',
-      english: 'book',
-      spanish: 'el libro',
-      pattern: 'La "k" inglesa muta en el sonido gutural alemán "ch" (book → Buch).',
-      exampleDe: 'Dieses Buch hat mein Leben verändert.',
-      exampleEs: 'Este libro ha cambiado mi vida.'
+      id: 'pr_k_ch',
+      name: 'Ley 3: La "K" inglesa muta en el sonido gutural "CH"',
+      rule: 'La oclusiva velar sorda "k" tras vocal en inglés se convirtió en el sonido alemán "ch" ([x] o [ç]).',
+      examples: [
+        { en: 'book', de: 'das Buch', es: 'el libro' },
+        { en: 'to make', de: 'machen', es: 'hacer' },
+        { en: 'to cook', de: 'kochen', es: 'cocinar' },
+        { en: 'to speak', de: 'sprechen', es: 'hablar' },
+        { en: 'to break', de: 'brechen', es: 'romper' },
+        { en: 'smoke', de: 'der Rauch', es: 'el humo' },
+        { en: 'milk', de: 'die Milch', es: 'la leche' },
+        { en: 'week', de: 'die Woche', es: 'la semana' },
+        { en: 'to seek', de: 'suchen', es: 'buscar' },
+        { en: 'cake', de: 'der Kuchen', es: 'el pastel' },
+        { en: 'rich', de: 'reich', es: 'rico / adinerado' }
+      ]
     },
     {
-      id: 'gc_friend',
-      german: 'der Freund',
-      english: 'friend',
-      spanish: 'el amigo',
-      pattern: 'Raíz germánica común: friend → Freund (femenino: die Freundin).',
-      exampleDe: 'Er ist mein bester Freund seit der Kindheit.',
-      exampleEs: 'Es mi mejor amigo desde la infancia.'
+      id: 'pr_d_t',
+      name: 'Ley 4: La "D" inglesa muta en "T" alemana',
+      rule: 'Casi cualquier palabra inglesa que empieza por "D" o tiene "d" interna pasa a "T" en alemán.',
+      examples: [
+        { en: 'to drink', de: 'trinken', es: 'beber' },
+        { en: 'daughter', de: 'die Tochter', es: 'la hija' },
+        { en: 'day', de: 'der Tag', es: 'el día' },
+        { en: 'door', de: 'die Tür', es: 'la puerta' },
+        { en: 'to dance', de: 'tanzen', es: 'bailar' },
+        { en: 'dead', de: 'tot', es: 'muerto' },
+        { en: 'dream', de: 'der Traum', es: 'el sueño' },
+        { en: 'to drive', de: 'treiben', es: 'impulsar / arrear' },
+        { en: 'dew', de: 'der Tau', es: 'el rocío' },
+        { en: 'deaf', de: 'taub', es: 'sordo' },
+        { en: 'deep', de: 'tief', es: 'profundo' }
+      ]
     },
     {
-      id: 'gc_drink',
-      german: 'trinken',
-      english: 'to drink',
-      spanish: 'beber / tomar',
-      pattern: 'Verbo gemelo: drink → trinken (ich trinke, du trinkst, er trinkt).',
-      exampleDe: 'Ich trinke jeden Morgen eine Tasse schwarzen Kaffee.',
-      exampleEs: 'Bebo cada mañana una taza de café solo.'
+      id: 'pr_th_d',
+      name: 'Ley 5: La "TH" inglesa muta en "D" alemana',
+      rule: 'El inglés conservó la fricativa dental "th" interdental, mientras que el alemán la cerró en "D" dental sonora.',
+      examples: [
+        { en: 'to thank', de: 'danken', es: 'dar las gracias' },
+        { en: 'to think', de: 'denken', es: 'pensar' },
+        { en: 'this', de: 'dies / dieser', es: 'este / esto' },
+        { en: 'that', de: 'das / dass', es: 'eso / que' },
+        { en: 'the', de: 'der / die / das', es: 'el / la / lo' },
+        { en: 'brother', de: 'der Bruder', es: 'el hermano' },
+        { en: 'leather', de: 'das Leder', es: 'el cuero' },
+        { en: 'thorn', de: 'der Dorn', es: 'la espina' },
+        { en: 'thick', de: 'dick', es: 'gordo / grueso' },
+        { en: 'thief', de: 'der Dieb', es: 'el ladrón' },
+        { en: 'three', de: 'drei', es: 'tres' },
+        { en: 'through', de: 'durch', es: 'a través de' },
+        { en: 'thirst', de: 'der Durst', es: 'la sed' },
+        { en: 'thin', de: 'dünn', es: 'delgado' }
+      ]
     },
     {
-      id: 'gc_find',
-      german: 'finden',
-      english: 'to find',
-      spanish: 'encontrar / hallar / opinar',
-      pattern: 'Verbo gemelo: to find → finden (Wie findest du das? = ¿Qué opinas de esto?).',
-      exampleDe: 'Ich kann meine Schlüssel schon wieder nicht finden.',
-      exampleEs: 'No logro encontrar mis llaves otra vez.'
+      id: 'pr_v_b',
+      name: 'Ley 6: La "V / F" inglesa muta en "B" alemana',
+      rule: 'Las fricativas sonoras inglesas "v/f" suelen corresponderse con la "b" alemana interna.',
+      examples: [
+        { en: 'to have', de: 'haben', es: 'tener / haber' },
+        { en: 'to give', de: 'geben', es: 'dar' },
+        { en: 'to live', de: 'leben', es: 'vivir' },
+        { en: 'to love', de: 'lieben', es: 'amar / querer' },
+        { en: 'seven', de: 'sieben', es: 'siete' },
+        { en: 'silver', de: 'das Silber', es: 'la plata' },
+        { en: 'liver', de: 'die Leber', es: 'el hígado' },
+        { en: 'over', de: 'über', es: 'encima de / sobre' },
+        { en: 'heaven', de: 'der Himmel', es: 'el cielo' },
+        { en: 'halve', de: 'die Hälfte / halb', es: 'la mitad / medio' }
+      ]
     },
     {
-      id: 'gc_help',
-      german: 'helfen',
-      english: 'to help',
-      spanish: 'ayudar (¡rige Dativo!)',
-      pattern: 'Verbo gemelo: help → helfen. La "p" inglesa muta en "f" alemana (help → helf-).',
-      exampleDe: 'Kannst du mir bitte kurz helfen? (helfen + mir im Dativ).',
-      exampleEs: '¿Puedes ayudarme un momento, por favor?'
-    },
-    {
-      id: 'gc_milk',
-      german: 'die Milch',
-      english: 'milk',
-      spanish: 'la leche',
-      pattern: 'La "k" inglesa muta en "ch" alemana (milk → Milch).',
-      exampleDe: 'Möchtest du Milch und Zucker in deinen Tee?',
-      exampleEs: '¿Quieres leche y azúcar en tu té?'
-    },
-    {
-      id: 'gc_bread',
-      german: 'das Brot',
-      english: 'bread',
-      spanish: 'el pan',
-      pattern: 'Raíz común: bread → Brot.',
-      exampleDe: 'In Deutschland gibt es über 3000 Sorten Brot.',
-      exampleEs: 'En Alemania hay más de 3000 tipos de pan.'
-    },
-    {
-      id: 'gc_cold_warm',
-      german: 'kalt / warm',
-      english: 'cold / warm',
-      spanish: 'frío / cálido',
-      pattern: 'Adjetivos gemelos: cold → kalt, warm → warm.',
-      exampleDe: 'Im Winter ist es kalt, aber die Wohnung ist schön warm.',
-      exampleEs: 'En invierno hace frío, pero el apartamento está bien caliente.'
-    },
-    {
-      id: 'gc_apple',
-      german: 'der Apfel',
-      english: 'apple',
-      spanish: 'la manzana',
-      pattern: 'La "p" inglesa muta en "pf" alemana (apple → Apfel).',
-      exampleDe: 'Ein frischer Apfel schmeckt herrlich süß.',
-      exampleEs: 'Una manzana fresca sabe deliciosamente dulce.'
-    },
-    {
-      id: 'gc_finger',
-      german: 'der Finger',
-      english: 'finger',
-      spanish: 'el dedo de la mano',
-      pattern: 'Escritura y sonido idénticos: finger → Finger.',
-      exampleDe: 'Ich habe mir den Finger an der heißen Pfanne verbrannt.',
-      exampleEs: 'Me he quemado el dedo con la sartén caliente.'
-    },
-    {
-      id: 'gc_name',
-      german: 'der Name',
-      english: 'name',
-      spanish: 'el nombre',
-      pattern: 'Palabra gemela universal: name → Name.',
-      exampleDe: 'Wie ist Ihr voller Name, bitte?',
-      exampleEs: '¿Cuál es su nombre completo, por favor?'
-    },
-    {
-      id: 'gc_night',
-      german: 'die Nacht',
-      english: 'night',
-      spanish: 'la noche',
-      pattern: 'La "gh" muda inglesa equivale a la "ch" alemana: night → Nacht.',
-      exampleDe: 'Gute Nacht und schlaf gut!',
-      exampleEs: '¡Buenas noches y duerme bien!'
+      id: 'pr_y_g',
+      name: 'Ley 7: La "Y" final inglesa equivale a "G" alemana',
+      rule: 'La vocalización inglesa de la antigua "g" germánica en "y" (day, say) se conserva como "g" en alemán (Tag, sagen).',
+      examples: [
+        { en: 'day', de: 'der Tag', es: 'el día' },
+        { en: 'to lay', de: 'legen', es: 'poner / acostar' },
+        { en: 'to say', de: 'sagen', es: 'decir' },
+        { en: 'rain', de: 'der Regen', es: 'la lluvia' },
+        { en: 'hail', de: 'der Hagel', es: 'el granizo' },
+        { en: 'sail', de: 'das Segel', es: 'la vela de barco' },
+        { en: 'nail', de: 'der Nagel', es: 'el clavo / la uña' },
+        { en: 'eye', de: 'das Auge', es: 'el ojo' },
+        { en: 'to fly', de: 'fliegen', es: 'volar' },
+        { en: 'honey', de: 'der Honig', es: 'la miel' },
+        { en: 'holy', de: 'heilig', es: 'santo / sagrado' }
+      ]
     }
   ],
 
   // =========================================================================
-  // 3. PUENTES REALES LATINOS (Wortbrücken con el Español 🇪🇸)
-  // Palabras y sufijos que puedes usar de inmediato con un 95% de acierto
+  // 3. PALABRAS GEMELAS DIRECTAS CON EL INGLÉS (Near-Identical 🇬🇧 ↔ 🇩🇪)
+  // Vocabulario básico del día a día prácticamente idéntico
   // =========================================================================
-  latinCognates: [
+  directEnglishTwins: [
+    { de: 'der Arm', en: 'arm', es: 'el brazo' },
+    { de: 'die Hand', en: 'hand', es: 'la mano' },
+    { de: 'der Finger', en: 'finger', es: 'el dedo' },
+    { de: 'das Haar', en: 'hair', es: 'el pelo' },
+    { de: 'der Name', en: 'name', es: 'el nombre' },
+    { de: 'der Ring', en: 'ring', es: 'el anillo' },
+    { de: 'das Glas', en: 'glass', es: 'el vaso / el cristal' },
+    { de: 'das Gras', en: 'grass', es: 'la hierba / césped' },
+    { de: 'das Gold', en: 'gold', es: 'el oro' },
+    { de: 'das Land', en: 'land', es: 'el país / la tierra' },
+    { de: 'der Sand', en: 'sand', es: 'la arena' },
+    { de: 'der Wind', en: 'wind', es: 'el viento' },
+    { de: 'der Winter', en: 'winter', es: 'el invierno' },
+    { de: 'der Sommer', en: 'summer', es: 'el verano' },
+    { de: 'das Bett', en: 'bed', es: 'la cama' },
+    { de: 'das Boot', en: 'boat', es: 'el barco' },
+    { de: 'das Haus', en: 'house', es: 'la casa' },
+    { de: 'die Maus', en: 'mouse', es: 'el ratón' },
+    { de: 'das Eis', en: 'ice', es: 'el hielo / el helado' },
+    { de: 'der Fisch', en: 'fish', es: 'el pez / pescado' },
+    { de: 'das Fleisch', en: 'flesh / meat', es: 'la carne' },
+    { de: 'der Freund', en: 'friend', es: 'el amigo' },
+    { de: 'der Mann', en: 'man', es: 'el hombre' },
+    { de: 'das Wort', en: 'word', es: 'la palabra' },
+    { de: 'das Werk', en: 'work', es: 'la obra / trabajo' },
+    { de: 'singen', en: 'to sing', es: 'cantar' },
+    { de: 'schwimmen', en: 'to swim', es: 'nadar' },
+    { de: 'sinken', en: 'to sink', es: 'hundirse' },
+    { de: 'bringen', en: 'to bring', es: 'traer' },
+    { de: 'fallen', en: 'to fall', es: 'caer' },
+    { de: 'hören', en: 'to hear', es: 'oír / escuchar' },
+    { de: 'lernen', en: 'to learn', es: 'aprender' },
+    { de: 'senden', en: 'to send', es: 'enviar' },
+    { de: 'warm', en: 'warm', es: 'cálido / caliente' },
+    { de: 'kalt', en: 'cold', es: 'frío' },
+    { de: 'wild', en: 'wild', es: 'salvaje' },
+    { de: 'blind', en: 'blind', es: 'ciego' },
+    { de: 'rot', en: 'red', es: 'rojo' },
+    { de: 'blau', en: 'blue', es: 'azul' },
+    { de: 'grün', en: 'green', es: 'verde' },
+    { de: 'braun', en: 'brown', es: 'marrón' }
+  ],
+
+  // =========================================================================
+  // 4. LAS 8 FÓRMULAS LATINAS MÁGICAS CON EL ESPAÑOL (🇪🇸 ↔ 🇩🇪)
+  // Sufijos con un 95% de correspondencia que abren miles de términos de golpe
+  // =========================================================================
+  latinSuffixFormulas: [
     {
-      id: 'lc_tion',
-      german: 'die Information, Situation, Nation, Funktion',
-      spanish: 'Sufijo: -ción en español = -tion en alemán (¡100% FEMENINAS: DIE!)',
-      pattern: 'Toda palabra terminada en "-tion" en alemán es FEMENINA (die) y se acentúa en la última sílaba: die InformaTION, die SituaTION.',
-      exampleDe: 'Die Information ist für die ganze Situation sehr nützlich.',
-      exampleEs: 'La información es muy útil para toda la situación.'
+      id: 'form_tion',
+      name: 'Fórmula 1: "-ción" en español = "-tion" en alemán',
+      gender: '100% FEMENINAS: DIE',
+      accentRule: 'Acentuación siempre en la última sílaba: die InformaTION, die SituaTION.',
+      examples: [
+        { es: 'la información', de: 'die Information' },
+        { es: 'la situación', de: 'die Situation' },
+        { es: 'la función', de: 'die Funktion' },
+        { es: 'la comunicación', de: 'die Kommunikation' },
+        { es: 'la estación (de tren/metro)', de: 'die Station' },
+        { es: 'la tradición', de: 'die Tradition' },
+        { es: 'la producción', de: 'die Produktion' },
+        { es: 'la reacción', de: 'die Reaktion' },
+        { es: 'la posición', de: 'die Position' },
+        { es: 'la condición / forma física', de: 'die Kondition' },
+        { es: 'la generación', de: 'die Generation' },
+        { es: 'la organización', de: 'die Organisation' },
+        { es: 'la definición', de: 'die Definition' },
+        { es: 'la concentración', de: 'die Konzentration' },
+        { es: 'la inspiración', de: 'die Inspiration' },
+        { es: 'la motivación', de: 'die Motivation' },
+        { es: 'la nación', de: 'die Nation' },
+        { es: 'la operación', de: 'die Operation' }
+      ]
     },
     {
-      id: 'lc_ieren',
-      german: 'organisieren, studieren, reservieren, funktionieren, reparieren',
-      spanish: 'Verbos en -ar / -ir en español = -ieren en alemán (¡Regulares y sin "ge-" en Perfekt!)',
-      pattern: 'Los verbos derivados del latín terminan en "-ieren" y tienen una ventaja enorme: su participio Perfekt NO lleva el prefijo "ge-" (ej: studiert, reserviert, repariert).',
-      exampleDe: 'Ich habe gestern den Tisch im Restaurant reserviert.',
-      exampleEs: 'Ayer reservé la mesa en el restaurante.'
+      id: 'form_taet',
+      name: 'Fórmula 2: "-dad" en español = "-tät" en alemán',
+      gender: '100% FEMENINAS: DIE',
+      accentRule: 'Acentuación en la terminación -TÄT: die UniversiTÄT, die QualiTÄT.',
+      examples: [
+        { es: 'la universidad', de: 'die Universität' },
+        { es: 'la realidad', de: 'die Realität' },
+        { es: 'la calidad', de: 'die Qualität' },
+        { es: 'la actividad', de: 'die Aktivität' },
+        { es: 'la identidad', de: 'die Identität' },
+        { es: 'la capacidad', de: 'die Kapazität' },
+        { es: 'la flexibilidad', de: 'die Flexibilität' },
+        { es: 'la nacionalidad', de: 'die Nationalität' },
+        { es: 'la prioridad', de: 'die Priorität' },
+        { es: 'la variedad', de: 'die Varietät' },
+        { es: 'la intensidad', de: 'die Intensität' },
+        { es: 'la creatividad', de: 'die Kreativität' }
+      ]
     },
     {
-      id: 'lc_problem',
-      german: 'das Problem',
-      spanish: 'el problema (¡Ojo al género: neutro "das" en alemán!)',
-      pattern: 'Escritura idéntica. En español es masculino ("el problema") por su origen griego neutro; en alemán preserva el género neutro original: "das Problem".',
-      exampleDe: 'Kein Problem! Das können wir ganz leicht lösen.',
-      exampleEs: '¡Ningún problema! Eso lo podemos resolver muy fácilmente.'
+      id: 'form_nz',
+      name: 'Fórmula 3: "-ncia" en español = "-nz" en alemán',
+      gender: '100% FEMENINAS: DIE',
+      accentRule: 'Terminación con sonido africado /ts/: die DiffeRENZ, die ExisTENZ.',
+      examples: [
+        { es: 'la diferencia', de: 'die Differenz' },
+        { es: 'la existencia', de: 'die Existenz' },
+        { es: 'la frecuencia', de: 'die Frequenz' },
+        { es: 'la consecuencia', de: 'die Konsequenz' },
+        { es: 'la inteligencia', de: 'die Intelligenz' },
+        { es: 'la tendencia', de: 'die Tendenz' },
+        { es: 'la distancia', de: 'die Distanz' },
+        { es: 'la tolerancia', de: 'die Toleranz' },
+        { es: 'la sustancia', de: 'die Substanz' },
+        { es: 'la concurrencia / competencia', de: 'die Konkurrenz' }
+      ]
     },
     {
-      id: 'lc_musik',
-      german: 'die Musik',
-      spanish: 'la música',
-      pattern: 'En alemán la acentuación pasa al final: die MuSIK. Género femenino die Musik.',
-      exampleDe: 'Ich höre den ganzen Tag gerne deutsche Indie-Musik.',
-      exampleEs: 'Me gusta escuchar música indie alemana todo el día.'
+      id: 'form_ie',
+      name: 'Fórmula 4: "-ía" en español = "-ie" en alemán',
+      gender: '100% FEMENINAS: DIE',
+      accentRule: 'El diptongo -ie suena como una "i" larga y sostenida: die PhilosoPHIE.',
+      examples: [
+        { es: 'la filosofía', de: 'die Philosophie' },
+        { es: 'la energía', de: 'die Energie' },
+        { es: 'la categoría', de: 'die Kategorie' },
+        { es: 'la teoría', de: 'die Theorie' },
+        { es: 'la biología', de: 'die Biologie' },
+        { es: 'la psicología', de: 'die Psychologie' },
+        { es: 'la estrategia', de: 'die Strategie' },
+        { es: 'la fantasía', de: 'die Fantasie' },
+        { es: 'la democracia', de: 'die Demokratie' },
+        { es: 'la ironía', de: 'die Ironie' },
+        { es: 'la armonía', de: 'die Harmonie' }
+      ]
     },
     {
-      id: 'lc_familie',
-      german: 'die Familie',
-      spanish: 'la familia',
-      pattern: 'Idéntica y transparente: die Familie.',
-      exampleDe: 'Meine Familie wohnt in Spanien und Südamerika.',
-      exampleEs: 'Mi familia vive en España y Sudamérica.'
+      id: 'form_ismus',
+      name: 'Fórmula 5: "-ismo" en español = "-ismus" en alemán',
+      gender: '100% MASCULINOS: DER',
+      accentRule: 'Todos los sustantivos ideológicos o de corrientes son masculinos.',
+      examples: [
+        { es: 'el optimismo', de: 'der Optimismus' },
+        { es: 'el pesimismo', de: 'der Pessimismus' },
+        { es: 'el realismo', de: 'der Realismus' },
+        { es: 'el turismo', de: 'der Tourismus' },
+        { es: 'el capitalismo', de: 'der Kapitalismus' },
+        { es: 'el mecanismo', de: 'der Mechanismus' },
+        { es: 'el organismo', de: 'der Organismus' },
+        { es: 'el egoísmo', de: 'der Egoismus' },
+        { es: 'el idealismo', de: 'der Idealismus' }
+      ]
     },
     {
-      id: 'lc_kultur',
-      german: 'die Kultur',
-      spanish: 'la cultura',
-      pattern: 'Terminación "-tur" en alemán equivale a "-tura": die KulTUR, die NaTUR, die LiteraTUR. (¡Siempre femeninas: die!).',
-      exampleDe: 'Berlin hat eine pulsierende und offene Kultur.',
-      exampleEs: 'Berlín tiene una cultura vibrante y abierta.'
+      id: 'form_ist',
+      name: 'Fórmula 6: "-ista" en español = "-ist" / "-istin" en alemán',
+      gender: 'DER para hombres / DIE para mujeres (-in)',
+      accentRule: 'Profesiones y adeptos con acentuación final: der TouRIST, die TouRIStin.',
+      examples: [
+        { es: 'el/la turista', de: 'der Tourist / die Touristin' },
+        { es: 'el/la periodista', de: 'der Journalist / die Journalistin' },
+        { es: 'el/la especialista', de: 'der Spezialist / die Spezialistin' },
+        { es: 'el/la guitarrista', de: 'der Gitarrist / die Gitarristin' },
+        { es: 'el/la optimista', de: 'der Optimist / die Optimistin' },
+        { es: 'el/la artista', de: 'der Artist / die Artistin' },
+        { es: 'el/la pianista', de: 'der Pianist / die Pianistin' }
+      ]
     },
     {
-      id: 'lc_restaurant_hotel',
-      german: 'das Restaurant / das Hotel / das Café',
-      spanish: 'el restaurante / el hotel / el café (establecimiento)',
-      pattern: 'Los lugares internacionales de hostelería son neutros en alemán: das Restaurant, das Hotel, das Café.',
-      exampleDe: 'Wir treffen uns heute Abend im Restaurant vor dem Hotel.',
-      exampleEs: 'Nos encontramos esta noche en el restaurante frente al hotel.'
+      id: 'form_ieren',
+      name: 'Fórmula 7: Verbos "-ar / -ir" de raíz latina = "-ieren"',
+      gender: 'VERBOS REGULARES SIN "GE-" EN PERFEKT',
+      accentRule: '¡El superpoder del estudiante! Participio termina en "-iert" sin prefijo ge- (reserviert, studiert, repariert).',
+      examples: [
+        { es: 'organizar', de: 'organisieren (hat organisiert)' },
+        { es: 'estudiar (en universidad)', de: 'studieren (hat studiert)' },
+        { es: 'reservar', de: 'reservieren (hat reserviert)' },
+        { es: 'funcionar', de: 'funktionieren (hat funktioniert)' },
+        { es: 'reparar', de: 'reparieren (hat repariert)' },
+        { es: 'informar', de: 'informieren (hat informiert)' },
+        { es: 'discutir / debatir', de: 'diskutieren (hat diskutiert)' },
+        { es: 'probar / degustar', de: 'probieren (hat probiert)' },
+        { es: 'fotografiar', de: 'fotografieren (hat fotografiert)' },
+        { es: 'reaccionar', de: 'reagieren (hat reagiert)' },
+        { es: 'comunicar', de: 'kommunizieren (hat kommuniziert)' },
+        { es: 'analizar', de: 'analysieren (hat analysiert)' },
+        { es: 'instalar', de: 'installieren (hat installiert)' },
+        { es: 'controlar / verificar', de: 'kontrollieren (hat kontrolliert)' },
+        { es: 'protestar', de: 'protestieren (hat protestiert)' },
+        { es: 'reducir', de: 'reduzieren (hat reduziert)' },
+        { es: 'producir', de: 'produzieren (hat produziert)' },
+        { es: 'existir', de: 'existieren (hat existiert)' },
+        { es: 'motivar', de: 'motivieren (hat motiviert)' },
+        { es: 'interesar', de: 'interessieren (hat interessiert)' },
+        { es: 'pasar / ocurrir', de: 'passieren (ist passiert)' }
+      ]
     },
     {
-      id: 'lc_adjektive',
-      german: 'interessant, perfekt, direkt, modern, aktiv, nervös',
-      spanish: 'Adjetivos de raíz latina compartida',
-      pattern: 'Se usan directamente como adjetivos predicativos sin declinar (Das ist interessant, perfekt, modern).',
-      exampleDe: 'Der Kurs ist sehr interessant und absolut perfekt für mich.',
-      exampleEs: 'El curso es muy interesante y absolutamente perfecto para mí.'
+      id: 'form_iv',
+      name: 'Fórmula 8: Adjetivos "-ivo / -iva" = "-iv"',
+      gender: 'ADJETIVOS DIRECTOS',
+      accentRule: 'Se usan sin cambio como adjetivos predicativos (Das ist aktiv, positiv, kreativ).',
+      examples: [
+        { es: 'activo', de: 'aktiv' },
+        { es: 'positivo', de: 'positiv' },
+        { es: 'negativo', de: 'negativ' },
+        { es: 'creativo', de: 'kreativ' },
+        { es: 'productivo', de: 'produktiv' },
+        { es: 'alternativo', de: 'alternativ' },
+        { es: 'efectivo / eficaz', de: 'effektiv' },
+        { es: 'relativo', de: 'relativ' },
+        { es: 'agresivo', de: 'aggressiv' },
+        { es: 'intensivo', de: 'intensiv' },
+        { es: 'sensitivo / delicado', de: 'sensitiv' },
+        { es: 'atractivo', de: 'attraktiv' }
+      ]
     }
+  ],
+
+  // =========================================================================
+  // 5. PALABRAS TRIANGULARES UNIVERSALES (🇩🇪 ↔ 🇬🇧 ↔ 🇪🇸)
+  // Términos idénticos y transparentes en los tres idiomas
+  // =========================================================================
+  universalTriangles: [
+    { de: 'die Musik', en: 'music', es: 'la música', note: 'Femenino en español y alemán' },
+    { de: 'die Lampe', en: 'lamp', es: 'la lámpara', note: 'Palabra del hogar cotidiana' },
+    { de: 'der Kaffee', en: 'coffee', es: 'el café (bebida)', note: 'Masculino: der Kaffee' },
+    { de: 'das Café', en: 'café', es: 'el café (local/bar)', note: 'Neutro: das Café' },
+    { de: 'der Tee', en: 'tea', es: 'el té', note: 'Masculino: der Tee' },
+    { de: 'die Banane', en: 'banana', es: 'el plátano / banana', note: 'Femenino: die Banane' },
+    { de: 'die Tomate', en: 'tomato', es: 'el tomate', note: 'Femenino: die Tomate' },
+    { de: 'die Gitarre', en: 'guitar', es: 'la guitarra', note: 'Femenino: die Gitarre' },
+    { de: 'das Radio', en: 'radio', es: 'la radio', note: 'Neutro en alemán: das Radio' },
+    { de: 'das Telefon', en: 'telephone', es: 'el teléfono', note: 'Neutro: das Telefon' },
+    { de: 'der Bus', en: 'bus', es: 'el autobús', note: 'Masculino: der Bus' },
+    { de: 'das Taxi', en: 'taxi', es: 'el taxi', note: 'Neutro: das Taxi' },
+    { de: 'der Park', en: 'park', es: 'el parque', note: 'Masculino: der Park' },
+    { de: 'der Moment', en: 'moment', es: 'el momento', note: 'Masculino: der Moment' },
+    { de: 'die Person', en: 'person', es: 'la persona', note: 'Femenino: die Person' },
+    { de: 'die Natur', en: 'nature', es: 'la naturaleza', note: 'Femenino: die Natur' },
+    { de: 'die Kultur', en: 'culture', es: 'la cultura', note: 'Femenino: die Kultur' },
+    { de: 'die Adresse', en: 'address', es: 'la dirección', note: 'Femenino: die Adresse' },
+    { de: 'das Dokument', en: 'document', es: 'el documento', note: 'Neutro: das Dokument' },
+    { de: 'die Minute', en: 'minute', es: 'el minuto', note: 'Femenino en alemán: die Minute' },
+    { de: 'die Sekunde', en: 'second', es: 'el segundo', note: 'Femenino en alemán: die Sekunde' },
+    { de: 'das Problem', en: 'problem', es: 'el problema', note: 'Neutro en alemán: das Problem' },
+    { de: 'das System', en: 'system', es: 'el sistema', note: 'Neutro en alemán: das System' },
+    { de: 'das Thema', en: 'theme / topic', es: 'el tema', note: 'Neutro en alemán: das Thema' },
+    { de: 'das Museum', en: 'museum', es: 'el museo', note: 'Neutro: das Museum' },
+    { de: 'das Hotel', en: 'hotel', es: 'el hotel', note: 'Neutro: das Hotel' },
+    { de: 'das Restaurant', en: 'restaurant', es: 'el restaurante', note: 'Neutro: das Restaurant' }
   ]
 };

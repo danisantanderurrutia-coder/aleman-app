@@ -2,16 +2,22 @@ import React, { useState } from 'react';
 import { cognatesData } from '../data/cognates';
 import { speechService } from '../utils/speech';
 import { addXP } from '../utils/storage';
-import { Volume2, Ghost, Check, AlertTriangle, Bookmark, Sparkles, ArrowRight, Search, Globe, ShieldAlert } from 'lucide-react';
+import { 
+  Volume2, Ghost, Check, AlertTriangle, Bookmark, Sparkles, 
+  ArrowRight, Search, Globe, ShieldAlert, BookOpen, Layers, Lightbulb 
+} from 'lucide-react';
 
 export default function CognatesTrainer() {
-  const [activeSubTab, setActiveSubTab] = useState('false_friends'); // 'false_friends' | 'germanic' | 'latin' | 'quiz'
+  const [activeSubTab, setActiveSubTab] = useState('false_friends'); // 'false_friends' | 'phonetic_en' | 'latin_es' | 'universal' | 'quiz'
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedPhoneticRule, setSelectedPhoneticRule] = useState(cognatesData.phoneticRulesEn[0].id);
+  const [selectedLatinFormula, setSelectedLatinFormula] = useState(cognatesData.latinSuffixFormulas[0].id);
+
   const [quizIdx, setQuizIdx] = useState(0);
   const [selectedQuizAnswer, setSelectedQuizAnswer] = useState(null);
   const [isQuizChecked, setIsQuizChecked] = useState(false);
 
-  // Combine for quiz
+  // Expanded Quiz items
   const quizItems = [
     { word: 'der Schlüssel', isFalseFriend: true, trueMeaning: 'La llave (¡es MASCULINO en alemán der Schlüssel, a diferencia del español la llave!)', falseMeaning: 'El tazón (eso es die Schüssel)' },
     { word: 'die Schüssel', isFalseFriend: true, trueMeaning: 'El tazón / cuenco (¡es FEMENINO die Schüssel, a diferencia del español el tazón!)', falseMeaning: 'La llave' },
@@ -22,12 +28,15 @@ export default function CognatesTrainer() {
     { word: 'der Chef', isFalseFriend: true, trueMeaning: 'El jefe del trabajo', falseMeaning: 'Cocinero de restaurante' },
     { word: 'aktuell', isFalseFriend: true, trueMeaning: 'Actual / vigente hoy en día', falseMeaning: 'En realidad (actually)' },
     { word: 'das Wasser', isFalseFriend: false, trueMeaning: 'Agua (water en inglés)', falseMeaning: 'Vaso' },
-    { word: 'die Rente', isFalseFriend: true, trueMeaning: 'La jubilación / pensión de retiro', falseMeaning: 'El alquiler de la casa' },
+    { word: 'die Rente', isFalseFriend: true, trueMeaning: 'La jubilación / pensión de retiro', falseMeaning: 'El alquiler de la casa (die Miete)' },
     { word: 'das Problem', isFalseFriend: false, trueMeaning: 'El problema (cognado latino internacional)', falseMeaning: 'Otra cosa' },
     { word: 'spenden', isFalseFriend: true, trueMeaning: 'Donar a caridad / beneficencia', falseMeaning: 'Gastar dinero (spend)' },
     { word: 'die Information', isFalseFriend: false, trueMeaning: 'La información (palabras en -tion = -ción)', falseMeaning: 'Otra cosa' },
     { word: 'brav', isFalseFriend: true, trueMeaning: 'Obediente / bien educado', falseMeaning: 'Valiente (brave)' },
-    { word: 'hell', isFalseFriend: true, trueMeaning: 'Claro / luminoso / soleado', falseMeaning: 'Infierno (hell)' },
+    { word: 'hell', isFalseFriend: true, trueMeaning: 'Claro / luminoso / soleado', falseMeaning: 'Infierno (die Hölle)' },
+    { word: 'organisieren', isFalseFriend: false, trueMeaning: 'Organizar (verbos en -ieren sin ge-)', falseMeaning: 'Otra cosa' },
+    { word: 'die Universität', isFalseFriend: false, trueMeaning: 'La universidad (sufijo -dad = -tät)', falseMeaning: 'Otra cosa' },
+    { word: 'der See', isFalseFriend: true, trueMeaning: 'El lago (agua dulce). El mar es die See o das Meer', falseMeaning: 'Ver (see)' }
   ];
 
   const currentQuiz = quizItems[quizIdx] || quizItems[0];
@@ -50,9 +59,9 @@ export default function CognatesTrainer() {
     setIsQuizChecked(false);
   };
 
-  // Filtered lists by search query
   const q = searchQuery.toLowerCase().trim();
 
+  // Filtered False Friends
   const filteredFalseFriends = cognatesData.falseFriends.filter(ff => 
     ff.german.toLowerCase().includes(q) || 
     ff.actualMeaning.toLowerCase().includes(q) || 
@@ -60,37 +69,52 @@ export default function CognatesTrainer() {
     ff.looksLikeEs.toLowerCase().includes(q)
   );
 
-  const filteredGermanic = cognatesData.germanicCognates.filter(gc => 
-    gc.german.toLowerCase().includes(q) || 
-    gc.english.toLowerCase().includes(q) || 
-    gc.spanish.toLowerCase().includes(q)
+  // Active phonetic rule
+  const activePhoneticRule = cognatesData.phoneticRulesEn.find(r => r.id === selectedPhoneticRule) || cognatesData.phoneticRulesEn[0];
+  const filteredPhoneticExamples = activePhoneticRule.examples.filter(ex => 
+    ex.de.toLowerCase().includes(q) || 
+    ex.en.toLowerCase().includes(q) || 
+    ex.es.toLowerCase().includes(q)
   );
 
-  const filteredLatin = cognatesData.latinCognates.filter(lc => 
-    lc.german.toLowerCase().includes(q) || 
-    lc.spanish.toLowerCase().includes(q)
+  // Active Latin formula
+  const activeLatinFormula = cognatesData.latinSuffixFormulas.find(f => f.id === selectedLatinFormula) || cognatesData.latinSuffixFormulas[0];
+  const filteredLatinExamples = activeLatinFormula.examples.filter(ex => 
+    ex.de.toLowerCase().includes(q) || 
+    ex.es.toLowerCase().includes(q)
+  );
+
+  // Universal twins & triangles
+  const allUniversal = [
+    ...cognatesData.directEnglishTwins.map(t => ({ de: t.de, en: t.en, es: t.es, note: 'Gemelo Germánico Inglés' })),
+    ...cognatesData.universalTriangles
+  ];
+  const filteredUniversal = allUniversal.filter(item => 
+    item.de.toLowerCase().includes(q) || 
+    item.en.toLowerCase().includes(q) || 
+    item.es.toLowerCase().includes(q)
   );
 
   return (
     <div className="max-w-5xl mx-auto px-6 py-12">
       {/* Header */}
-      <div className="mb-10">
+      <div className="mb-8">
         <div className="flex items-center gap-2 mb-1 text-stone-500 text-xs font-mono tracking-widest uppercase">
           <Bookmark className="w-3.5 h-3.5 text-stone-700" />
-          <span>Linguistischer Hack • Kognaten & Falsche Freunde</span>
+          <span>Linguistisches Lexikon • El Puente de 1.000 Palabras</span>
         </div>
         <h2 className="text-3xl font-serif font-bold text-stone-900">
-          Cognados y Falsos Amigos (Español & Inglés)
+          Puentes Reales y Falsos Amigos (Español & Inglés)
         </h2>
-        <p className="text-xs text-stone-500 mt-1 max-w-2xl leading-relaxed">
-          Acelera tu vocabulario aprovechando el 40% de similitud léxica con el inglés y el latín, mientras neutralizas las trampas cognitivas con el logo fantasma 👻.
+        <p className="text-xs text-stone-600 mt-1 max-w-2xl leading-relaxed">
+          Ya conoces más del 40% del vocabulario alemán. El inglés te regala las raíces germánicas cotidianas mediante leyes de mutación fonética (<code className="font-mono bg-stone-100 px-1 py-0.5 rounded">T → SS</code>, <code className="font-mono bg-stone-100 px-1 py-0.5 rounded">P → PF</code>, <code className="font-mono bg-stone-100 px-1 py-0.5 rounded">K → CH</code>); y el español te regala miles de términos cultos a través de 8 fórmulas morfológicas mágicas (<code className="font-mono bg-stone-100 px-1 py-0.5 rounded">-tion</code>, <code className="font-mono bg-stone-100 px-1 py-0.5 rounded">-tät</code>, <code className="font-mono bg-stone-100 px-1 py-0.5 rounded">-ieren</code>).
         </p>
 
-        {/* Subtabs */}
-        <div className="flex items-center gap-2 mt-6 overflow-x-auto pb-1">
+        {/* 5 Main Subtabs */}
+        <div className="flex items-center gap-2 mt-6 overflow-x-auto pb-2">
           <button
             onClick={() => setActiveSubTab('false_friends')}
-            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-mono font-semibold transition-all cursor-pointer ${
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-mono font-semibold transition-all cursor-pointer shrink-0 ${
               activeSubTab === 'false_friends'
                 ? 'bg-stone-900 text-white shadow-xs'
                 : 'bg-white text-stone-600 hover:bg-stone-100 border border-stone-200'
@@ -101,32 +125,44 @@ export default function CognatesTrainer() {
           </button>
 
           <button
-            onClick={() => setActiveSubTab('germanic')}
-            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-mono font-semibold transition-all cursor-pointer ${
-              activeSubTab === 'germanic'
+            onClick={() => setActiveSubTab('phonetic_en')}
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-mono font-semibold transition-all cursor-pointer shrink-0 ${
+              activeSubTab === 'phonetic_en'
                 ? 'bg-stone-900 text-white shadow-xs'
                 : 'bg-white text-stone-600 hover:bg-stone-100 border border-stone-200'
             }`}
           >
             <Globe className="w-4 h-4 text-blue-500" />
-            <span>Puentes con el Inglés ({cognatesData.germanicCognates.length})</span>
+            <span>🇬🇧 7 Leyes Fonéticas con el Inglés (90+ Palabras)</span>
           </button>
 
           <button
-            onClick={() => setActiveSubTab('latin')}
-            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-mono font-semibold transition-all cursor-pointer ${
-              activeSubTab === 'latin'
+            onClick={() => setActiveSubTab('latin_es')}
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-mono font-semibold transition-all cursor-pointer shrink-0 ${
+              activeSubTab === 'latin_es'
                 ? 'bg-stone-900 text-white shadow-xs'
                 : 'bg-white text-stone-600 hover:bg-stone-100 border border-stone-200'
             }`}
           >
             <Sparkles className="w-4 h-4 text-emerald-600" />
-            <span>Puentes con el Español ({cognatesData.latinCognates.length})</span>
+            <span>🇪🇸 8 Fórmulas Latinas con el Español (100+ Palabras)</span>
+          </button>
+
+          <button
+            onClick={() => setActiveSubTab('universal')}
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-mono font-semibold transition-all cursor-pointer shrink-0 ${
+              activeSubTab === 'universal'
+                ? 'bg-stone-900 text-white shadow-xs'
+                : 'bg-white text-stone-600 hover:bg-stone-100 border border-stone-200'
+            }`}
+          >
+            <Layers className="w-4 h-4 text-purple-600" />
+            <span>🌐 Gemelos & Triángulos Universales ({allUniversal.length})</span>
           </button>
 
           <button
             onClick={() => setActiveSubTab('quiz')}
-            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-mono font-semibold transition-all cursor-pointer ${
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-mono font-semibold transition-all cursor-pointer shrink-0 ${
               activeSubTab === 'quiz'
                 ? 'bg-stone-900 text-white shadow-xs'
                 : 'bg-white text-stone-600 hover:bg-stone-100 border border-stone-200'
@@ -136,28 +172,30 @@ export default function CognatesTrainer() {
           </button>
         </div>
 
-        {/* Search Input for terms */}
+        {/* Global Search Bar */}
         {activeSubTab !== 'quiz' && (
-          <div className="mt-4 relative max-w-md">
+          <div className="mt-4 relative max-w-lg">
             <Search className="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Buscar palabra (ej: Schlüssel, bekommen, Gift, Haus...)"
-              className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-stone-300 text-xs text-stone-800 placeholder-stone-400 focus:outline-hidden focus:ring-2 focus:ring-amber-400 bg-white"
+              placeholder="Buscar término en español, inglés o alemán (ej: Schlüssel, water, información, gift...)"
+              className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-stone-300 text-xs text-stone-800 placeholder-stone-400 focus:outline-hidden focus:ring-2 focus:ring-amber-400 bg-white shadow-2xs"
             />
           </div>
         )}
       </div>
 
-      {/* VIEW 1: FALSE FRIENDS WITH GHOST LOGO */}
+      {/* ========================================================================= */}
+      {/* 1. VIEW: FALSE FRIENDS (Falsche Freunde 👻) */}
+      {/* ========================================================================= */}
       {activeSubTab === 'false_friends' && (
         <div className="space-y-6">
           <div className="p-5 rounded-2xl bg-amber-50/80 border border-amber-200 text-xs text-amber-950 flex items-start gap-3">
             <Ghost className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
             <div className="leading-relaxed">
-              <strong>El Protocolo Cazafantasmas:</strong> Estas palabras parecen significar algo en español o en inglés, pero en alemán significan algo radicalmente distinto, o tienen los géneros gramaticales invertidos. Memoriza su truco nemotécnico.
+              <strong>El Protocolo Cazafantasmas:</strong> Estas 23 palabras engañan a tu cerebro porque parecen significar algo en español o en inglés, o tienen sus géneros gramaticales exactamente invertidos. Memoriza el truco nemotécnico.
             </div>
           </div>
 
@@ -168,14 +206,13 @@ export default function CognatesTrainer() {
                 className="p-7 rounded-3xl bg-white border border-stone-200 shadow-2xs hover:shadow-sm transition-all relative overflow-hidden flex flex-col justify-between"
               >
                 <div>
-                  {/* Ghost Badge */}
                   <div className="flex items-center justify-between gap-2 mb-4">
                     <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-900 text-xs font-mono font-bold">
                       <Ghost className="w-3.5 h-3.5 text-amber-600" />
                       <span>ALERTA FANTASMA 👻</span>
                     </span>
                     <button
-                      onClick={() => speechService.speak(ff.german)}
+                      onClick={() => speechService.speak(ff.german.split('vs.')[0].trim())}
                       className="p-1.5 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-600 border border-stone-200 cursor-pointer shadow-2xs"
                       title="Pronunciar"
                     >
@@ -183,12 +220,10 @@ export default function CognatesTrainer() {
                     </button>
                   </div>
 
-                  {/* German Word */}
                   <h3 className="text-2xl sm:text-3xl font-serif font-bold text-stone-900 mb-1">
                     {ff.german}
                   </h3>
 
-                  {/* Illusion vs Reality */}
                   <div className="my-4 space-y-2">
                     <div className="p-3 rounded-xl bg-rose-50/70 border border-rose-200 text-xs text-rose-950 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
                       <span className="font-semibold text-rose-900">Trampa cognitiva:</span>
@@ -200,7 +235,6 @@ export default function CognatesTrainer() {
                     </div>
                   </div>
 
-                  {/* Explanation & Example */}
                   <p className="text-xs text-stone-600 leading-relaxed font-sans mb-4 whitespace-pre-line">
                     {ff.ghostAlert}
                   </p>
@@ -221,111 +255,220 @@ export default function CognatesTrainer() {
         </div>
       )}
 
-      {/* VIEW 2: GERMANIC COGNATES WITH ENGLISH */}
-      {activeSubTab === 'germanic' && (
+      {/* ========================================================================= */}
+      {/* 2. VIEW: 7 PHONETIC RULES WITH ENGLISH (🇬🇧 ↔ 🇩🇪) */}
+      {/* ========================================================================= */}
+      {activeSubTab === 'phonetic_en' && (
         <div className="space-y-6">
-          <div className="p-6 rounded-2xl bg-blue-50 border border-blue-200 text-xs text-blue-950 mb-6">
+          <div className="p-6 rounded-2xl bg-blue-50 border border-blue-200 text-xs text-blue-950">
             <h4 className="font-serif font-bold text-sm text-blue-950 mb-1">
-              El Puente Germánico (Zweite Lautverschiebung):
+              La Segunda Mutación Consonántica Germánica (Zweite Lautverschiebung):
             </h4>
             <p className="leading-relaxed text-blue-900 font-sans">
-              El inglés y el alemán comparten un tronco común. Conociendo las mutaciones regulares de sonido (<code className="font-mono bg-white px-1.5 py-0.5 rounded border border-blue-200">t ↔ ss (water → Wasser)</code>, <code className="font-mono bg-white px-1.5 py-0.5 rounded border border-blue-200">p ↔ f/pf (apple → Apfel)</code>, <code className="font-mono bg-white px-1.5 py-0.5 rounded border border-blue-200">k ↔ ch (book → Buch)</code>), tu inglés se convierte en un acelerador para el alemán.
+              El inglés y el alemán divergieron a partir del siglo VI mediante cambios fonéticos regulares en las consonantes oclusivas. Si conoces estas 7 reglas, cualquier palabra inglesa se convierte en una pista directa para descifrar el alemán.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {filteredGermanic.map((gc) => (
-              <div key={gc.id} className="p-7 rounded-3xl bg-white border border-stone-200 shadow-2xs flex flex-col justify-between">
-                <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-[11px] font-mono text-blue-800 bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200 font-bold">
-                      🇬🇧 Puente Germánico Válido
-                    </span>
-                    <button
-                      onClick={() => speechService.speak(gc.german)}
-                      className="p-1 rounded-md bg-stone-100 hover:bg-stone-200 text-stone-600 border border-stone-200 cursor-pointer"
-                    >
-                      <Volume2 className="w-3.5 h-3.5" />
-                    </button>
-                  </div>
+          {/* 7 Rule Selector Pills */}
+          <div className="flex items-center gap-2 overflow-x-auto pb-2">
+            {cognatesData.phoneticRulesEn.map((rule) => {
+              const isSelected = rule.id === activePhoneticRule.id;
+              return (
+                <button
+                  key={rule.id}
+                  onClick={() => setSelectedPhoneticRule(rule.id)}
+                  className={`px-3.5 py-2 rounded-xl text-xs font-mono font-semibold shrink-0 cursor-pointer transition-all border ${
+                    isSelected
+                      ? 'bg-blue-900 text-white border-blue-900 shadow-xs'
+                      : 'bg-white hover:bg-stone-50 text-stone-700 border-stone-200'
+                  }`}
+                >
+                  {rule.name.split(':')[0]}
+                </button>
+              );
+            })}
+          </div>
 
-                  <h4 className="text-2xl font-serif font-bold text-stone-900 mb-2">
-                    {gc.german}
-                  </h4>
-
-                  <div className="flex items-center gap-3 text-xs font-mono text-stone-600 mb-3 bg-stone-50 p-2.5 rounded-xl border border-stone-200">
-                    <span>🇬🇧 <strong>{gc.english}</strong></span>
-                    <span>•</span>
-                    <span>🇪🇸 {gc.spanish}</span>
-                  </div>
-
-                  <p className="text-xs text-stone-600 leading-relaxed font-sans mb-3">
-                    {gc.pattern}
-                  </p>
-                </div>
-
-                <div className="p-3 rounded-xl bg-stone-50 border border-stone-100 text-xs font-serif italic text-stone-800">
-                  <p>"{gc.exampleDe}"</p>
-                  <p className="text-stone-500 font-sans not-italic text-[11px] mt-0.5">"{gc.exampleEs}"</p>
-                </div>
+          {/* Active Rule Details Banner */}
+          <div className="p-6 rounded-3xl bg-white border border-stone-200 shadow-xs">
+            <div className="flex items-start justify-between gap-4 pb-4 border-b border-stone-100">
+              <div>
+                <span className="text-[11px] font-mono font-bold text-blue-800 bg-blue-50 px-2.5 py-1 rounded-md border border-blue-200">
+                  Regla de Transformación Fonética
+                </span>
+                <h3 className="text-xl font-serif font-bold text-stone-900 mt-2">
+                  {activePhoneticRule.name}
+                </h3>
+                <p className="text-xs text-stone-600 mt-1">
+                  {activePhoneticRule.rule}
+                </p>
               </div>
-            ))}
+            </div>
+
+            {/* Examples Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mt-6">
+              {filteredPhoneticExamples.map((ex, idx) => (
+                <div
+                  key={idx}
+                  className="p-4 rounded-2xl bg-stone-50/80 border border-stone-200/80 flex items-center justify-between gap-2 hover:bg-white hover:border-stone-300 transition-all"
+                >
+                  <div>
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-sm font-mono font-bold text-stone-900">
+                        {ex.de}
+                      </span>
+                    </div>
+                    <div className="text-xs text-stone-500 font-mono mt-0.5">
+                      🇬🇧 <strong>{ex.en}</strong> • 🇪🇸 {ex.es}
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={() => speechService.speak(ex.de)}
+                    className="p-1.5 rounded-lg bg-white hover:bg-stone-100 text-stone-600 border border-stone-200 cursor-pointer shadow-2xs"
+                    title="Pronunciar"
+                  >
+                    <Volume2 className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       )}
 
-      {/* VIEW 3: LATIN COGNATES WITH SPANISH */}
-      {activeSubTab === 'latin' && (
+      {/* ========================================================================= */}
+      {/* 3. VIEW: 8 LATIN SUFFIX FORMULAS WITH SPANISH (🇪🇸 ↔ 🇩🇪) */}
+      {/* ========================================================================= */}
+      {activeSubTab === 'latin_es' && (
         <div className="space-y-6">
-          <div className="p-6 rounded-2xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-950 mb-6">
+          <div className="p-6 rounded-2xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-950">
             <h4 className="font-serif font-bold text-sm text-emerald-950 mb-1">
-              El Puente Latino con el Español:
+              Las 8 Fórmulas Morfológicas Latinas (El Arsenal del Hispanohablante):
             </h4>
             <p className="leading-relaxed text-emerald-900 font-sans">
-              Cientos de términos de origen latino pasaron al alemán a través del vocabulario culto, científico e internacional. Tienen terminaciones y patrones regulares con un 95% de acierto si eres hispanohablante nativo.
+              El alemán incorporó miles de términos cultos del latín y del griego a lo largo de los siglos. Estos términos siguen patrones mecánicos de transformación de sufijos. ¡Al dominarlos, ganas cientos de palabras de golpe con su género gramatical fijado al 100%!
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {filteredLatin.map((lc) => (
-              <div key={lc.id} className="p-7 rounded-3xl bg-white border border-stone-200 shadow-2xs flex flex-col justify-between">
-                <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-[11px] font-mono text-emerald-800 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200 font-bold">
-                      🇪🇸 Puente Latino Directo
+          {/* 8 Formula Selector Pills */}
+          <div className="flex items-center gap-2 overflow-x-auto pb-2">
+            {cognatesData.latinSuffixFormulas.map((form) => {
+              const isSelected = form.id === activeLatinFormula.id;
+              return (
+                <button
+                  key={form.id}
+                  onClick={() => setSelectedLatinFormula(form.id)}
+                  className={`px-3.5 py-2 rounded-xl text-xs font-mono font-semibold shrink-0 cursor-pointer transition-all border ${
+                    isSelected
+                      ? 'bg-emerald-900 text-white border-emerald-900 shadow-xs'
+                      : 'bg-white hover:bg-stone-50 text-stone-700 border-stone-200'
+                  }`}
+                >
+                  {form.name.split(':')[0]}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Active Formula Details Banner */}
+          <div className="p-6 rounded-3xl bg-white border border-stone-200 shadow-xs">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-stone-100">
+              <div>
+                <span className="text-[11px] font-mono font-bold text-emerald-900 bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200">
+                  {activeLatinFormula.gender}
+                </span>
+                <h3 className="text-xl font-serif font-bold text-stone-900 mt-2">
+                  {activeLatinFormula.name}
+                </h3>
+                <p className="text-xs text-stone-600 mt-1">
+                  💡 {activeLatinFormula.accentRule}
+                </p>
+              </div>
+            </div>
+
+            {/* Formula Examples Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mt-6">
+              {filteredLatinExamples.map((ex, idx) => (
+                <div
+                  key={idx}
+                  className="p-4 rounded-2xl bg-stone-50/80 border border-stone-200/80 flex items-center justify-between gap-2 hover:bg-white hover:border-stone-300 transition-all"
+                >
+                  <div>
+                    <span className="text-sm font-serif font-bold text-stone-900 block">
+                      {ex.de}
                     </span>
-                    <button
-                      onClick={() => speechService.speak(lc.german)}
-                      className="p-1 rounded-md bg-stone-100 hover:bg-stone-200 text-stone-600 border border-stone-200 cursor-pointer"
-                    >
-                      <Volume2 className="w-3.5 h-3.5" />
-                    </button>
+                    <span className="text-xs text-stone-500 font-sans mt-0.5 block">
+                      🇪🇸 {ex.es}
+                    </span>
                   </div>
 
-                  <h4 className="text-xl font-serif font-bold text-stone-900 mb-2">
-                    {lc.german}
-                  </h4>
+                  <button
+                    onClick={() => speechService.speak(ex.de.split('(')[0].trim())}
+                    className="p-1.5 rounded-lg bg-white hover:bg-stone-100 text-stone-600 border border-stone-200 cursor-pointer shadow-2xs"
+                    title="Pronunciar"
+                  >
+                    <Volume2 className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
-                  <div className="text-xs font-mono text-stone-700 mb-3 bg-stone-50 p-2.5 rounded-xl border border-stone-200">
-                    <span>🇪🇸 {lc.spanish}</span>
+      {/* ========================================================================= */}
+      {/* 4. VIEW: UNIVERSAL TWINS & TRIANGLES (🇩🇪 ↔ 🇬🇧 ↔ 🇪🇸) */}
+      {/* ========================================================================= */}
+      {activeSubTab === 'universal' && (
+        <div className="space-y-6">
+          <div className="p-6 rounded-2xl bg-purple-50 border border-purple-200 text-xs text-purple-950">
+            <h4 className="font-serif font-bold text-sm text-purple-950 mb-1">
+              Términos Gemelos y Triángulos Lingüísticos:
+            </h4>
+            <p className="leading-relaxed text-purple-900 font-sans">
+              Palabras cotidianas transparentes que existen en alemán, inglés y español prácticamente iguales. Te permiten construir oraciones desde el primer día sin dudar.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3.5">
+            {filteredUniversal.map((item, idx) => (
+              <div
+                key={idx}
+                className="p-4 rounded-2xl bg-white border border-stone-200 shadow-2xs flex items-center justify-between gap-3 hover:border-stone-300 transition-all"
+              >
+                <div>
+                  <span className="text-base font-serif font-bold text-stone-900 block leading-tight">
+                    {item.de}
+                  </span>
+                  <div className="flex items-center gap-2 text-[11px] font-mono text-stone-500 mt-1">
+                    <span>🇬🇧 {item.en}</span>
+                    <span>•</span>
+                    <span>🇪🇸 {item.es}</span>
                   </div>
-
-                  <p className="text-xs text-stone-600 leading-relaxed font-sans mb-3">
-                    {lc.pattern}
-                  </p>
+                  {item.note && (
+                    <span className="text-[10px] text-amber-800 font-sans mt-1 block">
+                      {item.note}
+                    </span>
+                  )}
                 </div>
 
-                <div className="p-3 rounded-xl bg-stone-50 border border-stone-100 text-xs font-serif italic text-stone-800">
-                  <p>"{lc.exampleDe}"</p>
-                  <p className="text-stone-500 font-sans not-italic text-[11px] mt-0.5">"{lc.exampleEs}"</p>
-                </div>
+                <button
+                  onClick={() => speechService.speak(item.de)}
+                  className="p-1.5 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-600 border border-stone-200 cursor-pointer shrink-0"
+                  title="Pronunciar"
+                >
+                  <Volume2 className="w-3.5 h-3.5" />
+                </button>
               </div>
             ))}
           </div>
         </div>
       )}
 
-      {/* VIEW 4: GHOST DETECTOR QUIZ */}
+      {/* ========================================================================= */}
+      {/* 5. VIEW: GHOST DETECTOR QUIZ */}
+      {/* ========================================================================= */}
       {activeSubTab === 'quiz' && (
         <div className="max-w-xl mx-auto p-10 rounded-3xl bg-white border border-stone-200 shadow-sm text-center">
           <span className="text-xs font-mono text-stone-400 uppercase tracking-widest block mb-2">
@@ -366,7 +509,7 @@ export default function CognatesTrainer() {
                 <div className="font-serif font-bold text-base mb-1">
                   {selectedQuizAnswer === currentQuiz.isFalseFriend ? '¡Exacto! (+10 XP)' : '¡Caíste en la trampa!'}
                 </div>
-                <p className="text-xs">
+                <p className="text-xs leading-relaxed">
                   <strong>Significado real:</strong> {currentQuiz.trueMeaning}
                 </p>
                 {currentQuiz.falseMeaning && (
