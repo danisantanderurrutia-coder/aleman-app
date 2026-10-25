@@ -4,11 +4,12 @@ import { speechService } from '../utils/speech';
 import { addXP } from '../utils/storage';
 import { 
   Volume2, Ghost, Check, AlertTriangle, Bookmark, Sparkles, 
-  ArrowRight, Search, Globe, ShieldAlert, BookOpen, Layers, Lightbulb 
+  ArrowRight, Search, Globe, ShieldAlert, BookOpen, Layers, Lightbulb,
+  ShieldCheck, Compass
 } from 'lucide-react';
 
 export default function CognatesTrainer() {
-  const [activeSubTab, setActiveSubTab] = useState('false_friends'); // 'false_friends' | 'phonetic_en' | 'latin_es' | 'universal' | 'quiz'
+  const [activeSubTab, setActiveSubTab] = useState('false_friends'); // 'false_friends' | 'spanish_allies' | 'phonetic_en' | 'latin_es' | 'universal' | 'quiz'
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedPhoneticRule, setSelectedPhoneticRule] = useState(cognatesData.phoneticRulesEn[0].id);
   const [selectedLatinFormula, setSelectedLatinFormula] = useState(cognatesData.latinSuffixFormulas[0].id);
@@ -19,6 +20,10 @@ export default function CognatesTrainer() {
 
   // Expanded Quiz items
   const quizItems = [
+    { word: 'die Fabrik', isFalseFriend: false, trueMeaning: 'La fábrica (¡cognado real con el español! La trampa de "fabric = tela" solo existe si piensas en inglés)', falseMeaning: 'Tela o tejido (eso es der Stoff)' },
+    { word: 'sensibel', isFalseFriend: false, trueMeaning: 'Sensible / empático / delicado (¡cognado directo con el español! En inglés sensible = sensato/vernünftig)', falseMeaning: 'Sensato o prudente (eso es vernünftig)' },
+    { word: 'eventuell', isFalseFriend: false, trueMeaning: 'Posiblemente / contingente (¡cognado real con español "eventual"! En inglés "eventually" significa al final)', falseMeaning: 'Al final / a la larga (eso es schließlich)' },
+    { word: 'die See / der See', isFalseFriend: false, trueMeaning: 'El mar (die See) y el lago (der See) son cognados germánicos directos del inglés "sea" (*saiwaz)', falseMeaning: 'Un falso amigo' },
     { word: 'der Schlüssel', isFalseFriend: true, trueMeaning: 'La llave (¡es MASCULINO en alemán der Schlüssel, a diferencia del español la llave!)', falseMeaning: 'El tazón (eso es die Schüssel)' },
     { word: 'die Schüssel', isFalseFriend: true, trueMeaning: 'El tazón / cuenco (¡es FEMENINO die Schüssel, a diferencia del español el tazón!)', falseMeaning: 'La llave' },
     { word: 'bekommen', isFalseFriend: true, trueMeaning: 'Recibir / Obtener', falseMeaning: 'Llegar a ser (become)' },
@@ -35,8 +40,7 @@ export default function CognatesTrainer() {
     { word: 'brav', isFalseFriend: true, trueMeaning: 'Obediente / bien educado', falseMeaning: 'Valiente (brave)' },
     { word: 'hell', isFalseFriend: true, trueMeaning: 'Claro / luminoso / soleado', falseMeaning: 'Infierno (die Hölle)' },
     { word: 'organisieren', isFalseFriend: false, trueMeaning: 'Organizar (verbos en -ieren sin ge-)', falseMeaning: 'Otra cosa' },
-    { word: 'die Universität', isFalseFriend: false, trueMeaning: 'La universidad (sufijo -dad = -tät)', falseMeaning: 'Otra cosa' },
-    { word: 'der See', isFalseFriend: true, trueMeaning: 'El lago (agua dulce). El mar es die See o das Meer', falseMeaning: 'Ver (see)' }
+    { word: 'die Universität', isFalseFriend: false, trueMeaning: 'La universidad (sufijo -dad = -tät)', falseMeaning: 'Otra cosa' }
   ];
 
   const currentQuiz = quizItems[quizIdx] || quizItems[0];
@@ -67,6 +71,14 @@ export default function CognatesTrainer() {
     ff.actualMeaning.toLowerCase().includes(q) || 
     ff.looksLikeEn.toLowerCase().includes(q) || 
     ff.looksLikeEs.toLowerCase().includes(q)
+  );
+
+  // Filtered Spanish Allies (English Traps)
+  const filteredSpanishAllies = (cognatesData.spanishTrueFriendsEnglishTrap || []).filter(item => 
+    item.german.toLowerCase().includes(q) || 
+    item.spanishFriend.toLowerCase().includes(q) || 
+    item.englishTrap.toLowerCase().includes(q) || 
+    item.exactMeaning.toLowerCase().includes(q)
   );
 
   // Active phonetic rule
@@ -110,7 +122,7 @@ export default function CognatesTrainer() {
           Ya conoces más del 40% del vocabulario alemán. El inglés te regala las raíces germánicas cotidianas mediante leyes de mutación fonética (<code className="font-mono bg-stone-100 px-1 py-0.5 rounded">T → SS</code>, <code className="font-mono bg-stone-100 px-1 py-0.5 rounded">P → PF</code>, <code className="font-mono bg-stone-100 px-1 py-0.5 rounded">K → CH</code>); y el español te regala miles de términos cultos a través de 8 fórmulas morfológicas mágicas (<code className="font-mono bg-stone-100 px-1 py-0.5 rounded">-tion</code>, <code className="font-mono bg-stone-100 px-1 py-0.5 rounded">-tät</code>, <code className="font-mono bg-stone-100 px-1 py-0.5 rounded">-ieren</code>).
         </p>
 
-        {/* 5 Main Subtabs */}
+        {/* 6 Main Subtabs */}
         <div className="flex items-center gap-2 mt-6 overflow-x-auto pb-2">
           <button
             onClick={() => setActiveSubTab('false_friends')}
@@ -121,7 +133,19 @@ export default function CognatesTrainer() {
             }`}
           >
             <Ghost className="w-4 h-4 text-amber-400" />
-            <span>Falsos Amigos Fantasma ({cognatesData.falseFriends.length})</span>
+            <span>Falsos Amigos Reales ({cognatesData.falseFriends.length})</span>
+          </button>
+
+          <button
+            onClick={() => setActiveSubTab('spanish_allies')}
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-mono font-semibold transition-all cursor-pointer shrink-0 ${
+              activeSubTab === 'spanish_allies'
+                ? 'bg-stone-900 text-white shadow-xs'
+                : 'bg-white text-stone-600 hover:bg-stone-100 border border-stone-200'
+            }`}
+          >
+            <ShieldCheck className="w-4 h-4 text-emerald-500" />
+            <span>🇪🇸 Amigos en Español / Trampas en Inglés ({cognatesData.spanishTrueFriendsEnglishTrap.length})</span>
           </button>
 
           <button
@@ -256,7 +280,80 @@ export default function CognatesTrainer() {
       )}
 
       {/* ========================================================================= */}
-      {/* 2. VIEW: 7 PHONETIC RULES WITH ENGLISH (🇬🇧 ↔ 🇩🇪) */}
+      {/* 2. VIEW: AMIGOS REALES EN ESPAÑOL (Trampa SOLO para el inglés) */}
+      {/* ========================================================================= */}
+      {activeSubTab === 'spanish_allies' && (
+        <div className="space-y-6">
+          <div className="p-6 rounded-2xl bg-emerald-50/90 border border-emerald-200 text-xs text-emerald-950 flex items-start gap-4">
+            <ShieldCheck className="w-6 h-6 text-emerald-600 shrink-0 mt-0.5" />
+            <div className="leading-relaxed">
+              <h4 className="font-serif font-bold text-sm text-emerald-950 mb-1">
+                ⭐ El Superpoder del Hispanohablante: ¡Desmontando el Sesgo Anglosajón!
+              </h4>
+              <p className="text-emerald-900 font-sans">
+                Muchos libros de texto de alemán traducidos del inglés catalogan erróneamente estas palabras como «falsos amigos». Pero para un angloparlante son trampas porque en inglés <em>fabric</em> es tela, <em>sensible</em> es sensato y <em>eventually</em> es al final. <strong>¡Para ti en español son COGNADOS REALES y directos!</strong> Tu lengua materna aquí es una ventaja absoluta frente a los estudiantes de habla inglesa.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {filteredSpanishAllies.map((ally) => (
+              <div
+                key={ally.id}
+                className="p-7 rounded-3xl bg-white border border-stone-200 shadow-2xs hover:shadow-sm transition-all relative overflow-hidden flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center justify-between gap-2 mb-4">
+                    <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs font-mono font-bold">
+                      <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+                      <span>COGNADO REAL CON ESPAÑOL 🇪🇸</span>
+                    </span>
+                    <button
+                      onClick={() => speechService.speak(ally.german)}
+                      className="p-1.5 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-600 border border-stone-200 cursor-pointer shadow-2xs"
+                      title="Pronunciar"
+                    >
+                      <Volume2 className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+
+                  <h3 className="text-2xl sm:text-3xl font-serif font-bold text-stone-900 mb-1">
+                    {ally.german}
+                  </h3>
+
+                  <div className="my-4 space-y-2">
+                    <div className="p-3 rounded-xl bg-emerald-50/80 border border-emerald-200 text-xs text-emerald-950 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                      <span className="font-semibold text-emerald-900">En español (amigo directo):</span>
+                      <span className="font-mono font-bold text-emerald-900">{ally.spanishFriend}</span>
+                    </div>
+                    <div className="p-3 rounded-xl bg-amber-50/70 border border-amber-200 text-xs text-amber-950 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                      <span className="font-semibold text-amber-900">Trampa (solo en inglés):</span>
+                      <span className="font-mono text-amber-800">{ally.englishTrap}</span>
+                    </div>
+                  </div>
+
+                  <p className="text-xs text-stone-600 leading-relaxed font-sans mb-4">
+                    {ally.explanation}
+                  </p>
+                </div>
+
+                <div className="space-y-2 pt-2 border-t border-stone-100">
+                  <div className="p-3 rounded-xl bg-stone-50 border border-stone-200 text-xs">
+                    <p className="font-serif italic font-medium text-stone-900">"{ally.exampleDe}"</p>
+                    <p className="text-stone-500 mt-0.5">"{ally.exampleEs}"</p>
+                  </div>
+                  <div className="p-2.5 rounded-lg bg-emerald-50/70 border border-emerald-200/70 text-[11px] font-mono font-semibold text-emerald-900">
+                    {ally.superpower}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================================= */}
+      {/* 3. VIEW: 7 PHONETIC RULES WITH ENGLISH (🇬🇧 ↔ 🇩🇪) */}
       {/* ========================================================================= */}
       {activeSubTab === 'phonetic_en' && (
         <div className="space-y-6">
@@ -418,7 +515,7 @@ export default function CognatesTrainer() {
       )}
 
       {/* ========================================================================= */}
-      {/* 4. VIEW: UNIVERSAL TWINS & TRIANGLES (🇩🇪 ↔ 🇬🇧 ↔ 🇪🇸) */}
+      {/* 5. VIEW: UNIVERSAL TWINS & TRIANGLES (🇩🇪 ↔ 🇬🇧 ↔ 🇪🇸) */}
       {/* ========================================================================= */}
       {activeSubTab === 'universal' && (
         <div className="space-y-6">
@@ -429,6 +526,44 @@ export default function CognatesTrainer() {
             <p className="leading-relaxed text-purple-900 font-sans">
               Palabras cotidianas transparentes que existen en alemán, inglés y español prácticamente iguales. Te permiten construir oraciones desde el primer día sin dudar.
             </p>
+          </div>
+
+          {/* Germanic Root Highlight: der See vs die See */}
+          <div className="p-6 rounded-3xl bg-blue-50/80 border border-blue-200 shadow-2xs">
+            <div className="flex items-center gap-2 mb-1.5 text-blue-950 text-xs font-mono font-bold">
+              <Globe className="w-4 h-4 text-blue-600" />
+              <span>COGNADO GERMÁNICO DIRECTO (CON BIFURCACIÓN DE GÉNERO)</span>
+            </div>
+            <h3 className="text-xl font-serif font-bold text-stone-900">
+              der See vs. die See ↔ English "sea"
+            </h3>
+            <p className="text-xs text-stone-600 mt-1 leading-relaxed">
+              Ambos descienden directamente del Proto-Germánico <code className="font-mono bg-white px-1.5 py-0.5 rounded border border-blue-200 text-blue-900">*saiwaz</code> (igual que el inglés <em>sea</em> o el neerlandés <em>zee</em>). <strong>No es un falso amigo</strong>, sino un cognado genuino que en alemán desdobló su significado mediante el género:
+            </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+              <div className="p-4 rounded-2xl bg-white border border-blue-100 shadow-2xs">
+                <div className="flex items-center justify-between">
+                  <span className="font-serif font-bold text-base text-stone-900">die See (Fem)</span>
+                  <button onClick={() => speechService.speak('die See')} className="p-1.5 rounded-lg bg-stone-50 hover:bg-stone-100 text-stone-600 cursor-pointer border border-stone-200" title="Pronunciar">
+                    <Volume2 className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+                <p className="text-xs font-semibold text-blue-900 mt-1">EL MAR (mar abierto, océano)</p>
+                <p className="text-[11px] text-stone-500 mt-1 leading-relaxed">Exactamente igual que <em>sea</em> en inglés. Ej: <em>die Nordsee</em> (North Sea), <em>die Ostsee</em> (Baltic Sea), <em>zur See fahren</em> (navegar en alta mar).</p>
+              </div>
+
+              <div className="p-4 rounded-2xl bg-white border border-blue-100 shadow-2xs">
+                <div className="flex items-center justify-between">
+                  <span className="font-serif font-bold text-base text-stone-900">der See (Masc)</span>
+                  <button onClick={() => speechService.speak('der See')} className="p-1.5 rounded-lg bg-stone-50 hover:bg-stone-100 text-stone-600 cursor-pointer border border-stone-200" title="Pronunciar">
+                    <Volume2 className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+                <p className="text-xs font-semibold text-blue-900 mt-1">EL LAGO (agua dulce interior)</p>
+                <p className="text-[11px] text-stone-500 mt-1 leading-relaxed">Misma raíz germánica con género masculino para masas de agua cerradas. Ej: <em>der Bodensee</em> (Lago Constanza), <em>der Wannsee</em>.</p>
+              </div>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3.5">

@@ -3,7 +3,7 @@
 
 export const cognatesData = {
   // =========================================================================
-  // 1. FALSOS AMIGOS (Falsche Freunde 👻) - Trampas cognitivas y de género
+  // 1. FALSOS AMIGOS REALES (Falsche Freunde 👻) - Trampas cognitivas auténticas
   // =========================================================================
   falseFriends: [
     {
@@ -81,7 +81,7 @@ export const cognatesData = {
       ghostAlert: 'Si dices que un texto es "sehr prägnant", estás diciendo que es claro, sintético y al grano. ¡No tiene nada que ver con un embarazo! Para decir embarazada se dice "schwanger".',
       exampleDe: 'Seine Erklärung war kurz und sehr prägnant.',
       exampleEs: 'Su explicación fue breve y muy concisa.',
-      trick: '👻标志 Prägnant = Conciso / claro. Schwanger = Embarazada.'
+      trick: '👻 Prägnant = Conciso / claro. Schwanger = Embarazada.'
     },
     {
       id: 'ff_rente',
@@ -117,28 +117,6 @@ export const cognatesData = {
       trick: '👻 Brav = Bien educado / obediente. Mutig = Valiente.'
     },
     {
-      id: 'ff_fabrik',
-      german: 'die Fabrik',
-      looksLikeEn: 'fabric (tejido o tela textil)',
-      looksLikeEs: 'parece "tejido / fábrica"',
-      actualMeaning: 'LA FÁBRICA / PLANTA INDUSTRIAL',
-      ghostAlert: 'En inglés "fabric" es la tela o el tejido textil (en alemán: der Stoff). En alemán, "die Fabrik" es la nave industrial donde se fabrican productos.',
-      exampleDe: 'Er arbeitet als Ingenieur in einer Autofabrik.',
-      exampleEs: 'Trabaja como ingeniero en una fábrica de coches.',
-      trick: '👻 Fabrik = Fábrica. Stoff = Tela / Fabric.'
-    },
-    {
-      id: 'ff_sensibel',
-      german: 'sensibel',
-      looksLikeEn: 'sensible (sensato / juicioso)',
-      looksLikeEs: 'parece "sensible"',
-      actualMeaning: 'SENSIBLE / DELICADO EMOCIONALMENTE',
-      ghostAlert: 'En inglés "sensible" significa sensato, con sentido común (en alemán: vernünftig). En alemán "sensibel" significa que siente mucho las emociones o que su piel reacciona fácilmente.',
-      exampleDe: 'Sie hat sehr sensible Haut und ein großes Herz.',
-      exampleEs: 'Tiene la piel muy sensible y un gran corazón.',
-      trick: '👻 Sensibel = Sensible emocional. Vernünftig = Sensato (sensible en inglés).'
-    },
-    {
       id: 'ff_also',
       german: 'also',
       looksLikeEn: 'also (también / además)',
@@ -161,17 +139,6 @@ export const cognatesData = {
       trick: '👻 Der Rat = El consejo. Die Ratte = La rata.'
     },
     {
-      id: 'ff_eventuell',
-      german: 'eventuell',
-      looksLikeEn: 'eventually (finalmente / a la larga)',
-      looksLikeEs: 'parece "eventualmente / con el tiempo"',
-      actualMeaning: 'POSIBLEMENTE / QUIZÁS / POR SI ACASO',
-      ghostAlert: '"Eventuell" no denota algo que pasará al final del tiempo, sino una hipótesis incierta (quizás, tal vez). Para decir "a la larga / con el tiempo / eventually" se usa "schließlich" o "mit der Zeit".',
-      exampleDe: 'Ich komme eventuell etwas später zum Abendessen.',
-      exampleEs: 'Posiblemente llegue un poco más tarde a la cena.',
-      trick: '👻 Eventuell = Quizás / posiblemente. Schließlich = Finalmente (eventually).'
-    },
-    {
       id: 'ff_blamieren',
       german: 'sich blamieren',
       looksLikeEn: 'blame (culpar a alguien)',
@@ -181,6 +148,28 @@ export const cognatesData = {
       exampleDe: 'Ich habe mich vor dem ganzen Publikum blamiert.',
       exampleEs: 'Hice el ridículo ante todo el público.',
       trick: '👻 Sich blamieren = Hacer el ridículo. Beschuldigen = Culpar (blame).'
+    },
+    {
+      id: 'ff_fast',
+      german: 'fast',
+      looksLikeEn: 'fast (rápido)',
+      looksLikeEs: 'parece "rápido"',
+      actualMeaning: 'CASI / POR POCO',
+      ghostAlert: '"Fast" en alemán no tiene nada que ver con la velocidad. Significa "casi": "Ich habe den Bus fast verpasst" (Casi pierdo el autobús). Para decir rápido se dice "schnell".',
+      exampleDe: 'Wir sind fast am Ziel angekommen.',
+      exampleEs: 'Casi hemos llegado al destino.',
+      trick: '👻 Fast = Casi. Schnell = Rápido.'
+    },
+    {
+      id: 'ff_bald',
+      german: 'bald',
+      looksLikeEn: 'bald (calvo / sin pelo)',
+      looksLikeEs: 'parece "calvo"',
+      actualMeaning: 'PRONTO / EN BREVE',
+      ghostAlert: '"Bis bald!" no significa "hasta que te quedes calvo", sino "¡hasta pronto!". Para decir calvo se dice "kahl" o "eine Glatze haben".',
+      exampleDe: 'Ich komme bald nach Hause zurück.',
+      exampleEs: 'Vuelvo pronto a casa.',
+      trick: '👻 Bald = Pronto / En breve. Glatze = Calva.'
     },
     {
       id: 'ff_eng',
@@ -247,17 +236,86 @@ export const cognatesData = {
       exampleDe: 'Es ist kalt im Zimmer, nimm dir bitte eine Decke.',
       exampleEs: 'Hace frío en la habitación, coge por favor una manta.',
       trick: '👻 Decke = Manta o techo interior. Dach = El tejado exterior.'
+    }
+  ],
+
+  // =========================================================================
+  // 1.1 AMIGOS REALES EN ESPAÑOL (Trampa SOLO para el inglés)
+  // Palabras que son cognados directos y transparentes con el español, pero
+  // que los manuales anglosajones clasifican como "falsos amigos" por el sesgo del inglés.
+  // =========================================================================
+  spanishTrueFriendsEnglishTrap: [
+    {
+      id: 'stf_sensibel',
+      german: 'sensibel',
+      spanishFriend: 'sensible (empático, delicado)',
+      englishTrap: 'sensible (en inglés = sensato / prudente → vernünftig)',
+      exactMeaning: 'SENSIBLE / FEINFÜHLIG',
+      explanation: 'Para un hispanohablante es un COGNADO PURO: "sensibel" significa exactamente sensible (emocional o físicamente). La trampa existe ÚNICAMENTE para los angloparlantes, donde "sensible" significa prudente/sensato.',
+      exampleDe: 'Sie ist sehr sensibel und versteht die Gefühle anderer Menschen sofort.',
+      exampleEs: 'Es muy sensible y comprende de inmediato los sentimientos de los demás.',
+      superpower: '🇪🇸 Tu español es tu escudo: traduce directamente como "sensible".'
     },
     {
-      id: 'ff_see_mask_fem',
+      id: 'stf_fabrik',
+      german: 'die Fabrik',
+      spanishFriend: 'la fábrica (planta industrial de manufactura)',
+      englishTrap: 'fabric (en inglés = tela o tejido textil → der Stoff)',
+      exactMeaning: 'LA FÁBRICA / PLANTA INDUSTRIAL',
+      explanation: '¡Es exactamente la fábrica en español! Los libros anglosajones lo catalogan de "falso amigo" porque en inglés "fabric" es la tela textil. Para un hispanohablante, el término es 100% transparente y directo.',
+      exampleDe: 'Mein Onkel leitet eine moderne Fabrik für Solarmodule.',
+      exampleEs: 'Mi tío dirige una fábrica moderna de paneles solares.',
+      superpower: '🇪🇸 Tu español es tu escudo: die Fabrik = la fábrica (ambas femeninas además).'
+    },
+    {
+      id: 'stf_eventuell',
+      german: 'eventuell',
+      spanishFriend: 'eventual / eventualmente (contingente, según circunstancias)',
+      englishTrap: 'eventually (en inglés = al final / a la larga → schließlich)',
+      exactMeaning: 'POSIBLEMENTE / SI ACASO / EVENTUAL',
+      explanation: 'Viene de la raíz latina "eventus" (contingencia). En español culto un "evento" es algo contingente, y algo "eventual" es algo que puede darse o no. En alemán "eventuell" significa exactamente eso: posiblemente / tal vez. El falso amigo solo surge si se calca el inglés "eventually" (que evolucionó a significar "a la larga / con el tiempo").',
+      exampleDe: 'Ich komme eventuell heute Abend vorbei, wenn ich früher fertig bin.',
+      exampleEs: 'Eventualmente / posiblemente pase esta tarde si termino antes.',
+      superpower: '🇪🇸 Tu español es tu escudo: conéctalo con "eventualidad" o "posibilidad contingente".'
+    },
+    {
+      id: 'stf_ordinaer',
+      german: 'ordinär',
+      spanishFriend: 'ordinario (vulgar, tosco, de mal gusto)',
+      englishTrap: 'ordinary (en inglés = normal, corriente → gewöhnlich / normal)',
+      exactMeaning: 'ORDINARIO / VULGAR / BASTO',
+      explanation: 'En español usamos "ordinario" tanto para lo corriente como peyorativamente para alguien sin modales ("¡qué persona tan ordinaria!"). En alemán "ordinär" retuvo exactamente este matiz despectivo de vulgar/basto. En inglés en cambio "ordinary" solo es "normal/común".',
+      exampleDe: 'Sein Benehmen im Restaurant war leider sehr ordinär.',
+      exampleEs: 'Su comportamiento en el restaurante fue lamentablemente muy ordinario/vulgar.',
+      superpower: '🇪🇸 Tu español es tu escudo: "ordinär" = ordinario/grosero.'
+    }
+  ],
+
+  // =========================================================================
+  // 1.2 BIFURCACIONES GERMÁNICAS DIRECTAS CON EL INGLÉS (Cognados Reales)
+  // Raíces ancestrales idénticas que evolucionaron con desdoblamiento en alemán
+  // =========================================================================
+  germanicBifurcations: [
+    {
+      id: 'gb_see',
       german: 'der See vs. die See',
-      looksLikeEn: 'see / sea (mar / ver)',
-      looksLikeEs: 'parece "el mar"',
-      actualMeaning: 'der See = EL LAGO (agua dulce) | die See = EL MAR (mar abierto)',
-      ghostAlert: '¡Otra trampa de género alemana crucial!\n* DER See (masculino) = Un lago de agua dulce (ej: der Bodensee, der Wannsee).\n* DIE See (femenino) = El mar o el océano abierto (ej: die Nordsee, die Ostsee).\n* Y "das Meer" (neutro) = El mar en general.',
-      exampleDe: 'Wir baden im See (lago) und fahren im Urlaub an die See (al mar).',
-      exampleEs: 'Nos bañamos en el lago y en vacaciones vamos al mar.',
-      trick: '👻 der See = Lago dulce. die See = Mar salado.'
+      englishCognate: 'sea (el mar / el océano)',
+      protoRoot: 'Proto-Germánico *saiwaz (cuerpo de agua abierto)',
+      breakdown: [
+        {
+          term: 'die See (Fem)',
+          meaning: 'EL MAR (mar abierto, océano)',
+          englishLink: 'Idéntico a English "sea". Usado en costas y navegación:',
+          examples: 'die Nordsee (North Sea), die Ostsee (Baltic Sea), zur See fahren (ir a alta mar).'
+        },
+        {
+          term: 'der See (Masc)',
+          meaning: 'EL LAGO (cuerpo de agua dulce interior)',
+          englishLink: 'Misma raíz germánica, pero el alemán le asignó género masculino para distinguir el lago:',
+          examples: 'der Bodensee (Lago de Constanza), der Wannsee, am See campen (acampar en el lago).'
+        }
+      ],
+      insight: '⭐ NO ES UN FALSO AMIGO: es un auténtico cognado germánico directo de "sea". El alemán conservó la palabra tanto para el mar abierto (die See = sea) como para los lagos de agua dulce (der See), además de disponer de "das Meer" (mar en general).'
     }
   ],
 
