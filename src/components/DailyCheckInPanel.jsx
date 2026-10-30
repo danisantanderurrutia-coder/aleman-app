@@ -44,17 +44,113 @@ export default function DailyCheckInPanel({ progress, setProgress, setActiveTab,
 
   // Progression Curriculum System por Día de Estudio (1 a 7)
   const curriculumDayFocus = {
-    1: { focus: 'Fundamentos de Casos & Ropa', desc: 'Aprende el origen de Nominativ, Akkusativ y Dativ y las 7 palabras de Ropa.', tab: 'grammar', icon: BookOpen },
-    2: { focus: 'Uso del Acusativo: Compras & Alimentos', desc: 'Domina el cambio morfológico der → den y ein → einen en compras de alimentos (der Käse → den Käse).', tab: 'grammar', icon: Target },
-    3: { focus: 'Citas & Conexión con Clara', desc: 'Practica tu encanto y objetos situacionales en Flirt & Date.', tab: 'dating', icon: Heart },
-    4: { focus: 'Falsos Amigos & Cazafantasmas 👻', desc: 'Caza trampas cognitivas con el logo fantasma y afina tu oído.', tab: 'cognates', icon: Sparkles },
-    5: { focus: 'Sintaxis & Subordinadas con "weil"', desc: 'Aprende a enviar el verbo conjugado al final de la frase.', tab: 'sentences', icon: Compass },
-    6: { focus: 'Ludificación Visual 8×8', desc: 'Asocia pictogramas en matriz y agiliza Der Die Das.', tab: 'pixel', icon: Zap },
-    7: { focus: 'Auditoría & Checkpoint A2.1', desc: 'Comprueba tu retención semanal con la batería diagnóstica.', tab: 'test', icon: Trophy },
+    1: { 
+      focus: 'Génesis & Origen de los Casos', 
+      desc: 'Comprende la lógica profunda de Nominativ, Akkusativ y Dativ y el porqué de las declinaciones.', 
+      tab: 'grammar', 
+      icon: BookOpen,
+      badge: 'Génesis Teórico 📖',
+      actionLabel: 'Ver Dossier Teórico →'
+    },
+    2: { 
+      focus: 'Uso del Acusativo: Compras & Alimentos', 
+      desc: 'Domina el cambio morfológico der → den y ein → einen en compras cotidianas de alimentos.', 
+      tab: 'grammar', 
+      icon: Target,
+      badge: 'Misión Estrella ⭐',
+      actionLabel: 'Completar Ejercicios →'
+    },
+    3: { 
+      focus: 'Citas & Conexión con Clara', 
+      desc: 'Practica tu encanto, pide un café y utiliza objetos situacionales en Flirt & Date.', 
+      tab: 'dating', 
+      icon: Heart,
+      badge: 'Simulación Real ❤️',
+      actionLabel: 'Iniciar Cita →'
+    },
+    4: { 
+      focus: 'Falsos Amigos & Cazafantasmas 👻', 
+      desc: 'Distingue trampas anglosajonas de cognados reales del español con tu lengua materna.', 
+      tab: 'cognates', 
+      icon: Sparkles,
+      badge: 'Filología & Oído 👻',
+      actionLabel: 'Cazar Fantasmas →'
+    },
+    5: { 
+      focus: 'Sintaxis & Subordinadas con "weil"', 
+      desc: 'Aprende la regla de la catapulta oracional: "weil" envía el verbo conjugado al final de la frase.', 
+      tab: 'sentences', 
+      icon: Compass,
+      badge: 'Sintaxis Avanzada 🧱',
+      actionLabel: 'Construir Frases →'
+    },
+    6: { 
+      focus: 'Ludificación Visual 8×8: Der • Die • Das', 
+      desc: 'Asocia pictogramas en la matriz de píxeles para agilizar la retención de géneros sin listas planas.', 
+      tab: 'pixel', 
+      icon: Zap,
+      badge: 'Visual 8×8 🎨',
+      actionLabel: 'Jugar Matriz 8×8 →'
+    },
+    7: { 
+      focus: 'Auditoría & Checkpoint A2.1', 
+      desc: 'Comprueba tu retención semanal con la batería diagnóstica de reactivos de nivel A2.', 
+      tab: 'test', 
+      icon: Trophy,
+      badge: 'Checkpoint Semanal 🏆',
+      actionLabel: 'Iniciar Test →'
+    },
+  };
+
+  // Misión 3: Práctica Complementaria Dinámica (Garantiza que Misión 1, 2 y 3 nunca sean iguales)
+  const complementaryQuestSchedule = {
+    1: {
+      title: 'Entrenamiento de Artículos: Der • Die • Das',
+      desc: 'Fija el género gramatical y comprueba si cada sustantivo es der, die o das con el dado interactivo.',
+      tab: 'articles',
+      buttonLabel: 'Ir a Der • Die • Das →'
+    },
+    2: {
+      title: 'Estructura & Sintaxis: Objeto Directo',
+      desc: 'Construye al menos 1 oración colocando el objeto directo acusativo en su posición correcta.',
+      tab: 'sentences',
+      buttonLabel: 'Ir a Sintaxis →'
+    },
+    3: {
+      title: 'Oído & Ritmo: Indie Lyrics Alemán',
+      desc: 'Escucha una canción indie real (AnnenMayKantereit / Wir sind Helden) y descubre su gramática.',
+      tab: 'karaoke',
+      buttonLabel: 'Ir a Indie Lyrics →'
+    },
+    4: {
+      title: 'Estructura & Sintaxis: Regla V2 del Verbo',
+      desc: 'Entrena la regla de oro del alemán: el verbo conjugado siempre ocupa la segunda posición.',
+      tab: 'sentences',
+      buttonLabel: 'Ir a Sintaxis →'
+    },
+    5: {
+      title: 'Gramática Práctica: Casos en Contexto',
+      desc: 'Resuelve un ejercicio de casos (Akkusativ / Dativ) en el entrenador de gramática para afianzar conceptos.',
+      tab: 'grammar',
+      buttonLabel: 'Ir a Gramática →'
+    },
+    6: {
+      title: 'Situaciones Cotidianas: Diálogos A2',
+      desc: 'Lee y practica un diálogo realista en Berlín con transcripción fonética y pronunciación natural.',
+      tab: 'dialogues',
+      buttonLabel: 'Ir a Diálogos →'
+    },
+    7: {
+      title: 'Cultura & Poesía: Indie Lyrics Alemán',
+      desc: 'Cierra tu ciclo semanal analizando las letras completas de una canción del indie alemán.',
+      tab: 'karaoke',
+      buttonLabel: 'Ir a Indie Lyrics →'
+    }
   };
 
   const focusCycleDay = ((currentCurriculumDay - 1) % 7) + 1;
   const todayCurriculum = curriculumDayFocus[focusCycleDay] || curriculumDayFocus[1];
+  const todayComplementaryQuest = complementaryQuestSchedule[focusCycleDay] || complementaryQuestSchedule[1];
   const FocusIcon = todayCurriculum.icon;
 
   const handleNextStudyDay = () => {
@@ -340,7 +436,7 @@ export default function DailyCheckInPanel({ progress, setProgress, setActiveTab,
                     Misión 1: Enfoque del Día • {todayCurriculum.focus}
                   </h4>
                   <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-100 text-amber-900 font-bold border border-amber-300">
-                    Misión Estrella ⭐
+                    {todayCurriculum.badge || 'Misión Estrella ⭐'}
                   </span>
                 </div>
                 <p className="text-xs text-stone-500 mt-0.5">
@@ -356,7 +452,7 @@ export default function DailyCheckInPanel({ progress, setProgress, setActiveTab,
               }}
               className="text-xs font-mono font-medium text-amber-800 hover:text-stone-900 underline"
             >
-              Completar Enfoque →
+              {todayCurriculum.actionLabel || 'Completar Enfoque →'}
             </button>
           </div>
 
@@ -394,7 +490,7 @@ export default function DailyCheckInPanel({ progress, setProgress, setActiveTab,
             </button>
           </div>
 
-          {/* Quest 3: Estructura & Rigor */}
+          {/* Quest 3: Práctica Complementaria Dinámica */}
           <div
             onClick={() => handleToggleQuest('grammarDone')}
             className="py-4.5 flex items-center justify-between gap-4 cursor-pointer hover:bg-stone-50/60 px-2 rounded-xl transition-colors"
@@ -409,10 +505,10 @@ export default function DailyCheckInPanel({ progress, setProgress, setActiveTab,
               </button>
               <div>
                 <h4 className="font-serif font-bold text-sm text-stone-900">
-                  Misión 3: Estructura & Rigor (Sintaxis y Construcción)
+                  Misión 3: {todayComplementaryQuest.title}
                 </h4>
                 <p className="text-xs text-stone-500 mt-0.5">
-                  Construye al menos 1 oración correcta en Satzbau o resuelve un reto estructural. (+15 XP)
+                  {todayComplementaryQuest.desc} (+15 XP)
                 </p>
               </div>
             </div>
@@ -420,11 +516,11 @@ export default function DailyCheckInPanel({ progress, setProgress, setActiveTab,
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                setActiveTab('sentences');
+                setActiveTab(todayComplementaryQuest.tab);
               }}
               className="text-xs font-mono font-medium text-stone-500 hover:text-stone-900 underline"
             >
-              Ir a Sintaxis →
+              {todayComplementaryQuest.buttonLabel}
             </button>
           </div>
         </div>

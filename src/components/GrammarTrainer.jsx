@@ -57,12 +57,13 @@ export default function GrammarTrainer({ progress, setProgress, setActiveTab, on
       const todayStr = getTodayDate();
       const questsKey = `quests_${todayStr}`;
       const currentQuests = progress[questsKey] || {};
-      const isGrammarFocus = [1, 2].includes(progress.curriculumDay || 1);
+      const day = ((progress.curriculumDay || 1) - 1) % 7 + 1;
+      const isGrammarFocus = [1, 2].includes(day);
+      const isGrammarQuest3 = day === 5;
       const updatedQuests = {
         ...currentQuests,
-        grammarDone: true,
-        grammarDone_awarded: true,
-        ...(isGrammarFocus ? { focusDone: true, focusDone_awarded: true } : {})
+        ...(isGrammarFocus ? { focusDone: true, focusDone_awarded: true } : {}),
+        ...(isGrammarQuest3 ? { grammarDone: true, grammarDone_awarded: true } : {})
       };
 
       if (!completedList.includes(currentExerciseIdx)) {

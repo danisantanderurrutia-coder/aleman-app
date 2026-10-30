@@ -57,10 +57,13 @@ export default function SentenceTrainer({ progress, setProgress, setActiveTab, o
       const todayStr = getTodayDate();
       const questsKey = `quests_${todayStr}`;
       const currentQuests = progress[questsKey] || {};
+      const day = ((progress.curriculumDay || 1) - 1) % 7 + 1;
+      const isSentencesFocus = day === 5;
       const updatedQuests = {
         ...currentQuests,
         grammarDone: true,
-        grammarDone_awarded: true
+        grammarDone_awarded: true,
+        ...(isSentencesFocus ? { focusDone: true, focusDone_awarded: true } : {})
       };
 
       const completedList = progress.completedSentences || [];
