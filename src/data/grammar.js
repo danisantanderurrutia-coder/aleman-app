@@ -10,7 +10,7 @@ export const grammarTopics = [
     level: 'A2.1 Fundamentos',
     icon: 'Layers',
     originExplanation: {
-      whyItExists: 'En español dependemos del orden rígido de las palabras (Sujeto + Verbo + Objeto) o de la preposición "a" personal ("Veo a María" vs "María me ve a mí"). En alemán, el orden de las palabras es flexible: para saber quién realiza la acción, quién la recibe y quién es el beneficiario, el idioma coloca marcas morfológicas en los artículos y pronombres. A estas marcas y funciones las llamamos CASOS GRAMATICALES.',
+      whyItExists: 'En español dependemos principalmente del orden fijo de las palabras (Sujeto + Verbo + Objeto: "El hombre compra la mesa"). En alemán, el orden es mucho más flexible porque el rol sintáctico de cada sustantivo (quién hace la acción, quién la recibe y quién se beneficia) queda codificado matemáticamente en los artículos mediante los CASOS GRAMATICALES (Nominativ, Akkusativ, Dativ).',
       theThreeRoles: [
         {
           name: '1. Nominativ (Sujeto de la Oración)',
@@ -49,7 +49,7 @@ export const grammarTopics = [
     theoreticalDossier: [
       {
         title: '1. ¿Qué es un caso y por qué existe en alemán?',
-        content: 'En alemán, nominativo, acusativo y dativo son casos gramaticales. Sirven para indicar la función que cumple un sustantivo o pronombre dentro de la oración. Mientras que en español decimos "El hombre ve al perro" o "Al hombre lo ve el perro" usando la preposición "a" o pronombres clíticos ("lo"), el alemán lo resuelve cambiando el artículo: "Der Mann sieht den Hund" (el hombre es sujeto, el perro es objeto directo) vs "Den Mann sieht der Hund" (el perro sigue siendo el sujeto porque lleva "der", y el hombre sigue siendo el objeto porque lleva "den", ¡incluso si va primero!).'
+        content: 'En alemán, nominativo, acusativo y dativo son casos gramaticales. Sirven para indicar qué rol cumple cada palabra dentro de la oración (quién hace la acción, quién la recibe y quién se beneficia).\n\n• En español dependemos casi siempre del orden fijo de las palabras (Sujeto + Verbo + Objeto):\n  "El hombre compra el libro" (si invertimos el orden diciendo "El libro compra el hombre", la frase resulta antinatural o ambigua, porque "el libro" no cambia de forma). En seres animados usamos a veces la preposición "a" ("El hombre saluda a la mujer"), pero en objetos inanimados el español carece de marcas de caso.\n\n• En alemán, el orden de las palabras es libre porque el rol sintáctico lo marcan los artículos, NO la posición en que aparecen:\n  1. "Der Mann sieht den Hund." (Sujeto: der Mann = el hombre ve al perro).\n  2. "Den Hund sieht der Mann." (¡El hombre sigue siendo quien ve al perro! Aunque "den Hund" se coloque al inicio para dar énfasis temático, sabemos con absoluta certeza matemática que el hombre es el sujeto porque lleva "der", y que el perro es el objeto porque lleva "den").\n  3. "Den Mann sieht der Hund." (Aquí quien realiza la acción es el perro, porque lleva "der Hund" en nominativo, y a quien ve es al hombre, porque lleva "den Mann" en acusativo. En español: "Al hombre lo ve el perro").\n\n📌 Regla de oro:\n* NOMINATIVO (der / ein / mein): Quien realiza la acción (Sujeto).\n* ACUSATIVO (den / einen / meinen): Quien recibe la acción directamente (Objeto Directo).\n* DATIVO (dem / einem / meinem): El beneficiario o destinatario de la acción (Objeto Indirecto).'
       },
       {
         title: '2. Artículos Definidos vs. Indefinidos: Su Función Epistémica',

@@ -3,7 +3,7 @@ import { addXP, getProgress, saveProgress, getLocalDateString, getTodayDate } fr
 import { 
   Calendar, Flame, CheckCircle2, Circle, Gift, 
   ArrowRight, Sparkles, Trophy, Target, BookOpen, Heart, Zap, Clock,
-  Compass, Dices, Layers, HelpCircle, ChevronRight
+  Compass, Dices, Layers, HelpCircle, ChevronRight, RotateCcw
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import ProgressionRoadmap from './ProgressionRoadmap';
@@ -166,6 +166,44 @@ export default function DailyCheckInPanel({ progress, setProgress, setActiveTab,
     setProgress(updated);
   };
 
+  // Reiniciar contador al Día 1 de Estudio tras fase de testing
+  const handleResetToDay1 = () => {
+    const today = getTodayDate();
+    const questsKey = `quests_${today}`;
+    const existingLogs = progress.calendarLogs || {};
+    const updatedLogs = { ...existingLogs };
+    
+    // Anotar los días previos como fase de testing para preservar la racha y el historial
+    Object.keys(updatedLogs).forEach(date => {
+      if (date <= today && updatedLogs[date]?.completed) {
+        const oldNotes = updatedLogs[date].notes || '';
+        if (!oldNotes.includes('[Testing previo]')) {
+          updatedLogs[date] = {
+            ...updatedLogs[date],
+            notes: oldNotes ? `${oldNotes} [Testing previo]` : '[Fase Testing inicial completada]'
+          };
+        }
+      }
+    });
+
+    const updated = saveProgress({
+      curriculumDay: 1,
+      calendarLogs: updatedLogs,
+      [questsKey]: {
+        focusDone: false,
+        vocabDone: false,
+        grammarDone: false,
+        claimedBonus: false
+      }
+    });
+    setProgress(updated);
+    confetti({
+      particleCount: 50,
+      spread: 60,
+      origin: { y: 0.6 }
+    });
+  };
+
   // Handle Daily Attendance Check-in
   const handleCheckIn = () => {
     if (isCheckedInToday) return;
@@ -274,6 +312,18 @@ export default function DailyCheckInPanel({ progress, setProgress, setActiveTab,
                   ▶
                 </button>
               </div>
+
+              {/* Botón de reinicio al Día 1 (Modo Oficial tras Testing) */}
+              {currentCurriculumDay > 1 && (
+                <button
+                  onClick={handleResetToDay1}
+                  className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-stone-100 hover:bg-stone-200 text-stone-700 hover:text-stone-900 border border-stone-300 text-xs font-mono font-semibold cursor-pointer shadow-2xs transition-colors"
+                  title="Reiniciar contador al Día 1 para hacer el ciclo completo en modo oficial (mantiene el historial anterior como Testing)"
+                >
+                  <RotateCcw className="w-3.5 h-3.5 text-stone-600" />
+                  <span>Reiniciar al Día 1</span>
+                </button>
+              )}
             </div>
             <h2 className="text-2xl sm:text-3xl font-serif font-bold text-stone-900">
               Panel de Ingreso Diario & Misiones

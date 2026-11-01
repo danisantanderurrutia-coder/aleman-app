@@ -42,8 +42,6 @@ export default function ProgressCalendarModal({ isOpen, onClose, progress, setPr
   const [isCompletedForDate, setIsCompletedForDate] = useState(!!existingLog.completed);
   const [studyMinutes, setStudyMinutes] = useState(existingLog.studyMinutes || 15);
   const [studyNotes, setStudyNotes] = useState(existingLog.notes || '');
-  const [movilidadDone, setMovilidadDone] = useState(!!existingLog.habits?.movilidad);
-  const [calisteniaDone, setCalisteniaDone] = useState(!!existingLog.habits?.calistenia);
   const [saveSuccessMsg, setSaveSuccessMsg] = useState(false);
 
   // Update form inputs whenever selectedDateStr or calendarLogs change
@@ -53,8 +51,6 @@ export default function ProgressCalendarModal({ isOpen, onClose, progress, setPr
     setIsCompletedForDate(!!log.completed);
     setStudyMinutes(log.studyMinutes || 15);
     setStudyNotes(log.notes || '');
-    setMovilidadDone(!!log.habits?.movilidad);
-    setCalisteniaDone(!!log.habits?.calistenia);
     setSaveSuccessMsg(false);
   }, [selectedDateStr, progress]);
 
@@ -130,25 +126,12 @@ export default function ProgressCalendarModal({ isOpen, onClose, progress, setPr
       });
     }
 
-    if (!existingLog.habits?.movilidad && movilidadDone) {
-      xpGained += 25;
-      addXP(25);
-    }
-    if (!existingLog.habits?.calistenia && calisteniaDone) {
-      xpGained += 25;
-      addXP(25);
-    }
-
     const updatedLog = {
       date: selectedDateStr,
       completed: isNowCompleted,
       syllabusDay: Number(selectedDaySyllabus),
       studyMinutes: Number(studyMinutes),
       notes: studyNotes,
-      habits: {
-        movilidad: movilidadDone,
-        calistenia: calisteniaDone
-      },
       updatedAt: new Date().toISOString()
     };
 
@@ -396,14 +379,6 @@ export default function ProgressCalendarModal({ isOpen, onClose, progress, setPr
                         <span className="text-[8px] opacity-80">{dayLog.studyMinutes || 15}m</span>
                       </div>
                     )}
-
-                    {/* Habits logged indicator */}
-                    {dayLog?.habits && (dayLog.habits.movilidad || dayLog.habits.calistenia) && (
-                      <div className="flex items-center gap-1 text-[10px] mt-0.5">
-                        {dayLog.habits.movilidad && <span title="Movilidad Articular">🤸</span>}
-                        {dayLog.habits.calistenia && <span title="Calistenia">🏋️</span>}
-                      </div>
-                    )}
                   </button>
                 );
               })}
@@ -541,59 +516,10 @@ export default function ProgressCalendarModal({ isOpen, onClose, progress, setPr
                   </div>
                 </div>
 
-                {/* 3. Hábitos Físicos: Movilidad Articular & Calistenia */}
-                <div>
-                  <label className="block text-xs font-mono font-bold text-stone-700 uppercase mb-1.5 flex items-center justify-between">
-                    <span>3. Hábitos Físicos del Día:</span>
-                    <span className="text-[10px] text-amber-700 font-sans font-normal">+25 XP c/u</span>
-                  </label>
-                  <div className="grid grid-cols-2 gap-2">
-                    <button
-                      type="button"
-                      onClick={() => setMovilidadDone(!movilidadDone)}
-                      className={`p-3 rounded-2xl border text-left transition-all cursor-pointer flex items-center justify-between gap-2 ${
-                        movilidadDone
-                          ? 'bg-amber-500 text-stone-950 border-amber-500 font-bold shadow-xs'
-                          : 'bg-white hover:bg-stone-50 border-stone-200 text-stone-700'
-                      }`}
-                    >
-                      <div className="flex items-center gap-2">
-                        <span className="text-base">🤸</span>
-                        <div className="leading-tight">
-                          <span className="text-xs block font-serif">Movilidad</span>
-                          <span className={`text-[10px] ${movilidadDone ? 'text-stone-900' : 'text-stone-400'}`}>
-                            {movilidadDone ? '✓ Marcada' : 'Pendiente'}
-                          </span>
-                        </div>
-                      </div>
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={() => setCalisteniaDone(!calisteniaDone)}
-                      className={`p-3 rounded-2xl border text-left transition-all cursor-pointer flex items-center justify-between gap-2 ${
-                        calisteniaDone
-                          ? 'bg-amber-500 text-stone-950 border-amber-500 font-bold shadow-xs'
-                          : 'bg-white hover:bg-stone-50 border-stone-200 text-stone-700'
-                      }`}
-                    >
-                      <div className="flex items-center gap-2">
-                        <span className="text-base">🏋️</span>
-                        <div className="leading-tight">
-                          <span className="text-xs block font-serif">Calistenia</span>
-                          <span className={`text-[10px] ${calisteniaDone ? 'text-stone-900' : 'text-stone-400'}`}>
-                            {calisteniaDone ? '✓ Marcada' : 'Pendiente'}
-                          </span>
-                        </div>
-                      </div>
-                    </button>
-                  </div>
-                </div>
-
-                {/* 4. Notes Textarea */}
+                {/* 3. Notes Textarea */}
                 <div>
                   <label className="block text-xs font-mono font-bold text-stone-700 uppercase mb-1.5">
-                    4. Notas Filológicas / Apuntes del Día:
+                    3. Notas Filológicas / Apuntes del Día:
                   </label>
                   <textarea
                     value={studyNotes}

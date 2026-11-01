@@ -2,16 +2,22 @@ import React, { useState, useEffect } from 'react';
 import { sentencePuzzles } from '../data/sentenceBuilder';
 import { speechService } from '../utils/speech';
 import { addXP, saveProgress, getTodayDate } from '../utils/storage';
-import { Puzzle, Check, X, RotateCcw, Volume2, ArrowRight, Bookmark, Lightbulb } from 'lucide-react';
+import { Puzzle, Check, X, RotateCcw, Volume2, ArrowRight, ArrowLeft, Bookmark, Lightbulb, CheckCircle2 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 export default function SentenceTrainer({ progress, setProgress, setActiveTab, onOpenCalendar, onAddConsecutiveDay }) {
-  const [puzzleIdx, setPuzzleIdx] = useState(0);
+  const completedList = progress.completedSentences || [];
+  
+  // Iniciar en la primera oración no completada por el usuario (o en la 0 si ya completó todas)
+  const firstIncompleteIdx = sentencePuzzles.findIndex(p => !completedList.includes(p.id));
+  const [puzzleIdx, setPuzzleIdx] = useState(firstIncompleteIdx !== -1 ? firstIncompleteIdx : 0);
+  
   const [shuffledTokens, setShuffledTokens] = useState([]);
   const [userTokens, setUserTokens] = useState([]);
   const [status, setStatus] = useState('idle');
 
   const currentPuzzle = sentencePuzzles[puzzleIdx] || sentencePuzzles[0];
+  const isCurrentCompleted = completedList.includes(currentPuzzle.id);
 
   const todayDate = getTodayDate();
   const questsState = progress[`quests_${todayDate}`] || {};
@@ -66,7 +72,6 @@ export default function SentenceTrainer({ progress, setProgress, setActiveTab, o
         ...(isSentencesFocus ? { focusDone: true, focusDone_awarded: true } : {})
       };
 
-      const completedList = progress.completedSentences || [];
       if (!completedList.includes(currentPuzzle.id)) {
         const newCompleted = [...completedList, currentPuzzle.id];
         const updated = saveProgress({ 
@@ -94,10 +99,14 @@ export default function SentenceTrainer({ progress, setProgress, setActiveTab, o
     setPuzzleIdx((prev) => (prev + 1) % sentencePuzzles.length);
   };
 
+  const handlePrev = () => {
+    setPuzzleIdx((prev) => (prev - 1 + sentencePuzzles.length) % sentencePuzzles.length);
+  };
+
   return (
     <div className="max-w-4xl mx-auto px-6 py-12">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-10">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
         <div>
           <div className="flex items-center gap-2 mb-1 text-stone-500 text-xs font-mono tracking-widest uppercase">
             <Bookmark className="w-3.5 h-3.5 text-stone-700" />
@@ -107,20 +116,79 @@ export default function SentenceTrainer({ progress, setProgress, setActiveTab, o
             Sintaxis y Orden Oracional
           </h2>
           <p className="text-xs text-stone-500 mt-1">
-            Ensamblaje guiado para consolidar la posición del verbo y las cláusulas subordinadas.
+            Ensamblaje guiado para consolidar la posición del verbo, cláusulas subordinadas y el doble objeto.
           </p>
         </div>
 
-        <span className="text-xs font-mono text-stone-600 px-3.5 py-1.5 rounded-xl bg-white border border-stone-200 shadow-2xs self-start">
-          Cláusula {puzzleIdx + 1} de {sentencePuzzles.length}
-        </span>
+        <div className="flex items-center gap-2">
+          <span className="text-xs font-mono font-semibold text-emerald-800 bg-emerald-50 px-3 py-1.5 rounded-xl border border-emerald-200">
+            ✓ {completedList.length} de {sentencePuzzles.length} Superadas
+          </span>
+        </div>
+      </div>
+
+      {/* Selector de Oraciones (Pills de navegación rápida para no repetir siempre la misma) */}
+      <div className="mb-6 p-4 rounded-2xl bg-white border border-stone-200 shadow-2xs">
+        <div className="flex items-center justify-between gap-2 mb-2">
+          <span className="text-[11px] font-mono font-bold text-stone-500 uppercase tracking-wider">
+            Selecciona cualquier reto ({sentencePuzzles.length} disponibles):
+          </span>
+          <div className="flex items-center gap-1">
+            <button
+              onClick={handlePrev}
+              className="p-1 rounded-lg border border-stone-200 text-stone-600 hover:bg-stone-100 cursor-pointer"
+              title="Oración anterior"
+            >
+              <ArrowLeft className="w-3.5 h-3.5" />
+            </button>
+            <button
+              onClick={handleNext}
+              className="p-1 rounded-lg border border-stone-200 text-stone-600 hover:bg-stone-100 cursor-pointer"
+              title="Siguiente oración"
+            >
+              <ArrowRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
+          {sentencePuzzles.map((p, idx) => {
+            const isCompleted = completedList.includes(p.id);
+            const isCurrent = idx === puzzleIdx;
+            return (
+              <button
+                key={p.id}
+                onClick={() => setPuzzleIdx(idx)}
+                className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition-all shrink-0 cursor-pointer flex items-center gap-1.5 border ${
+                  isCurrent
+                    ? 'bg-stone-900 text-white border-stone-900 shadow-xs'
+                    : isCompleted
+                    ? 'bg-emerald-50 text-emerald-800 border-emerald-300 hover:bg-emerald-100'
+                    : 'bg-stone-50 text-stone-600 border-stone-200 hover:bg-stone-100'
+                }`}
+                title={`Reto ${idx + 1}: ${p.category} ${isCompleted ? '(Superado ✓)' : ''}`}
+              >
+                <span>{idx + 1}</span>
+                {isCompleted && <span className="text-[10px]">✓</span>}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       {/* Target Sentence Card */}
       <div className="p-8 sm:p-10 rounded-3xl bg-white border border-stone-200 shadow-sm mb-8">
-        <span className="px-3 py-1 text-[11px] font-mono font-bold rounded-md bg-stone-100 text-stone-700 border border-stone-300 uppercase">
-          {currentPuzzle.category}
-        </span>
+        <div className="flex items-center justify-between gap-2">
+          <span className="px-3 py-1 text-[11px] font-mono font-bold rounded-md bg-stone-100 text-stone-700 border border-stone-300 uppercase">
+            Reto {puzzleIdx + 1} • {currentPuzzle.category}
+          </span>
+          {isCurrentCompleted && (
+            <span className="flex items-center gap-1 text-[11px] font-mono font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
+              <CheckCircle2 className="w-3 h-3 text-emerald-600" />
+              <span>Ya Superada</span>
+            </span>
+          )}
+        </div>
 
         <h3 className="text-2xl sm:text-3xl font-serif font-bold text-stone-900 mt-4 mb-2">
           "{currentPuzzle.translation}"
@@ -248,7 +316,7 @@ export default function SentenceTrainer({ progress, setProgress, setActiveTab, o
               onClick={handleNext}
               className="px-6 py-3 rounded-xl font-medium text-xs bg-stone-100 hover:bg-stone-200 text-stone-800 border border-stone-300 flex items-center gap-2 cursor-pointer shadow-2xs"
             >
-              <span>Siguiente Cláusula</span>
+              <span>Siguiente Cláusula ({puzzleIdx + 1}/{sentencePuzzles.length})</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           )}
