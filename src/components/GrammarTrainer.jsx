@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import DeclensionMatrix8x8 from './DeclensionMatrix8x8';
 import FormattedDossierView from './FormattedDossierView';
+import PossessivesMasterGuide from './PossessivesMasterGuide';
 
 export default function GrammarTrainer({ progress, setProgress, setActiveTab, onOpenCalendar, onAddConsecutiveDay }) {
   const [selectedTopicId, setSelectedTopicId] = useState(grammarTopics[0].id);
@@ -451,6 +452,13 @@ export default function GrammarTrainer({ progress, setProgress, setActiveTab, on
                       ))}
                     </tbody>
                   </table>
+                </div>
+              )}
+
+              {/* In-depth Master Guide for Possessives */}
+              {activeTableTab === 'possessive' && (
+                <div className="mt-8 pt-8 border-t border-stone-200">
+                  <PossessivesMasterGuide />
                 </div>
               )}
             </div>

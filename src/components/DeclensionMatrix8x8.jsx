@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Volume2, Sparkles, Compass, Eye, Info, Check, BookOpen, ShieldAlert, Key } from 'lucide-react';
 import { speechService } from '../utils/speech';
+import PossessivesMasterGuide from './PossessivesMasterGuide';
 
 /**
  * DeclensionMatrix8x8:
@@ -395,29 +396,27 @@ export default function DeclensionMatrix8x8({ mode = 'cases' }) {
         const forms = getPossessiveForms(activePerson.id);
 
         return (
-          <div className="mt-6 space-y-6">
-            {/* Banner pedagógico de los Posesivos */}
-            <div className="p-5 rounded-2xl bg-amber-50/80 border border-amber-200 text-amber-950 text-xs sm:text-sm leading-relaxed flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-              <div>
-                <strong className="font-serif text-amber-900 block text-base mb-1">
-                  💡 La Regla de Oro de los Posesivos (Possessivartikel):
-                </strong>
-                <span>
-                  Los posesivos funcionan exactamente igual que el artículo indefinido <strong>"ein"</strong> y la negación <strong>"kein"</strong>.
-                  Toman la raíz de la persona que posee (<em>mein, dein, sein...</em>) y le añaden las terminaciones del caso según el género del objeto poseído.
-                </span>
-              </div>
-              <span className="shrink-0 px-3 py-1.5 rounded-xl bg-amber-200/60 font-mono text-xs font-bold text-amber-900 border border-amber-300">
-                Persona: {activePerson.pronoun}
-              </span>
-            </div>
+          <div className="mt-6 space-y-8">
+            {/* 1. Compendio y Tabla Maestra Comparativa Persona por Persona */}
+            <PossessivesMasterGuide />
 
-            {/* Selector de Personas (9 Personas) */}
-            <div>
-              <span className="text-xs font-mono font-bold text-stone-500 uppercase tracking-wider block mb-2">
-                1. Selecciona el Posesivo / Persona:
-              </span>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2">
+            {/* 2. Inspector Detallado Caso por Caso */}
+            <div className="pt-6 border-t border-stone-200 space-y-6">
+              <div>
+                <span className="text-xs font-mono font-bold text-stone-500 uppercase tracking-wider block mb-1">
+                  Inspector Individual de Casos
+                </span>
+                <h4 className="font-serif font-bold text-lg text-stone-900">
+                  Declinación completa para: <span className="text-amber-800 underline">{activePerson.pronoun} ({activePerson.base})</span>
+                </h4>
+              </div>
+
+              {/* Selector de Personas (9 Personas) */}
+              <div>
+                <span className="text-xs font-mono font-bold text-stone-500 uppercase tracking-wider block mb-2">
+                  Selecciona una persona para inspeccionar sus 4 casos:
+                </span>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2">
                 {possessivePersons.map((p) => {
                   const isSelected = selectedPossessive === p.id;
                   return (
@@ -552,6 +551,7 @@ export default function DeclensionMatrix8x8({ mode = 'cases' }) {
                   <span>Escuchar oración</span>
                 </button>
               </div>
+            </div>
             </div>
           </div>
         );
