@@ -112,5 +112,45 @@ export const sentencePuzzles = [
     tokens: ['Heute', 'bin', 'ich', 'sehr', 'früh', 'aufgewacht.'],
     hint: 'Verbo de cambio de estado ("aufwachen") = auxiliar "sein" (bin) + participio al final ("aufgewacht").',
     grammarFocus: 'Perfekt con auxiliar "sein" para cambio de estado o movimiento.'
+  },
+  {
+    id: 's15',
+    category: 'Pasado Reciente: Inversión Temporal con "Am Wochenende"',
+    translation: 'El fin de semana quedé con mis amigos en el café.',
+    tokens: ['Am', 'Wochenende', 'habe', 'ich', 'mich', 'mit', 'Freunden', 'getroffen.'],
+    hint: '"Am Wochenende" ocupa la Posición 1 temporal. El auxiliar "habe" va en Posición 2, "ich" en Posición 3, y el participio "getroffen" al final.',
+    grammarFocus: 'Marcador temporal reciente (Wann?) + Inversión V2 + Perfekt reflexivo.'
+  },
+  {
+    id: 's16',
+    category: 'Satzklammer con Verbo Modal en Perfekt (Ersatzinfinitiv)',
+    translation: 'Ayer tuve que trabajar hasta tarde en la oficina.',
+    tokens: ['Gestern', 'habe', 'ich', 'bis', 'spät', 'im', 'Büro', 'arbeiten', 'müssen.'],
+    hint: '¡Regla del doble infinitivo (Ersatzinfinitiv)! Con "habe" en pos. 2 y otro verbo (arbeiten), el modal al final toma infinitivo ("müssen", ¡nunca "gemusst"!).',
+    grammarFocus: 'Perfekt con verbo modal: "habe ... arbeiten müssen" (Doble Infinitivo).'
+  },
+  {
+    id: 's17',
+    category: 'Verbo Modal como Verbo Pleno en Perfekt (habe ... gemusst)',
+    translation: 'No quería hacer la tarea, pero lamentablemente tuve que hacerlo.',
+    tokens: ['Ich', 'wollte', 'nicht,', 'aber', 'ich', 'habe', 'leider', 'gemusst.'],
+    hint: 'Cuando el modal NO tiene otro verbo acompañándolo (verbo pleno absoluto), SÍ toma el participio II regular "gemusst".',
+    grammarFocus: 'Modal pleno sin verbo secundario: "habe ... gemusst".'
+  },
+  {
+    id: 's18',
+    category: 'Pronombres en Contraste: Sujeto "wir" vs Objeto "uns"',
+    translation: 'Nosotros nos alegramos mucho de que el profesor nos ayude.',
+    tokens: ['Wir', 'freuen', 'uns,', 'dass', 'der', 'Lehrer', 'uns', 'hilft.'],
+    hint: '"Wir" es el sujeto nominativo (hace la acción). "uns" es el objeto dativo que recibe la ayuda de "helfen".',
+    grammarFocus: 'Distinción vital: "wir" (sujeto) vs "uns" (objeto / reflexivo).'
+  },
+  {
+    id: 's19',
+    category: 'Pronombres Personales en Dativo (ich vs mir)',
+    translation: 'Ayer mi amigo me regaló un libro en alemán.',
+    tokens: ['Gestern', 'hat', 'mir', 'mein', 'Freund', 'ein', 'deutsches', 'Buch', 'geschenkt.'],
+    hint: 'El beneficiario del regalo va en Dativo: "mir" (a mí). "ich" solo se usaría si yo fuera quien regala.',
+    grammarFocus: 'Dativo personal "mir" con verbo de entrega (schenken).'
   }
 ];

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { addXP, getProgress, saveProgress, getLocalDateString, getTodayDate } from '../utils/storage';
+import { addXP, getProgress, saveProgress, getLocalDateString, getTodayDate, advanceToNextCurriculumDay } from '../utils/storage';
 import { 
   Calendar, Flame, CheckCircle2, Circle, Gift, 
   ArrowRight, Sparkles, Trophy, Target, BookOpen, Heart, Zap, Clock,
@@ -344,9 +344,24 @@ export default function DailyCheckInPanel({ progress, setProgress, setActiveTab,
                 <span>Registrar Entrada (+25 XP)</span>
               </button>
             ) : (
-              <div className="px-5 py-3 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs font-mono font-bold flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                <span>Asistencia de Hoy Registrada</span>
+              <div className="flex flex-col gap-2">
+                <div className="px-5 py-3 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs font-mono font-bold flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                  <span>Asistencia de Hoy Registrada</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const updated = advanceToNextCurriculumDay();
+                    setProgress(updated);
+                    confetti({ particleCount: 70, spread: 80, origin: { y: 0.6 } });
+                  }}
+                  className="px-4 py-2.5 rounded-xl bg-stone-900 hover:bg-stone-800 text-white font-serif font-bold text-xs flex items-center justify-center gap-2 cursor-pointer shadow-xs transition-all hover:scale-102"
+                  title="¿Estudiando de noche o listo para avanzar? Desbloquea de inmediato las misiones del siguiente día"
+                >
+                  <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Empezar Nuevo Día Ahora (Día {currentCurriculumDay + 1}) →</span>
+                </button>
               </div>
             )}
           </div>

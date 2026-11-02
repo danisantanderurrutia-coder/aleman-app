@@ -11,6 +11,7 @@ import {
 import DeclensionMatrix8x8 from './DeclensionMatrix8x8';
 import FormattedDossierView from './FormattedDossierView';
 import PossessivesMasterGuide from './PossessivesMasterGuide';
+import PronounsMasterGuide from './PronounsMasterGuide';
 
 export default function GrammarTrainer({ progress, setProgress, setActiveTab, onOpenCalendar, onAddConsecutiveDay }) {
   const [selectedTopicId, setSelectedTopicId] = useState(grammarTopics[0].id);
@@ -459,6 +460,39 @@ export default function GrammarTrainer({ progress, setProgress, setActiveTab, on
               {activeTableTab === 'possessive' && (
                 <div className="mt-8 pt-8 border-t border-stone-200">
                   <PossessivesMasterGuide />
+                </div>
+              )}
+
+              {/* In-depth Master Guide for Personal Pronouns */}
+              {topic.id === 'personalpronomen_faelle' && (
+                <div className="mt-4">
+                  <PronounsMasterGuide />
+                </div>
+              )}
+
+              {/* Past Modals Comparative Table */}
+              {topic.tables.pastModals && (
+                <div className="overflow-x-auto mt-4">
+                  <table className="w-full text-left border-collapse text-xs sm:text-sm">
+                    <thead>
+                      <tr className="border-b border-stone-200 text-stone-500 font-mono uppercase text-xs">
+                        <th className="py-3 px-4">Verbo Modal</th>
+                        <th className="py-3 px-4 text-blue-700">Präteritum (Cotidiano y Preferido)</th>
+                        <th className="py-3 px-4 text-amber-700">Perfekt con Doble Infinitivo (Ersatzinfinitiv)</th>
+                        <th className="py-3 px-4 text-emerald-700">Modal Pleno (Partizip II)</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-stone-100 font-mono">
+                      {topic.tables.pastModals.map((pm, idx) => (
+                        <tr key={idx} className="hover:bg-stone-50/60">
+                          <td className="py-3 px-4 font-bold text-stone-900">{pm.modal}</td>
+                          <td className="py-3 px-4 font-bold text-blue-800 bg-blue-50/40 rounded-lg">{pm.praeteritum}</td>
+                          <td className="py-3 px-4 text-amber-900">{pm.perfektDouble}</td>
+                          <td className="py-3 px-4 text-emerald-800">{pm.fullPartizip}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               )}
             </div>

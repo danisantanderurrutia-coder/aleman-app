@@ -14,15 +14,58 @@ export const getLocalDateString = (d = new Date()) => {
   return `${year}-${month}-${day}`;
 };
 
-// Regla del búho nocturno (Night Owl):
-// Si el usuario practica antes de las 4 AM (00:00 a 03:59), la sesión se considera
-// parte de la jornada académica del día anterior. A partir de las 04:00 AM inicia el nuevo día.
+// Regla del búho nocturno (Night Owl) inteligente:
+// 1. Si el usuario practica antes de las 4 AM (00:00 a 03:59) y la jornada de ayer NO estaba completada,
+//    la sesión se considera parte de la jornada de ayer para no romper su racha.
+// 2. Si la jornada de ayer YA estaba completada, o el usuario activó la nueva jornada,
+//    el sistema reconoce que ya es su nuevo día de estudio para que no se quede bloqueado.
 export const getCurrentStudyDate = (now = new Date(), cutoffHour = 4) => {
   const d = new Date(now);
+  const calendarToday = getLocalDateString(d);
+
   if (d.getHours() < cutoffHour) {
-    d.setDate(d.getDate() - 1);
+    const yesterday = new Date(d);
+    yesterday.setDate(yesterday.getDate() - 1);
+    const yesterdayStr = getLocalDateString(yesterday);
+
+    try {
+      if (typeof window !== 'undefined' && window.localStorage) {
+        const raw = window.localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          const yesterdayLog = parsed.calendarLogs?.[yesterdayStr];
+          const yesterdayDone = !!(yesterdayLog?.completed || parsed[`daily_checkin_${yesterdayStr}`]);
+          if (parsed.forcedStudyDate === calendarToday || yesterdayDone) {
+            return calendarToday;
+          }
+        }
+      }
+    } catch (_) {}
+
+    return yesterdayStr;
   }
-  return getLocalDateString(d);
+  return calendarToday;
+};
+
+// Permite al usuario iniciar inmediatamente la siguiente jornada académica sin esperar a las 4 AM
+export const advanceToNextCurriculumDay = () => {
+  const current = getProgress();
+  const nextDay = (current.curriculumDay || 1) + 1;
+  const now = new Date();
+  const calendarToday = getLocalDateString(now);
+  const questsKey = `quests_${calendarToday}`;
+
+  return saveProgress({
+    curriculumDay: nextDay,
+    forcedStudyDate: calendarToday,
+    lastActiveDate: calendarToday,
+    [questsKey]: {
+      focusDone: false,
+      vocabDone: false,
+      grammarDone: false,
+      claimedBonus: false
+    }
+  });
 };
 
 export const getYesterdayLocalDateString = (d = new Date()) => {

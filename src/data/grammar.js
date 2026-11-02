@@ -664,5 +664,183 @@ export const grammarTopics = [
         explanation: 'En Dativo con artículo determinado, el adjetivo SIEMPRE toma "-en" (dem alten Bus).'
       }
     ]
+  },
+  {
+    id: 'personalpronomen_faelle',
+    title: 'Pronombres Personales: Nominativ, Akkusativ y Dativ (wir vs uns)',
+    subtitle: 'Distingue con precisión quirúrgica el sujeto ejecutor (wir) del objeto receptor (uns)',
+    level: 'A2.1 Morfosintaxis',
+    icon: 'Layers',
+    originExplanation: {
+      whyItExists: 'En español usamos la palabra "nosotros" tanto para el sujeto ("Nosotros cocinamos") como para el objeto con preposición ("Él cocina para nosotros"). En alemán, el pronombre muta de raíz de acuerdo a su función: WIR solo puede ser sujeto, UNS es el objeto (acusativo y dativo), y UNSER es el posesivo.',
+      theThreeRoles: [
+        {
+          name: 'Nominativ: wir / ich / du (Sujeto)',
+          role: 'El ejecutor directo de la acción verbal. Solo este caso conjuga al verbo.',
+          example: 'Wir kochen heute Abend. / Ich lerne Deutsch.',
+          color: 'blue'
+        },
+        {
+          name: 'Akkusativ: uns / mich / dich (Objeto Directo)',
+          role: 'Quien recibe el impacto directo del verbo. Responde a ¿A quién o qué ve/escucha/visita el sujeto?',
+          example: 'Clara besucht uns am Wochenende. / Der Lehrer fragt mich.',
+          color: 'rose'
+        },
+        {
+          name: 'Dativ: uns / mir / dir (Objeto Indirecto)',
+          role: 'El beneficiario o perjudicado. Responde a ¿A quién le entrega/ayuda/gusta algo?',
+          example: 'Der Kellner bringt uns die Rechnung. / Das schmeckt mir sehr gut.',
+          color: 'purple'
+        }
+      ]
+    },
+    theoreticalDossier: [
+      {
+        title: '1. El Gran Mapa de Pronombres Personales (Alemán vs Español)',
+        content: 'Persona | Nominativ (Sujeto) | Akkusativ (Obj. Directo) | Dativ (Obj. Indirecto) | Posesivo (Raíz)\nich | ich (yo) | mich (a mí / me) | mir (a mí / me) | mein (mi)\ndu | du (tú) | dich (a ti / te) | dir (a ti / te) | dein (tu)\ner | er (él) | ihn (a él / lo) | ihm (a él / le) | sein (su)\nsie (ella) | sie (ella) | sie (a ella / la) | ihr (a ella / le) | ihr (su)\nes | es (ello) | es (a ello / lo) | ihm (a ello / le) | sein (su)\nwir | wir (nosotros) | uns (a nosotros / nos) | uns (a nosotros / nos) | unser (nuestro)\nihr | ihr (vosotros) | euch (a vosotros / os) | euch (a vosotros / os) | euer (vuestro)\nsie (ellos) | sie (ellos) | sie (a ellos / los) | ihnen (a ellos / les) | ihr (su)\nSie (formal) | Sie (Ud/Uds) | Sie (a Ud / lo/la) | Ihnen (a Ud / le) | Ihr (su de Ud)\n\n📌 ¿Por qué "uns" sirve para Acusativo y Dativo? Al igual que en español ("nos ve" = acusativo, "nos da" = dativo), la primera y segunda persona del plural unifican su forma objetual en "uns" y "euch".'
+      },
+      {
+        title: '2. Verbos Clave que Rigen Dativ Obligatorio',
+        content: 'Muchos verbos en alemán exigen dativo donde en español esperarías acusativo:\n* helfen (ayudar): "Er hilft uns" (¡nunca "wir"!).\n* danken (agradecer): "Ich danke dir / Ihnen".\n* gefallen (gustar): "Berlin gefällt mir".\n* schmecken (saber/gustar comida): "Die Pizza schmeckt uns".\n* passen (quedar bien/convenir): "Der Termin passt mir gut".\n\n📌 Regla mnemotécnica: Tras preposiciones de dativo (aus, bei, mit, nach, seit, von, zu), siempre va la columna de Dativo: "mit uns", "zu mir", "bei dir".'
+      }
+    ],
+    tables: {
+      pronouns: [
+        { person: '1ª pl (nosotros)', nom: 'wir', akk: 'uns', dat: 'uns', poss: 'unser' },
+        { person: '1ª sg (yo)', nom: 'ich', akk: 'mich', dat: 'mir', poss: 'mein' },
+        { person: '2ª sg (tú)', nom: 'du', akk: 'dich', dat: 'dir', poss: 'dein' },
+        { person: '3ª masc (él)', nom: 'er', akk: 'ihn', dat: 'ihm', poss: 'sein' },
+        { person: '3ª fem (ella)', nom: 'sie', akk: 'sie', dat: 'ihr', poss: 'ihr' },
+        { person: '2ª pl (vosotros)', nom: 'ihr', akk: 'euch', dat: 'euch', poss: 'euer' },
+        { person: '3ª pl (ellos)', nom: 'sie', akk: 'sie', dat: 'ihnen', poss: 'ihr' },
+        { person: 'Formal (Usted)', nom: 'Sie', akk: 'Sie', dat: 'Ihnen', poss: 'Ihr' },
+      ]
+    },
+    sentenceRayX: [
+      {
+        de: 'Der Reiseleiter hilft uns und zeigt uns den Weg.',
+        es: 'El guía turístico nos ayuda y nos muestra el camino.',
+        breakdown: [
+          { segment: 'Der Reiseleiter', role: 'Sujeto Nominativo (él)', color: 'blue' },
+          { segment: 'hilft', role: 'Verbo que exige Dativo', color: 'stone' },
+          { segment: 'uns', role: 'Pronombre en Dativo (a nosotros)', color: 'purple' },
+          { segment: 'und zeigt', role: 'Segundo verbo', color: 'stone' },
+          { segment: 'uns', role: 'Dativo: ¿a quién muestra?', color: 'purple' },
+          { segment: 'den Weg', role: 'Acusativo masculino: ¿qué muestra?', color: 'rose' }
+        ]
+      }
+    ],
+    exercises: [
+      {
+        question: 'Peter sieht ___ (nosotros) im Supermarkt.',
+        translation: 'Peter nos ve en el supermercado.',
+        options: ['uns', 'wir', 'unser', 'unserem'],
+        correct: 0,
+        explanation: 'Objeto directo de "sehen" = Acusativo de nosotros: "uns". "wir" solo puede ser sujeto.'
+      },
+      {
+        question: '___ (nosotros) haben gestern eine Pizza bestellt.',
+        translation: 'Ayer nosotros pedimos una pizza.',
+        options: ['Wir', 'Uns', 'Unser', 'Unseren'],
+        correct: 0,
+        explanation: 'Sujeto que realiza la acción de conjugar el verbo "haben" = "Wir".'
+      },
+      {
+        question: 'Kannst du ___ (a mí) bitte das Salz geben?',
+        translation: '¿Puedes darme a mí la sal por favor?',
+        options: ['mir', 'mich', 'ich', 'mein'],
+        correct: 0,
+        explanation: 'Dar algo a alguien = Dativo personal "mir" (geben rige dativo de persona).'
+      }
+    ]
+  },
+  {
+    id: 'perfekt_modales_zeit',
+    title: 'Estructuras de Pasado: Perfekt, Verbos Modales & Marcadores Temporales',
+    subtitle: 'La Satzklammer con "habe ... müssen/gemusst", el orden TeKaMoLo y "Am Wochenende"',
+    level: 'A2.2 Sintaxis & Pasado',
+    icon: 'Clock',
+    originExplanation: {
+      whyItExists: 'En el alemán hablado cotidiano, el tiempo verbal rey para hablar del pasado reciente es el PERFEKT (haben/sein + Partizip II). Cuando usamos verbos modales o marcadores de tiempo específico como "Am Wochenende", el alemán despliega una arquitectura oracional estricta: el verbo auxiliar ocupa la posición 2 y proyecta el participio o el doble infinitivo al final absoluto de la frase.',
+      theThreeRoles: [
+        {
+          name: 'Pasado Reciente: Am Wochenende (Inversión V2)',
+          role: 'Los adverbios de tiempo específico al inicio desplazan al sujeto a la posición 3: [Am Wochenende] + [habe] + [ich]... + [gemacht].',
+          example: 'Am Wochenende habe ich meine Familie besucht.',
+          color: 'blue'
+        },
+        {
+          name: 'Perfekt con Verbo Modal (Ersatzinfinitiv)',
+          role: 'Si el modal acompaña a otro verbo, se produce el doble infinitivo: [habe] en pos. 2 y [arbeiten müssen] al final.',
+          example: 'Ich habe gestern bis 22 Uhr arbeiten müssen.',
+          color: 'amber'
+        },
+        {
+          name: 'Modal Pleno (habe ... gemusst)',
+          role: 'Solo si el modal actúa como verbo único sin ningún otro infinitivo, toma el participio II regular "gemusst".',
+          example: 'Ich wollte nicht, aber ich habe leider gemusst.',
+          color: 'emerald'
+        }
+      ]
+    },
+    theoreticalDossier: [
+      {
+        title: '1. El Dilema del Pasado con Verbos Modales: ¿Perfekt o Präteritum?',
+        content: 'En la práctica lingüística real de Alemania, Austria y Suiza:\n* Con verbos modales, los hablantes nativos prefieren en un 90% de los casos usar el PRÄTERITUM ("Ich musste arbeiten", "Ich konnte nicht kommen") porque es mucho más ágil y elegante que el doble infinitivo.\n* Sin embargo, cuando se construye en PERFEKT, ocurre una regla fascinante: EL ERSATZINFINITIV (Infinitivo de sustitución).\n  - Si hay otro verbo: "Ich habe gestern arbeiten MÜSSEN" (¡NUNCA "arbeiten gemusst"!).\n  - Si NO hay otro verbo (uso pleno): "Ich habe das nicht gewollt / Ich habe gemusst".'
+      },
+      {
+        title: '2. Marcadores Temporales de Pasado Reciente y TeKaMoLo',
+        content: 'El alemán distingue con precisión entre el pasado reciente de conversación y el pasado distante:\n* Pasado reciente / tiempo específico: "am Wochenende" (el fin de semana), "gestern" (ayer), "letzte Woche" (la semana pasada), "vor zwei Tagen" (hace dos días).\n* En el habla cotidiana (Umgangssprache), SIEMPRE se usa el Perfekt con estos marcadores: "Was hast du am Wochenende gemacht?" (¡Nunca "Was machtest du am Wochenende?").\n* Regla de posición temporal (TeKaMoLo: Temporal, Kausal, Modal, Lokal):\n  - Si "Am Wochenende" va primero: Am Wochenende (1) + habe (2) + ich (3) + in Berlin (Lokal) + gefeiert (Final).\n  - Si el sujeto va primero: Ich habe am Wochenende (Temporal) in Berlin (Lokal) gefeiert.'
+      }
+    ],
+    tables: {
+      pastModals: [
+        { modal: 'müssen', praeteritum: 'ich musste', perfektDouble: 'ich habe ... arbeiten müssen', fullPartizip: 'ich habe gemusst' },
+        { modal: 'können', praeteritum: 'ich konnte', perfektDouble: 'ich habe ... kommen können', fullPartizip: 'ich habe gekonnt' },
+        { modal: 'wollen', praeteritum: 'ich wollte', perfektDouble: 'ich habe ... kaufen wollen', fullPartizip: 'ich habe gewollt' },
+        { modal: 'dürfen', praeteritum: 'ich durfte', perfektDouble: 'ich habe ... parken dürfen', fullPartizip: 'ich habe gedurft' },
+      ]
+    },
+    sentenceRayX: [
+      {
+        de: 'Am Wochenende habe ich mit meinen Freunden lernen müssen.',
+        es: 'El fin de semana tuve que estudiar con mis amigos.',
+        breakdown: [
+          { segment: 'Am Wochenende', role: 'Posición 1: Marcador Temporal (Wann?)', color: 'blue' },
+          { segment: 'habe', role: 'Posición 2: Verbo Auxiliar conjugado', color: 'amber' },
+          { segment: 'ich', role: 'Posición 3: Sujeto (Inversión V2)', color: 'stone' },
+          { segment: 'mit meinen Freunden', role: 'Mittelfeld: Complemento modal/social', color: 'purple' },
+          { segment: 'lernen müssen', role: 'Satzende: Doble infinitivo (Ersatzinfinitiv)', color: 'emerald' }
+        ]
+      }
+    ],
+    exercises: [
+      {
+        question: 'Am Wochenende ___ ich lange geschlafen.',
+        translation: 'El fin de semana he dormido mucho tiempo.',
+        options: ['habe', 'bin', 'hat', 'hast'],
+        correct: 0,
+        explanation: '"Am Wochenende" en pos. 1 + "habe" (auxiliar con schlafen) en pos. 2 + "ich" en pos. 3.'
+      },
+      {
+        question: 'Gestern habe ich leider bis 20 Uhr im Büro bleiben ___ (müssen).',
+        translation: 'Ayer lamentablemente tuve que quedarme en la oficina hasta las 20 horas.',
+        options: ['müssen', 'gemusst', 'musste', 'gemusst hat'],
+        correct: 0,
+        explanation: 'Con el verbo "bleiben" ya presente, el modal toma el doble infinitivo (Ersatzinfinitiv): "bleiben müssen".'
+      },
+      {
+        question: 'En el habla cotidiana en Alemania, ¿cuál es la forma más natural de decir "Ayer tuve que trabajar"?',
+        translation: 'Pregunta de naturalidad lingüística A2/B1.',
+        options: [
+          'Gestern musste ich arbeiten. (Präteritum)',
+          'Gestern habe ich arbeiten gemusst.',
+          'Gestern arbeitete ich.',
+          'Gestern bin ich arbeiten gemusst.'
+        ],
+        correct: 0,
+        explanation: 'Para los verbos modales, los nativos usan casi siempre el Präteritum ("musste"), ya que es mucho más ágil que el Perfekt.'
+      }
+    ]
   }
 ];

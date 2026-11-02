@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Volume2, Sparkles, Compass, Eye, Info, Check, BookOpen, ShieldAlert, Key } from 'lucide-react';
 import { speechService } from '../utils/speech';
 import PossessivesMasterGuide from './PossessivesMasterGuide';
+import PronounsMasterGuide from './PronounsMasterGuide';
 
 /**
  * DeclensionMatrix8x8:
@@ -277,6 +278,14 @@ export default function DeclensionMatrix8x8({ mode = 'cases' }) {
             }`}
           >
             El Genitivo
+          </button>
+          <button
+            onClick={() => { setMatrixMode('pronouns'); }}
+            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer ${
+              matrixMode === 'pronouns' ? 'bg-white text-stone-900 shadow-2xs font-semibold' : 'text-stone-600 hover:text-stone-900'
+            }`}
+          >
+            Pronombres (wir vs uns)
           </button>
           <button
             onClick={() => { setMatrixMode('spatial'); setActiveCell('tisch'); }}
@@ -556,6 +565,13 @@ export default function DeclensionMatrix8x8({ mode = 'cases' }) {
           </div>
         );
       })()}
+
+      {/* MATRIX VIEW: PRONOUNS (wir vs uns vs unser, ich vs mich vs mir) */}
+      {matrixMode === 'pronouns' && (
+        <div className="mt-6 space-y-6">
+          <PronounsMasterGuide />
+        </div>
+      )}
 
       {/* MATRIX VIEW: GENITIV (El Enigma del Genitivo & von+Dativ) */}
       {matrixMode === 'genitiv' && (
