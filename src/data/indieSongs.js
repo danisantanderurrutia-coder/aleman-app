@@ -731,5 +731,475 @@ export const indieSongs = [
         ]
       }
     ]
+  },
+
+  // 7. ANNENMAYKANTEREIT - BARFUß AM KLAVIER (2015) [Nivel Fácil / A2]
+  {
+    id: 'amk_barfuss',
+    title: 'Barfuß am Klavier',
+    artist: 'AnnenMayKantereit',
+    album: 'Alles nix Konkretes',
+    year: '2015',
+    genre: 'Indie Folk / Piano Ballad (Fácil)',
+    coverColor: 'from-amber-800 to-stone-950',
+    spotifyQuery: 'AnnenMayKantereit Barfuss am Klavier',
+    youtubeQuery: 'AnnenMayKantereit Barfuss am Klavier offizielles video',
+    description: 'Una de las baladas más íntimas, sencillas y queridas de AnnenMayKantereit. Vocabulario claro y cotidiano ideal para nivel A2: estar sentado descalzo frente al piano recordando las mañanas en pareja.',
+    grammaticalFocus: 'Preposiciones locales estáticas con Dativ ("am Klavier", "im Bett", "bei dir"), el Perfekt de verbos de postura ("rumgesessen", "geschwiegen") y la finalidad con "um zu lieben".',
+    vocabNotes: [
+      { de: 'barfuß', es: 'descalzo / con los pies desnudos' },
+      { de: 'am Klavier', es: 'junto al piano (an dem Klavier → Dativ neutro)' },
+      { de: 'das Liebeslied', es: 'la canción de amor (plural: die Liebeslieder)' },
+      { de: 'wunderlich', es: 'peculiar / extraño / excéntrico' },
+      { de: 'schweigen', es: 'guardar silencio / callar (hat geschwiegen)' },
+      { de: 'sich erinnern an', es: 'acordarse de algo (+ Akkusativ: ans Liegen = an das Liegen)' }
+    ],
+    sections: [
+      {
+        name: 'Refrain (Estribillo)',
+        lines: [
+          {
+            de: 'Und ich sitz schon wieder barfuß am Klavier',
+            es: 'Y ya estoy sentado otra vez descalzo frente al piano',
+            notes: 'Verbo de posición estática "sitzen" + Dativ neutro: "am Klavier" (an dem Klavier).'
+          },
+          {
+            de: 'Ich träume Liebeslieder und sing dabei von dir',
+            es: 'Sueño canciones de amor y mientras tanto canto sobre ti',
+            notes: 'Preposición con Dativo: "von dir" (sobre ti / acerca de ti). "dabei" = al mismo tiempo.'
+          }
+        ]
+      },
+      {
+        name: 'Strophe 1 (Estrofa 1)',
+        lines: [
+          {
+            de: 'Und du und ich, wir waren wunderlich',
+            es: 'Y tú y yo éramos peculiares',
+            notes: 'Präteritum plural del verbo sein: "wir waren".'
+          },
+          {
+            de: 'Nicht für mich, für die, die es störte, wenn man uns nachts hörte',
+            es: 'No para mí, sino para aquellos a los que les molestaba cuando se nos oía de noche',
+            notes: 'Pronombre acusativo plural: "uns" (a nosotros). Adverbio temporal: "nachts" (por las noches).'
+          },
+          {
+            de: 'Ich hab mit dir gemeinsam einsam rumgesessen und geschwiegen',
+            es: 'Me he quedado sentado contigo en soledad compartida y hemos callado',
+            notes: 'Oxímoron poético: "gemeinsam einsam" (juntos en soledad). Participios: rumgesessen y geschwiegen.'
+          },
+          {
+            de: 'Ich erinnere mich am besten ans gemeinsam einsam liegen',
+            es: 'Lo que mejor recuerdo es estar tumbados juntos en silencio',
+            notes: 'Verbo reflexivo con preposición: "sich erinnern an + Akk" (ans = an das).'
+          },
+          {
+            de: 'Jeden Morgen danach bei dir: du nackt im Bett und ich barfuß am Klavier.',
+            es: 'Cada mañana después en tu casa: tú desnuda en la cama y yo descalzo al piano.',
+            notes: 'Tres dativos estáticos seguidos: "bei dir" (en tu casa), "im Bett" (en la cama), "am Klavier" (al piano).'
+          }
+        ]
+      },
+      {
+        name: 'Strophe 2 & Outro (Estrofa 2 y Cierre)',
+        lines: [
+          {
+            de: 'Und du und ich, wir waren mal wir und sind jetzt nichts: du da, ich hier',
+            es: 'Y tú y yo alguna vez fuimos nosotros y ahora no somos nada: tú allá, yo aquí',
+            notes: 'Partícula temporal "mal" (= einmal, alguna vez en el pasado). Contraste espacial: da vs hier.'
+          },
+          {
+            de: 'Du wolltest alles wissen und das hat mich vertrieben',
+            es: 'Tú querías saberlo todo y eso me ahuyentó',
+            notes: 'Modal en Präteritum: "du wolltest". Participio con prefijo inseparable: "vertrieben" (vertreiben).'
+          },
+          {
+            de: 'Eigentlich dich, du bist nicht länger geblieben bei mir',
+            es: 'En realidad a ti: tú no te quedaste más tiempo conmigo',
+            notes: 'Perfekt de "bleiben" con auxiliar obligatorio sein: "du bist geblieben".'
+          },
+          {
+            de: 'Und so sitz ich, um zu lieben, lieber barfuß am Klavier',
+            es: 'Y así, para amar, prefiero sentarme descalzo frente al piano',
+            notes: 'Oración final con "um ... zu lieben" + comparativo "lieber" (preferentemente).'
+          },
+          {
+            de: 'Und du und ich, das war zu wenig.',
+            es: 'Y lo de tú y yo, eso fue demasiado poco.',
+            notes: 'Cierre minimalista con "zu wenig" (insuficiente).'
+          }
+        ]
+      }
+    ]
+  },
+
+  // 8. ANNENMAYKANTEREIT - POCAHONTAS (2016) [Nivel Fácil / A2]
+  {
+    id: 'amk_pocahontas',
+    title: 'Pocahontas',
+    artist: 'AnnenMayKantereit',
+    album: 'Alles nix Konkretes',
+    year: '2016',
+    genre: 'Indie Rock / Folk-Pop (Fácil)',
+    coverColor: 'from-rose-800 to-stone-950',
+    spotifyQuery: 'AnnenMayKantereit Pocahontas',
+    youtubeQuery: 'AnnenMayKantereit Pocahontas offizielles video',
+    description: 'Uno de los mayores éxitos virales de la banda de Colonia. Con frases cortas, directas y clarísimas ("Es tut mir leid, Pocahontas, ich hoffe, du weißt das"), es perfecta para practicar verbos separables y expresiones emocionales cotidianas.',
+    grammaticalFocus: 'Verbos separables en antítesis ("festhalten" vs "loslassen"), expresiones con Dativo ("es tut mir leid", "mir ist nicht egal") y subordinadas interrogativas indirectas ("wie gut du mich kennst").',
+    vocabNotes: [
+      { de: 'die Haltestelle', es: 'la parada de autobús o tranvía' },
+      { de: 'wehtun (es tut weh)', es: 'doler física o emocionalmente' },
+      { de: 'festhalten / loslassen', es: 'sujetar fuerte / soltar y dejar ir' },
+      { de: 'Es tut mir leid', es: 'Lo siento mucho (literalmente: me causa pesar a mí - Dativ)' },
+      { de: 'mir ist nicht egal', es: 'no me da igual / me importa mucho (Dativ: mir)' },
+      { de: 'pennen', es: 'dormir / sobar (jerga coloquial alemana muy frecuente)' }
+    ],
+    sections: [
+      {
+        name: 'Strophe 1 (Estrofa 1)',
+        lines: [
+          {
+            de: 'An der Haltestelle steh\'n und es tut weh, dich schon wieder, so wieder zu seh\'n',
+            es: 'Estar parado en la parada del bus y duele volverte a ver otra vez así',
+            notes: 'Ubicación femenina en Dativ: "an der Haltestelle". Verbo separable: wehtun (es tut weh).'
+          },
+          {
+            de: 'Und es tut weh, dass wir gleich wieder geh\'n',
+            es: 'Y duele que enseguida nos volvamos a marchar',
+            notes: 'Adverbio temporal inmediato: "gleich" (en un instante / ya mismo).'
+          },
+          {
+            de: 'Und es tut weh, dass man sich nur sieht, weil bei mir so viel Zeug von dir rumliegt',
+            es: 'Y duele que solo nos veamos porque en mi casa hay un montón de cosas tuyas tiradas',
+            notes: '"das Zeug" (las cosas/trastos, coloquial). Verbo separable: "rumliegen" (estar tirado por ahí).'
+          },
+          {
+            de: 'Das ich nicht mehr ertrage.',
+            es: 'Que ya no soporto más.',
+            notes: 'Oración de relativo referida a "das Zeug": ertragen (soportar/aguantar).'
+          }
+        ]
+      },
+      {
+        name: 'Refrain (Estribillo)',
+        lines: [
+          {
+            de: 'Ich halt\' dich nicht fest und lass\' dich nicht los',
+            es: 'Ni te sujeto con fuerza ni te dejo marchar',
+            notes: 'Oposición magistral de dos verbos separables con acusativo (dich): festhalten vs loslassen.'
+          },
+          {
+            de: 'Du, du gibst mir den Rest, die Tasche ist groß',
+            es: 'Tú me das el golpe de gracia, el bolso es grande',
+            notes: 'Modismo: "jemandem den Rest geben" (rematar / agotar las fuerzas a alguien).'
+          },
+          {
+            de: 'Es tut mir leid, Pocahontas, ich hoffe, du weißt das!',
+            es: '¡Lo siento mucho, Pocahontas, espero que sepas eso!',
+            notes: 'Fórmula esencial del alemán: "Es tut mir leid" + "ich hoffe, du weißt das".'
+          }
+        ]
+      },
+      {
+        name: 'Strophe 2 (Estrofa 2)',
+        lines: [
+          {
+            de: 'Und eigentlich sind wir schon viel zu lange zusammen, um jetzt damit aufzuhören',
+            es: 'Y en realidad ya llevamos demasiado tiempo juntos como para dejarlo ahora',
+            notes: 'Estructura "zu ... um ... aufzuhören" (demasiado tiempo como para terminar con ello).'
+          },
+          {
+            de: 'Aber das ist \'n verdammt beschissener Grund',
+            es: 'Pero esa es una maldita razón de mierda',
+            notes: 'Coloquialismo callejero: "\'n" = ein (nominativo masculino: der Grund).'
+          },
+          {
+            de: 'Und mir is\' nicht egal, wie gut du mich kennst',
+            es: 'Y no me da igual lo bien que me conoces',
+            notes: 'Dativo de interés: "mir ist nicht egal" + subordinada con verbo al final (kennst).'
+          },
+          {
+            de: 'Und mir is\' nicht egal, wie du mich nennst',
+            es: 'Y no me da igual cómo me llamas',
+            notes: 'Verbo "nennen" (llamar por un nombre o apodo) + objeto directo "mich".'
+          },
+          {
+            de: 'Und mir is\' nicht egal, wo du gerade pennst!',
+            es: '¡Y no me da igual dónde estás durmiendo ahora mismo!',
+            notes: 'Verbo coloquial "pennen" (= schlafen, dormir) + adverbio de presente continuo "gerade".'
+          }
+        ]
+      }
+    ]
+  },
+
+  // 9. EDWIN ROSEN - LEICHTER//KÄLTER (2020) [Nivel Fácil / A2]
+  {
+    id: 'edwin_rosen_leichter',
+    title: 'leichter//kälter',
+    artist: 'Edwin Rosen',
+    album: 'mitleerenhänden',
+    year: '2020',
+    genre: 'Neue Neue Deutsche Welle / Synth-Indie (Fácil)',
+    coverColor: 'from-blue-900 to-stone-950',
+    spotifyQuery: 'Edwin Rosen leichter kaelter',
+    youtubeQuery: 'Edwin Rosen leichter kaelter offizielles video',
+    description: 'El fenómeno absoluto de la "Neue Neue Deutsche Welle". Su letra es corta, hipnótica y perfecta para dominar para siempre la diferencia entre "Mir ist kalt" (tengo frío), "Es ist kalt" (hace frío) y "Du bist kalt" (eres una persona fría).',
+    grammaticalFocus: 'La regla de oro de las sensaciones físicas en Dativ ("Mir ist so kalt") frente al Nominativ de carácter ("Du bist so kalt"), comparativos ("leichter", "kälter") y el verbo "frieren".',
+    vocabNotes: [
+      { de: 'barfuß im Schnee', es: 'descalzo en la nieve (in dem Schnee → Dativ)' },
+      { de: 'Mir ist kalt', es: 'Tengo frío (Dativo obligatorio: si dices "Ich bin kalt" significa que eres frío de corazón o un cadáver)' },
+      { de: 'Du bist kalt', es: 'Eres frío/a emocionalmente (insensible o distante)' },
+      { de: 'leicht / leichter', es: 'fácil / más fácil (comparativo)' },
+      { de: 'kalt / kälter', es: 'frío / más frío (comparativo con Umlaut a → ä)' },
+      { de: 'frieren', es: 'pasar frío / helarse / tiritar' }
+    ],
+    sections: [
+      {
+        name: 'Strophe 1 (Estrofa 1)',
+        lines: [
+          {
+            de: 'Und du stehst barfuß im Schnee',
+            es: 'Y tú estás de pie descalza en la nieve',
+            notes: 'Ubicación estática con Dativo masculino: "im Schnee" (der Schnee → in dem Schnee).'
+          },
+          {
+            de: 'Und es fällt mir nicht leicht, das anzusehen, dich anzusehen',
+            es: 'Y no se me hace nada fácil mirar eso, mirarte a ti',
+            notes: 'Expresión con Dativo: "es fällt mir nicht leicht" (me cuesta trabajo) + infinitivo separable "anzusehen".'
+          },
+          {
+            de: 'Und du fragst: "Oh, ist es kalt? Ist es kalt? Ist es kalt?"',
+            es: 'Y preguntas: "¡Oh!, ¿hace frío?, ¿hace frío?, ¿hace frío?"',
+            notes: 'Clima impersonal con "es": "Ist es kalt?" (¿Hace frío afuera?).'
+          },
+          {
+            de: 'Doch du sagst, es ist viel leichter, ja, ich sei doch so viel kälter',
+            es: 'Pero dices que es mucho más fácil, sí, que yo soy mucho más frío',
+            notes: 'Doble comparativo: "leichter" (más fácil) y "kälter" (más frío). Konjunktiv I: "ich sei".'
+          },
+          {
+            de: 'Also bleibst du steh\'n, bleibst barfuß im Schnee. Ach verdammt, es ist so kalt!',
+            es: 'Así que te quedas ahí parada, descalza en la nieve. ¡Ah, maldita sea, hace tanto frío!',
+            notes: 'Conector consecutivo "also" (así que) en posición 1 con inversión verbal (bleibst du).'
+          }
+        ]
+      },
+      {
+        name: 'Strophe 2 (Estrofa 2)',
+        lines: [
+          {
+            de: 'Und deine Lippen sind lila, wie die Blumen, die ich dir nie kauf\'',
+            es: 'Y tus labios están violetas, como las flores que nunca te compro',
+            notes: 'Oración de relativo plural ("die Blumen, die...") con Dativo de beneficiario "dir" (a ti).'
+          },
+          {
+            de: 'Und wenn du das nächste Mal frierst, vielleicht frierst du wegen mir?',
+            es: 'Y la próxima vez que pases frío, ¿quizás tiritas por mi culpa?',
+            notes: 'Verbo intransitivo "frieren" (tener frío / congelarse) + preposición causal "wegen mir".'
+          },
+          {
+            de: 'Wenn du das nächste Mal frierst, ist\'s am Ende gar nicht kalt.',
+            es: 'La próxima vez que pases frío, al final ni siquiera hará frío de verdad.',
+            notes: 'Negación enfática: "gar nicht" (en absoluto / para nada).'
+          }
+        ]
+      },
+      {
+        name: 'Refrain / Outro (El Trío Gramatical del Frío)',
+        lines: [
+          {
+            de: '"Mir ist so kalt, hier ist\'s so kalt, du bist so kalt", sagst du zu mir',
+            es: '"Tengo tanto frío, aquí hace tanto frío, tú eres tan frío", me dices',
+            notes: '⭐ ¡JOYA GRAMATICAL A2!: 1) "Mir ist kalt" (yo siento frío, Dativ), 2) "Hier ist es kalt" (clima), 3) "Du bist kalt" (tu corazón es frío, Nominativ).'
+          },
+          {
+            de: '"Hier ist\'s so kalt, mir ist so kalt, du bist so kalt", sagst du zu mir.',
+            es: '"Aquí hace tanto frío, tengo tanto frío, eres tan frío", me dices a mí.',
+            notes: 'Decir algo a alguien se construye con "sagen zu + Dativ": "sagst du zu mir".'
+          }
+        ]
+      }
+    ]
+  },
+
+  // 10. SPORTFREUNDE STILLER - EIN KOMPLIMENT (2002) [Nivel Fácil / A2]
+  {
+    id: 'sportfreunde_kompliment',
+    title: 'Ein Kompliment',
+    artist: 'Sportfreunde Stiller',
+    album: 'Die gute Seite',
+    year: '2002',
+    genre: 'Indie Rock / Britpop-Deutsch (Fácil)',
+    coverColor: 'from-emerald-600 to-stone-900',
+    spotifyQuery: 'Sportfreunde Stiller Ein Kompliment',
+    youtubeQuery: 'Sportfreunde Stiller Ein Kompliment offizielles video',
+    description: 'El himno alegre e inmortal del indie-rock de Múnich que suena en todas las fiestas universitarias de Alemania. Una declaración de amor directa y luminosa llena de metáforas cotidianas (como la sección de dulces del supermercado).',
+    grammaticalFocus: 'Subordinadas completivas con "dass" e interrogativas con "ob", pronombres en Dativo ("dir sagen") y Acusativo ("für mich"), y sustantivos compuestos cotidianos.',
+    vocabNotes: [
+      { de: 'das Kompliment', es: 'el cumplido / el halago' },
+      { de: 'das Ziel einer Reise', es: 'el destino o meta de un viaje' },
+      { de: 'das Größte', es: 'lo más grande / lo máximo (adjetivo sustantivado en superlativo)' },
+      { de: 'sichergehen', es: 'asegurarse / cerciorarse de algo' },
+      { de: 'die Süßwarenabteilung', es: 'la sección de dulces y golosinas en el supermercado' },
+      { de: 'verzichten auf', es: 'renunciar a algo / prescindir de algo' }
+    ],
+    sections: [
+      {
+        name: 'Strophe 1 (Estrofa 1)',
+        lines: [
+          {
+            de: 'Wenn man so will, bist du das Ziel einer langen Reise',
+            es: 'Si se quiere ver así, tú eres la meta de un largo viaje',
+            notes: 'Genitivo femenino singular: "einer langen Reise" (die Reise).'
+          },
+          {
+            de: 'Die Perfektion der besten Art und Weise',
+            es: 'La perfección de la mejor manera posible',
+            notes: 'Expresión fija muy común: "Art und Weise" (modo y manera).'
+          },
+          {
+            de: 'In stillen Momenten leise, die Schaumkrone der Woge der Begeisterung',
+            es: 'Suave en los momentos silenciosos, la cresta de espuma en la ola del entusiasmo',
+            notes: 'Dativo plural con -n: "in stillen Momenten".'
+          },
+          {
+            de: 'Bergauf, mein Antrieb und Schwung.',
+            es: 'Cuesta arriba, mi motor y mi impulso.',
+            notes: '"bergauf" = cuesta arriba (opuesto: bergab).'
+          }
+        ]
+      },
+      {
+        name: 'Refrain (Estribillo)',
+        lines: [
+          {
+            de: 'Ich wollte dir nur mal eben sagen, dass du das Größte für mich bist!',
+            es: '¡Solo quería decirte un momento que eres lo más grande para mí!',
+            notes: 'Estructura fundamental: "Ich wollte dir (Dativ) sagen, dass du ... bist (verbo al final)".'
+          },
+          {
+            de: 'Und sichergeh\'n, ob du denn dasselbe für mich fühlst',
+            es: 'Y asegurarme de si acaso sientes lo mismo por mí',
+            notes: 'Subordinada con "ob" (si condicional/duda) + "dasselbe" (exactamente lo mismo).'
+          },
+          {
+            de: 'Für mich fühlst!',
+            es: '¡Sientes por mí!',
+            notes: 'Preposición "für" exige siempre Acusativo: "für mich".'
+          }
+        ]
+      },
+      {
+        name: 'Strophe 2 (Estrofa 2)',
+        lines: [
+          {
+            de: 'Wenn man so will, bist du meine Chill-out Area, meine Feiertage in jedem Jahr',
+            es: 'Si se quiere ver así, eres mi zona de relax, mis días festivos de cada año',
+            notes: 'Dativo temporal: "in jedem Jahr" (das Jahr → jedem Jahr).'
+          },
+          {
+            de: 'Meine Süßwarenabteilung im Supermarkt, die Lösung, wenn mal was hakt',
+            es: 'Mi pasillo de golosinas en el supermercado, la solución cuando algo se atasca',
+            notes: 'Palabra compuesta deliciosa: Süßwaren (dulces) + Abteilung (sección/departamento).'
+          },
+          {
+            de: 'So wertvoll, dass man es sich gerne aufspart',
+            es: 'Tan valioso que uno se lo guarda con gusto como un tesoro',
+            notes: 'Consecutiva con "so ..., dass" + verbo separable reflexivo "sich etwas aufsparen" (reservarse).'
+          },
+          {
+            de: 'Und so schön, dass man nie darauf verzichten mag.',
+            es: 'Y tan hermoso que uno jamás querría renunciar a ello.',
+            notes: 'Régimen verbal: "verzichten auf" → adverbio pronominal "darauf verzichten".'
+          }
+        ]
+      }
+    ]
+  },
+
+  // 11. RIO REISER (ECHT) - JUNIMOND (1986 / 2000) [Nivel Fácil / A2]
+  {
+    id: 'rio_reiser_junimond',
+    title: 'Junimond',
+    artist: 'Rio Reiser (Versión Indie: Echt)',
+    album: 'Rio I. / Freischwimmer',
+    year: '1986',
+    genre: 'Indie-Pop Klassiker / Poetic Rock (Fácil)',
+    coverColor: 'from-indigo-800 to-stone-950',
+    spotifyQuery: 'Rio Reiser Junimond',
+    youtubeQuery: 'Echt Junimond offizielles video',
+    description: 'Considerada la canción de desamor más bella de la música moderna alemana (escrita por el legendario Rio Reiser y convertida en himno indie por la banda Echt). Letras cristalinas y lentas ideales para practicar el Perfekt.',
+    grammaticalFocus: 'El tiempo Perfekt con cadena de participios ("gewartet, gezählt, getrunken, geraucht, gebetet, gesucht"), verbos separables ("vorbeigehen", "aufkommen") y negación temporal ("nicht mehr").',
+    vocabNotes: [
+      { de: 'der Junimond', es: 'la luna de junio' },
+      { de: 'vorbeigehen', es: 'pasar de largo sin detenerse' },
+      { de: 'stumm', es: 'mudo / en silencio absoluto' },
+      { de: 'Es ist vorbei', es: 'Se acabó / Todo ha terminado' },
+      { de: 'zweitausend Stunden', es: 'dos mil horas' },
+      { de: 'flussauf- und flussabwärts', es: 'río arriba y río abajo' }
+    ],
+    sections: [
+      {
+        name: 'Strophe 1 (Estrofa 1)',
+        lines: [
+          {
+            de: 'Die Welt schaut rauf zu meinem Fenster mit müden Augen, ganz staubig, ganz scheu',
+            es: 'El mundo mira hacia arriba a mi ventana con ojos cansados, todo polvoriento y tímido',
+            notes: 'Preposición "zu" y "mit" con Dativo: "zu meinem Fenster", "mit müden Augen".'
+          },
+          {
+            de: 'Ich bin hier oben auf meiner Wolke',
+            es: 'Yo estoy aquí arriba sobre mi nube',
+            notes: 'Ubicación estática femenina en Dativo: "auf meiner Wolke" (die Wolke).'
+          },
+          {
+            de: 'Ich seh dich kommen, aber du gehst vorbei.',
+            es: 'Te veo venir, pero pasas de largo.',
+            notes: 'Verbo de percepción "sehen" + infinitivo sin zu ("kommen") + verbo separable "vorbeigehen".'
+          }
+        ]
+      },
+      {
+        name: 'Refrain (Estribillo)',
+        lines: [
+          {
+            de: 'Doch jetzt tut’s nicht mehr weh, nee, jetzt tut’s nicht mehr weh',
+            es: 'Pero ahora ya no duele más, no, ahora ya no duele más',
+            notes: '"nee" es la forma coloquial alemana de "nein". "nicht mehr" = ya no más.'
+          },
+          {
+            de: 'Und alles bleibt stumm und kein Sturm kommt auf, wenn ich dich seh',
+            es: 'Y todo permanece en silencio y no se levanta ninguna tormenta cuando te veo',
+            notes: 'Verbo separable "aufkommen" (desatarse una tormenta) + subordinada temporal con "wenn".'
+          },
+          {
+            de: 'Es ist vorbei, bye, bye, Junimond! Es ist vorbei, es ist vorbei, bye, bye!',
+            es: '¡Se terminó, adiós, luna de junio! ¡Se terminó, se terminó, adiós!',
+            notes: 'La frase más célebre para decir que una etapa o relación ha concluido: "Es ist vorbei".'
+          }
+        ]
+      },
+      {
+        name: 'Strophe 2 (Estrofa 2 - Práctica Maestra de Perfekt)',
+        lines: [
+          {
+            de: 'Zweitausend Stunden hab ich gewartet, ich hab sie alle gezählt und verflucht',
+            es: 'Dos mil horas he esperado, las he contado y maldecido todas',
+            notes: 'Tres participios en Perfekt: gewartet (warten), gezählt (zählen), verflucht (verfluchen, sin ge-).'
+          },
+          {
+            de: 'Ich hab getrunken, geraucht und gebetet',
+            es: 'He bebido, he fumado y he rezado',
+            notes: 'Tres participios esenciales de nivel A2: getrunken (trinken), geraucht (rauchen), gebetet (beten).'
+          },
+          {
+            de: 'Hab dich flussauf- und flussabwärts gesucht.',
+            es: 'Te he buscado río arriba y río abajo.',
+            notes: 'Participio regular "gesucht" (suchen) cerrando la pinza oracional.'
+          }
+        ]
+      }
+    ]
   }
 ];

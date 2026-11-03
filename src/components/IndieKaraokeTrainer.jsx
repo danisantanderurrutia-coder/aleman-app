@@ -70,15 +70,24 @@ export default function IndieKaraokeTrainer({ progress, setProgress }) {
                 }`}
               >
                 <div>
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-between gap-1">
                     <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${
                       isSelected ? 'bg-stone-800 text-amber-300' : 'bg-stone-100 text-stone-500'
                     }`}>
                       {s.year}
                     </span>
-                    {isDone && (
-                      <span className="text-[10px] text-emerald-500 font-bold">✓</span>
-                    )}
+                    <div className="flex items-center gap-1">
+                      {s.genre.includes('Fácil') && (
+                        <span className={`text-[9px] font-mono font-bold px-1.5 py-0.5 rounded ${
+                          isSelected ? 'bg-emerald-500 text-stone-950' : 'bg-emerald-50 text-emerald-800 border border-emerald-200'
+                        }`}>
+                          Fácil A2
+                        </span>
+                      )}
+                      {isDone && (
+                        <span className="text-[10px] text-emerald-500 font-bold">✓</span>
+                      )}
+                    </div>
                   </div>
                   <h4 className="font-serif font-bold text-xs mt-1.5 leading-snug line-clamp-1">
                     {s.title}
