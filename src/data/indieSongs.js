@@ -1201,5 +1201,724 @@ export const indieSongs = [
         ]
       }
     ]
+  },
+
+  // 12. YUNG HURN - SAMURAI SCHWERT (2021) [Cloud Rap / Indie-Pop]
+  {
+    id: 'yung_hurn_samurai',
+    title: 'Samurai Schwert',
+    artist: 'Yung Hurn',
+    album: 'Single',
+    year: '2021',
+    genre: 'Cloud Rap / Melancholic Trap (Fácil)',
+    coverColor: 'from-rose-700 to-stone-950',
+    spotifyQuery: 'Yung Hurn Samurai Schwert',
+    youtubeQuery: 'Yung Hurn Samurai Schwert offizielles video',
+    description: 'El icono vienés del Cloud Rap combina desamor e ironía: "Me clavas tu espada samurái comprada en Amazon directamente en el cuerpo". Estructuras muy repetitivas y claras.',
+    grammaticalFocus: 'Oraciones de relativo con preposición ("in dem", "in denen"), preposición "mit" + Dativ ("mit deinem Samuraischwert") y verbos separables de dirección ("hineinstechen").',
+    vocabNotes: [
+      { de: 'das Samuraischwert', es: 'la espada samurái (katana)' },
+      { de: 'kämpfen gegen', es: 'luchar contra algo (+ Akkusativ: gegen den letzten Moment)' },
+      { de: 'hineinstechen', es: 'clavar / apuñalar hacia adentro (du stichst ... hinein)' },
+      { de: 'der Leib', es: 'el cuerpo / el vientre (término poético/clásico)' },
+      { de: 'die Leichtigkeit', es: 'la ligereza / facilidad' },
+      { de: 'auslachen', es: 'reírse de alguien / burlarse (der Himmel lacht mich aus)' }
+    ],
+    sections: [
+      {
+        name: 'Strophe 1 (Estrofa 1)',
+        lines: [
+          {
+            de: 'Ich kämpf\' gegen den letzten Moment, in dem du endlich erkennst, dass ich nicht gut für dich bin, oh Baby',
+            es: 'Lucho contra el último momento en el que por fin te das cuenta de que no soy bueno para ti, oh Baby',
+            notes: 'Preposición "gegen" rige Acusativo masculino: "gegen den letzten Moment". Relativo en Dativo: "in dem".'
+          },
+          {
+            de: 'Und wenn sieben Tage dann vergeh\'n, in denen wir uns nicht seh\'n, kämpf\' ich gegen kalten Wind, oh Baby',
+            es: 'Y cuando pasan siete días en los que no nos vemos, lucho contra el viento frío, oh Baby',
+            notes: 'Oración de relativo en Dativo plural: "sieben Tage, in denen wir uns nicht sehen".'
+          }
+        ]
+      },
+      {
+        name: 'Refrain (Estribillo)',
+        lines: [
+          {
+            de: 'Okay, du stichst mit dei\'m Samuraischwert von Amazon in mein\'n Leib hinein',
+            es: 'Vale, me clavas tu espada samurái de Amazon dentro del cuerpo',
+            notes: 'Verbo fuerte "stechen" (du stichst) + Dativo "mit deinem Samuraischwert" + Acusativo de dirección "in meinen Leib hinein".'
+          },
+          {
+            de: 'Okay, du stichst mit dei\'m Samuraischwert in mein Herz hinein mit Leichtigkeit.',
+            es: 'Vale, clavas tu espada samurái dentro de mi corazón con total facilidad.',
+            notes: 'Dirección hacia el interior con "in ... hinein" (Acusativo neutro: in mein Herz).'
+          }
+        ]
+      },
+      {
+        name: 'Strophe 2 (Estrofa 2)',
+        lines: [
+          {
+            de: 'Ich renn\' von Berlin bis nach Athen, meine Füße tun so weh und der Himmel lacht mich aus, oh Baby',
+            es: 'Corro desde Berlín hasta Atenas, me duelen tanto los pies y el cielo se ríe de mí, oh Baby',
+            notes: 'Verbo separable "auslachen" (burlarse de alguien) + Acusativo "mich".'
+          },
+          {
+            de: '17. Oktober, du sagst, es ist over; du gibst mir Probleme und ich renn\' so wie Lola.',
+            es: '17 de octubre, dices que se acabó; me das problemas y corro como Lola (Corre, Lola, corre).',
+            notes: 'Referencia al clásico del cine alemán "Lola rennt" (1998).'
+          }
+        ]
+      }
+    ]
+  },
+
+  // 13. SKI AGGU & MAKKO - IMMER (2024) [Deutschrap / Indie-Rap]
+  {
+    id: 'makko_ski_aggu_immer',
+    title: 'IMMER',
+    artist: 'Ski Aggu & makko',
+    album: 'Wilmersdorfer Kind / Single',
+    year: '2024',
+    genre: 'Indie-Rap / New Wave Berlin (Fácil)',
+    coverColor: 'from-sky-700 to-stone-950',
+    spotifyQuery: 'Ski Aggu makko IMMER',
+    youtubeQuery: 'Ski Aggu makko IMMER offizielles video',
+    description: 'Dos de los nombres más grandes de la nueva escena berlinesa (makko y Ski Aggu) celebran mantenerse fieles a sí mismos a pesar de la fama, con mensajes de WhatsApp de mamá incluidos.',
+    grammaticalFocus: 'Verbos reflexivos ("sich verändern", "sich benehmen", "sich fühlen"), conjunciones concesivas ("obwohl", "egal wie") e imperativo con verbo separable ("pass gut auf dich auf").',
+    vocabNotes: [
+      { de: 'so wie immer', es: 'tal como siempre / igual que siempre' },
+      { de: 'der Macher', es: 'el hacedor / alguien que actúa y consigue cosas' },
+      { de: 'sich benehmen wie ein Irrer', es: 'comportarse como un loco' },
+      { de: 'der Atze', es: 'el colega / hermano / amigo íntimo (jerga berlinesa clásica)' },
+      { de: 'aufpassen auf', es: 'cuidar de alguien ("Pass gut auf dich auf!" = ¡Cuídate mucho!)' },
+      { de: 'Scheiße bauen', es: 'meter la pata / hacer tonterías o líos (coloquial)' }
+    ],
+    sections: [
+      {
+        name: 'Hook (Estribillo - makko & Ski Aggu)',
+        lines: [
+          {
+            de: 'Ring, ring, ja, mein Phone steht niemals still, Baby, ich bin Macher, also mach\' ich, was ich will',
+            es: 'Ring, ring, sí, mi móvil nunca se detiene; cariño, soy un hombre de acción, así que hago lo que quiero',
+            notes: '"stillstehen" (quedarse quieto/en silencio) + "was ich will" (lo que quiero).'
+          },
+          {
+            de: 'Neue Leaks, alte Freunde, neue Grillz, und ich will mich nicht verändern, egal, wie sich Konto füllt',
+            es: 'Nuevas filtraciones, viejos amigos, nuevos grillz, y no quiero cambiar sin importar cómo se llene la cuenta bancaria',
+            notes: 'Verbo reflexivo "sich verändern" (cambiar uno mismo) + "sich füllen" (llenarse).'
+          },
+          {
+            de: 'Und ich hoffe, ich bleib\' ich, ja, für immer; und ich hoffe, dass du mich noch siehst wie immer',
+            es: 'Y espero seguir siendo yo, sí, para siempre; y espero que me sigas viendo como siempre',
+            notes: 'Contraste de estructura: oración con "hoffe, ich bleib\'" vs subordinada con "dass du mich noch siehst".'
+          },
+          {
+            de: 'Sommer oder Winter, fühl\' mich wie\'n Gewinner; Wohnung mit vier Zimmer, doch benehm\' mich wie ein Irrer!',
+            es: 'Verano o invierno, me siento como un ganador; piso de cuatro habitaciones, ¡pero me comporto como un loco!',
+            notes: 'Verbo reflexivo "sich benehmen" (comportarse).'
+          }
+        ]
+      },
+      {
+        name: 'Part (Estrofa - Ski Aggu & makko)',
+        lines: [
+          {
+            de: 'Von Wohnung mit ei\'m Zimmer in einem Jahr zu ausverkauften Shows und Kinder fragen mich nach Bildern',
+            es: 'De un piso de una habitación en un año a conciertos agotados y los chicos me piden fotos',
+            notes: 'Régimen verbal: "fragen nach + Dativ" (pedir o preguntar por algo).'
+          },
+          {
+            de: 'Ein junger Atze macht, worauf er Lust hat',
+            es: 'Un colega joven hace aquello de lo que tiene ganas',
+            notes: '"Lust haben auf + Akk" → adverbio relativo "worauf er Lust hat".'
+          },
+          {
+            de: '"Bitte pass gut auf dich auf", schreibt mir bei WhatsApp meine Mutter',
+            es: '"Por favor, cuídate mucho", me escribe mi madre por WhatsApp',
+            notes: '⭐ Frase imprescindible de la vida real: "Pass gut auf dich auf!" (aufpassen auf + Akkusativ).'
+          },
+          {
+            de: 'Mama ist stolz, alles, was ich anfass\', wird Gold; Papa ist stolz, obwohl ich Scheiße bau\' die ganze Zeit.',
+            es: 'Mamá está orgullosa, todo lo que toco se vuelve oro; papá está orgulloso, aunque meta la pata todo el tiempo.',
+            notes: 'Conjunción subordinante concesiva "obwohl" (aunque) + modismo "Scheiße bauen".'
+          }
+        ]
+      }
+    ]
+  },
+
+  // 14. KITSCHKRIEG FEAT. BLUMENGARTEN & SHIRIN DAVID - GUT GENUG (2024)
+  {
+    id: 'gut_genug_shirin_blumengarten',
+    title: 'Gut genug',
+    artist: 'KitschKrieg feat. Blumengarten & Shirin David',
+    album: 'Single',
+    year: '2024',
+    genre: 'Indie-Pop / Deutschrap Crossover (Fácil)',
+    coverColor: 'from-amber-600 to-stone-950',
+    spotifyQuery: 'KitschKrieg Blumengarten Shirin David Gut genug',
+    youtubeQuery: 'KitschKrieg Blumengarten Shirin David Gut genug offizielles video',
+    description: 'La colaboración entre la banda indie revelación Blumengarten, los productores berlineses KitschKrieg y la superestrella Shirin David. Un himno sobre la autoexigencia y aceptarse: "Du bist gut genug, bleib einfach nur du".',
+    grammaticalFocus: 'Adjetivo con adverbio de grado ("gut genug"), imperativo de sein ("bleib einfach nur du"), verbos con Dativo ("jemandem gerecht werden") y preposiciones ("an dich selbst glauben").',
+    vocabNotes: [
+      { de: 'gut genug', es: 'lo suficientemente bueno / bastante bueno' },
+      { de: 'Bleib einfach nur du', es: 'Sigue siendo simplemente tú mismo' },
+      { de: 'gerecht werden (+ Dativ)', es: 'estar a la altura de alguien / hacer justicia a algo' },
+      { de: 'sich entscheiden für', es: 'decidirse por algo (+ Akkusativ)' },
+      { de: 'glauben an (+ Akkusativ)', es: 'creer en alguien ("wenn du an dich selbst glaubst")' },
+      { de: 'zweifeln an (+ Dativ)', es: 'dudar de alguien ("an uns zweifeln")' }
+    ],
+    sections: [
+      {
+        name: 'Intro & Hook (Estribillo - Blumengarten)',
+        lines: [
+          {
+            de: 'Du bist gut genug, ich weiß nicht, was die Welt dir sagt',
+            es: 'Eres lo suficientemente bueno, no sé qué te dice el mundo',
+            notes: 'Subordinada interrogativa indirecta con "was" + pronombre Dativo "dir".'
+          },
+          {
+            de: 'Bleib einfach nur du! Du bist gut genug!',
+            es: '¡Sigue siendo simplemente tú! ¡Eres lo bastante bueno!',
+            notes: 'Imperativo de bleiben: "Bleib!". Estructura cristalina de ánimo en alemán.'
+          }
+        ]
+      },
+      {
+        name: 'Part (Estrofa - Shirin David)',
+        lines: [
+          {
+            de: 'Ich werde mir nie gerecht, denn ich bin zu mir nie gerecht',
+            es: 'Nunca estoy a mi propia altura, porque nunca soy justa conmigo misma',
+            notes: 'Juego con "gerecht": "mir gerecht werden" (cumplir mis expectativas) vs "zu mir gerecht sein" (ser justa conmigo).'
+          },
+          {
+            de: 'Für mich ist das Schwerste: erst Familie oder Karriere? Ich entschied mich für das Zweite',
+            es: 'Para mí lo más difícil es: ¿primero familia o carrera? Me decidí por lo segundo',
+            notes: 'Präteritum de "sich entscheiden für": "ich entschied mich für das Zweite".'
+          },
+          {
+            de: 'Man sagt: "Du kannst alles schaffen, wenn du an dich selbst glaubst"',
+            es: 'Dicen: "Puedes lograrlo todo si crees en ti mismo"',
+            notes: 'Régimen preposicional: "glauben an + Akkusativ" → "an dich selbst".'
+          },
+          {
+            de: 'Für die meisten bin ich Miss Bauch, Beine, Po; doch mir selbst sag\' ich jeden Tag: "Bleib einfach du!"',
+            es: 'Para la mayoría soy Miss Bauch, Beine, Po; pero a mí misma me digo cada día: "¡Sigue siendo simplemente tú!"',
+            notes: 'Dativo reflexivo enfático: "mir selbst" (a mí misma).'
+          }
+        ]
+      }
+    ]
+  },
+
+  // 15. SHIRIN DAVID - BAUCH BEINE PO (2024)
+  {
+    id: 'shirin_david_bbp',
+    title: 'Bauch Beine Po',
+    artist: 'Shirin David',
+    album: 'Single (#1 Hit Alemania)',
+    year: '2024',
+    genre: 'Pop-Rap / Club Anthem (Fácil)',
+    coverColor: 'from-pink-600 to-stone-950',
+    spotifyQuery: 'Shirin David Bauch Beine Po',
+    youtubeQuery: 'Shirin David Bauch Beine Po offizielles video',
+    description: 'El éxito número 1 del verano en Alemania. Un himno pop-rap irreverente, pegadizo y lleno de vocabulario cotidiano de gimnasio, partes del cuerpo, estética berlinesa (Charlottenburg) e imperativos.',
+    grammaticalFocus: 'Partes del cuerpo (der Bauch, die Beine, der Po), condicionales sin "wenn" con verbo en posición 1 ("Bist du ein Hottie, werden sie gucken"), e imperativos de entrenamiento ("atme ein, atme aus, gib nicht auf").',
+    vocabNotes: [
+      { de: 'der Bauch / die Beine / der Po', es: 'el abdomen / las piernas / el trasero (nombre clásico de la clase de aeróbic en Alemania)' },
+      { de: 'etwas Scharfes tragen', es: 'llevar puesto algo picante / atrevido' },
+      { de: 'im Takt laufen', es: 'caminar al ritmo / al compás' },
+      { de: 'einatmen / ausatmen', es: 'inhalar / exhalar (verbos separables: atme ein, atme aus)' },
+      { de: 'aufgeben', es: 'rendirse ("Gib nicht auf!" = ¡No te rindas!)' }
+    ],
+    sections: [
+      {
+        name: 'Part 1 & Pre-Hook',
+        lines: [
+          {
+            de: 'Iced Matcha Latte, zu spät beim Pilates; Küsschen links, Küsschen rechts, ich trag\' heute was Scharfes',
+            es: 'Iced Matcha Latte, llegando tarde a Pilates; besito a la izquierda, besito a la derecha, hoy llevo puesto algo atrevido',
+            notes: 'Adjetivo sustantivado tras "was" (= etwas): "etwas Scharfes" (con mayúscula y terminación neutra -es).'
+          },
+          {
+            de: 'Auf und ab, wir laufen im Takt, mit den Waffen einer Frau',
+            es: 'Arriba y abajo, caminamos al compás, con las armas de una mujer',
+            notes: 'Dativo plural ("mit den Waffen") seguido de Genitivo femenino singular ("einer Frau").'
+          },
+          {
+            de: 'Ich bin schlau, aber blond und supermegahot.',
+            es: 'Soy lista, pero rubia y supermegahot.',
+            notes: 'Adjetivos predicativos sin declinar: "schlau" (astuta/inteligente).'
+          }
+        ]
+      },
+      {
+        name: 'Hook & Bridge (Estribillo y Puente)',
+        lines: [
+          {
+            de: 'Du willst ein\'n Body? Dann musst du pushen! Bist du ein Hottie, werden sie gucken!',
+            es: '¿Quieres un cuerpazo? ¡Entonces tienes que darle duro! Si eres un bombón, ¡te van a mirar!',
+            notes: 'Condicional con verbo en posición 1: "Bist du..." (= Wenn du ... bist) seguido de Futuro I ("werden sie gucken").'
+          },
+          {
+            de: 'Geh\' ins Gymmie, werde skinny, mach\' daraus eine Show; wir sind pretty im Bikini, das ist Bauch, Beine, Po!',
+            es: 'Ve al gym, ponte en forma, haz de ello un espectáculo; estamos divinas en bikini, ¡esto es abdomen, piernas y glúteos!',
+            notes: 'Imperativos en serie: "Geh!", "Werde!", "Mach!".'
+          },
+          {
+            de: 'Atme ein, atme aus, das war noch nicht genug! Komm, noch zwei, gib nicht auf, verdammt, du machst das gut!',
+            es: '¡Inhala, exhala, eso aún no fue suficiente! ¡Vamos, dos más, no te rindas, maldita sea, lo estás haciendo genial!',
+            notes: 'Tres verbos separables en imperativo: einatmen (atme ein), ausatmen (atme aus), aufgeben (gib nicht auf).'
+          }
+        ]
+      }
+    ]
+  },
+
+  // 16. IKKIMEL & BARRÉ - KETA UND KRAWALL (2023)
+  {
+    id: 'ikkimel_keta_krawall',
+    title: 'Keta und Krawall',
+    artist: 'Ikkimel & Barré',
+    album: 'Single (Berlin Techno-Rap)',
+    year: '2023',
+    genre: 'Berlin Techno-Rap / Atzen-Pop',
+    coverColor: 'from-fuchsia-700 to-stone-950',
+    spotifyQuery: 'Ikkimel Keta und Krawall',
+    youtubeQuery: 'Ikkimel Keta und Krawall offizielles video',
+    description: 'La rapera berlinesa de Tempelhof/Friedrichshain que revolucionó los clubes de Alemania con su humor deslenguado, ritmos techno a 150 BPM y refranes alemanes callejeros.',
+    grammaticalFocus: 'Proverbios alemanes reales ("Wie es in den Wald schallt..."), verbos separables del habla berlinesa ("reinballern", "rummachen", "ansprechen", "ausschlafen") y modismos ("blau machen").',
+    vocabNotes: [
+      { de: 'der Krawall', es: 'el alboroto / el jaleo / el tumulto callejero' },
+      { de: 'rummachen', es: 'liarse / besarse o desfasar de fiesta' },
+      { de: 'glotzen', es: 'mirar fijamente con los ojos abiertos ("Was glotzt du so?")' },
+      { de: 'eingebildet', es: 'creída / vanidosa / engreída' },
+      { de: 'jemanden ansprechen', es: 'acercarse a hablarle a alguien / entrarle a alguien' },
+      { de: 'blau machen', es: 'faltar al trabajo o a clase sin estar enfermo (hacer novillos)' }
+    ],
+    sections: [
+      {
+        name: 'Hook & Part 1 (Friedrichshain)',
+        lines: [
+          {
+            de: 'Ich bin in Friedrichshain und baller\' mir ein Bierchen rein',
+            es: 'Estoy en Friedrichshain y me tomo una cervecita de golpe',
+            notes: 'Diminutivo neutro "-chen": "das Bierchen" + dativo reflexivo "mir".'
+          },
+          {
+            de: 'Nächster Halt: Damenklo, Dickerchen, was glotzt du so?',
+            es: 'Próxima parada: baño de chicas; gordito, ¿qué miras tan fijo?',
+            notes: 'Fórmula típica del metro de Berlín ("Nächster Halt") + verbo coloquial "glotzen" (quedarse mirando).'
+          },
+          {
+            de: 'Wie es in den Wald schallt, schallt\'s auch wieder raus',
+            es: 'Tal como gritas hacia el bosque, así te devuelve el eco (quien siembra vientos, recoge tempestades)',
+            notes: '⭐ Refrán tradicional alemán: "Wie man in den Wald hineinruft, so schallt es heraus".'
+          },
+          {
+            de: 'Ich bin vielleicht eingebildet, aber seh\' gut aus; ich bin das Komplettpaket, einfach Traumfrau',
+            es: 'Quizás soy una creída, pero me veo genial; soy el paquete completo, simplemente la mujer ideal',
+            notes: 'Verbo separable "aussehen" (tener buen aspecto: ich sehe gut aus).'
+          },
+          {
+            de: 'Sprich mich einmal an und ich mach\' dich zu mei\'m Wauwau!',
+            es: '¡Háblame una sola vez y te convierto en mi perrito faldero!',
+            notes: 'Imperativo irregular de "ansprechen" (e → i): "Sprich mich an!" (dirigir la palabra a alguien).'
+          }
+        ]
+      },
+      {
+        name: 'Part 2 (Modismos Cotidianos)',
+        lines: [
+          {
+            de: 'Ich will mich schlaumachen, morgen wieder blau machen',
+            es: 'Quiero informarme bien, y mañana volver a faltar al trabajo (hacer novillos)',
+            notes: 'Dos modismos esenciales: "sich schlaumachen" (averiguar/informarse) y "blau machen" (no ir a trabajar).'
+          },
+          {
+            de: 'Sehr viel reden, aber sehr wenig aussagen; morgen wieder ausschlafen und dann wieder rausmachen.',
+            es: 'Hablar muchísimo pero decir muy poco en sustancia; mañana dormir hasta tarde y luego volver a salir.',
+            notes: 'Verbos con prefijo: "aussagen" (expresar contenido) y "ausschlafen" (dormir hasta despertarse solo).'
+          }
+        ]
+      }
+    ]
+  },
+
+  // 17. NINA CHUBA - WILDBERRY LILLET (2022) [Nivel Fácil / A2]
+  {
+    id: 'nina_chuba_wildberry',
+    title: 'Wildberry Lillet',
+    artist: 'Nina Chuba',
+    album: 'Glas',
+    year: '2022',
+    genre: 'Pop / Dancehall-Rap (Fácil)',
+    coverColor: 'from-purple-700 to-stone-950',
+    spotifyQuery: 'Nina Chuba Wildberry Lillet',
+    youtubeQuery: 'Nina Chuba Wildberry Lillet offizielles video',
+    description: 'Uno de los mayores éxitos de la década en Alemania. Nina Chuba utiliza el verbo modal "wollen" ("Ich will...") en decenas de frases súper claras y pegadizas para expresar deseos, ambición y disfrutar la vida con sus amigos.',
+    grammaticalFocus: 'Dominio absoluto del verbo modal "wollen" (ich will), acusativo masculino ("einen Wildberry Lillet"), conectores consecutivos ("also nehm\' ich mir...") y subordinadas con "wenn" y "dass".',
+    vocabNotes: [
+      { de: 'die Immos (Immobilien)', es: 'los bienes raíces / propiedades inmobiliarias' },
+      { de: 'Hunger haben', es: 'tener hambre ("Ich hab\' Hunger")' },
+      { de: 'die Küste', es: 'la costa marítima ("an der Küste")' },
+      { de: 'alt werden', es: 'envejecer / hacerse viejo' },
+      { de: 'stehen bleiben', es: 'detenerse / quedarse parado ("Zeit bleibt für mich steh\'n")' },
+      { de: 'sich stapeln', es: 'apilarse / amontonarse en pilas (billetes de 500 € violetas)' }
+    ],
+    sections: [
+      {
+        name: 'Hook (Estribillo)',
+        lines: [
+          {
+            de: 'Ich will Immos, ich will Dollars, ich will fliegen wie bei Marvel',
+            es: 'Quiero propiedades, quiero dólares, quiero volar como en Marvel',
+            notes: 'Verbo modal "wollen" en 1ª persona singular: "ich will" + infinitivo al final ("fliegen").'
+          },
+          {
+            de: 'Ich hab\' Hunger, also nehm\' ich mir alles vom Buffet',
+            es: 'Tengo hambre, así que me sirvo todo del bufé',
+            notes: 'Conjunción "also" (por lo tanto) genera inversión V2: "also nehme ich mir...".'
+          },
+          {
+            de: 'Will ein Haus für meine Mama an der Küste von Catania',
+            es: 'Quiero una casa para mi mamá en la costa de Catania',
+            notes: 'Preposición "für" + Acusativo ("für meine Mama") y "an" + Dativo local ("an der Küste").'
+          },
+          {
+            de: 'Zum Frühstück Canapés und ein\'n Wildberry Lillet!',
+            es: '¡Para desayunar, canapés y un Wildberry Lillet!',
+            notes: '"zum Frühstück" (zu dem Frühstück = para el desayuno) + Acusativo masculino "einen".'
+          }
+        ]
+      },
+      {
+        name: 'Part & Pre-Hook',
+        lines: [
+          {
+            de: 'Ich will nicht alt werden, Zeit bleibt für mich steh\'n',
+            es: 'No quiero envejecer, el tiempo se detiene para mí',
+            notes: 'Construcción de cambio de estado: "alt werden" (hacerse viejo).'
+          },
+          {
+            de: 'Ich will nicht warten, will, wenn ich aufwach\', in dein Gesicht seh\'n',
+            es: 'No quiero esperar; quiero, cuando me despierte, mirar tu rostro',
+            notes: 'Subordinada temporal intercalada: "wenn ich aufwache" (verbo separable al final).'
+          },
+          {
+            de: 'Will, dass alle meine Freunde bei mir wohn\'n in der Straße.',
+            es: 'Quiero que todos mis amigos vivan conmigo en la misma calle.',
+            notes: 'Subordinada con "dass" + preposición "bei mir" (junto a mí / en mi zona).'
+          }
+        ]
+      }
+    ]
+  },
+
+  // 18. VIKO63 & PENGLORD - SAUF SPORT BALANCE (2021)
+  {
+    id: 'viko63_sauf_sport',
+    title: 'Sauf Sport Balance',
+    artist: 'viko63 & penglord (feat. TimmyT)',
+    album: 'Single',
+    year: '2021',
+    genre: 'Cloud-Techno / Kreisliga-Kult (Fácil)',
+    coverColor: 'from-teal-700 to-stone-950',
+    spotifyQuery: 'viko63 Sauf Sport Balance',
+    youtubeQuery: 'viko63 Sauf Sport Balance offizielles video',
+    description: 'El himno viral de culto en toda Alemania que parodia y celebra el equilibrio entre salir de fiesta ("saufen") y hacer deporte ("Sport") como en las ligas regionales de fútbol de domingo ("Kreisliga").',
+    grammaticalFocus: 'Sustantivación de verbos con "beim" ("beim Aufwärmen"), vocabulario deportivo ("Gewinner" vs "Verlierer") y giros coloquiales ("die Kippe", "der Überflieger").',
+    vocabNotes: [
+      { de: 'saufen', es: 'beber alcohol en grandes cantidades / irse de copas (coloquial)' },
+      { de: 'die Kippe', es: 'el cigarrillo / el pitillo (jerga cotidiana alemana)' },
+      { de: 'das Aufwärmen', es: 'el calentamiento deportivo antes del partido ("beim Aufwärmen" = al calentar)' },
+      { de: 'die Kreisliga', es: 'la liga regional amateur de fútbol de los domingos en Alemania' },
+      { de: 'der Überflieger', es: 'el crack / alguien que destaca muy por encima del resto' },
+      { de: 'der Gewinner / der Verlierer', es: 'el ganador / el perdedor' }
+    ],
+    sections: [
+      {
+        name: 'Intro & Hook (Estribillo)',
+        lines: [
+          {
+            de: 'Tschuldigung, Coach, ich brauch\' die Kippe beim Aufwärmen in der Kreisliga',
+            es: 'Disculpe, entrenador, necesito el cigarrillo mientras caliento en la liga regional',
+            notes: '"Tschuldigung" = Entschuldigung. "beim Aufwärmen" (bei dem Aufwärmen = durante el calentamiento).'
+          },
+          {
+            de: 'Sauf-Sport-Balance, so wie in der Kreisliga',
+            es: 'Equilibrio entre fiesta y deporte, tal como en la liga regional',
+            notes: 'Juego de palabras con "Work-Life-Balance" convertido en "Sauf-Sport-Balance".'
+          },
+          {
+            de: 'Ich und meine Goons, wir sind wahre Überflieger',
+            es: 'Mis colegas y yo somos auténticos cracks',
+            notes: 'Adjetivo atributivo plural sin artículo: "wahre Überflieger".'
+          },
+          {
+            de: 'Mein Team Gewinner und dein Team Verlierer!',
+            es: '¡Mi equipo ganador y tu equipo perdedor!',
+            notes: 'Contraste fundamental de vocabulario A2: der Gewinner (de gewinnen) vs der Verlierer (de verlieren).'
+          }
+        ]
+      },
+      {
+        name: 'Part (Estrofa)',
+        lines: [
+          {
+            de: 'Sorry, gell, ich und meine Brüder, wir sind sehr, sehr gute Spieler',
+            es: 'Perdona, ¿eh?, mis hermanos y yo somos muy, pero que muy buenos jugadores',
+            notes: 'Partícula modal del sur de Alemania y Suiza: "gell?" (¿verdad? / ¿no es así?).'
+          },
+          {
+            de: 'Über Stock und Stein wie Amadeus und Sabrina.',
+            es: 'A campo traviesa (por encima de palos y piedras) como Amadeus y Sabrina.',
+            notes: 'Modismo alemán: "über Stock und Stein" (a través de todo obstáculo) + referencia a la serie infantil "Bibi und Tina".'
+          }
+        ]
+      }
+    ]
+  },
+
+  // 19. NENA - 99 LUFTBALLONS (1983) [Clásico Universal / Nivel Fácil]
+  {
+    id: 'nena_99_luftballons',
+    title: '99 Luftballons',
+    artist: 'Nena',
+    album: 'Nena',
+    year: '1983',
+    genre: 'Neue Deutsche Welle (Clásico Mundial)',
+    coverColor: 'from-red-700 to-stone-950',
+    spotifyQuery: 'Nena 99 Luftballons',
+    youtubeQuery: 'Nena 99 Luftballons offizielles video',
+    description: 'La canción en alemán más famosa de la historia a nivel mundial. Su primera y última estrofa son una joya absoluta de claridad para nivel A2, mientras que el cuerpo narra en Präteritum cómo 99 globos desatan una guerra absurda.',
+    grammaticalFocus: 'Condicionales con "Dann" en posición 1 ("Hast du etwas Zeit für mich, dann singe ich..."), verbos con preposición ("denken an + Akk", "halten für + Akk") y el Präteritum narrativo.',
+    vocabNotes: [
+      { de: 'der Luftballon', es: 'el globo de aire (plural: die Luftballons)' },
+      { de: 'der Horizont', es: 'el horizonte ("auf ihrem Weg zum Horizont")' },
+      { de: 'halten für (+ Akkusativ)', es: 'tomar o confundir algo con otra cosa ("hielt man für Ufos")' },
+      { de: 'der Düsenflieger', es: 'el avión caza a reacción' },
+      { de: 'raffen', es: 'pillar / entender algo ("haben nichts gerafft" = no entendieron nada)' },
+      { de: 'die Trümmer', es: 'los escombros / las ruinas' }
+    ],
+    sections: [
+      {
+        name: 'Strophe 1 (Estrofa 1 - Nivel A2 Puro)',
+        lines: [
+          {
+            de: 'Hast du etwas Zeit für mich? Dann singe ich ein Lied für dich',
+            es: '¿Tienes algo de tiempo para mí? Entonces canto una canción para ti',
+            notes: 'Inversión V2 tras "Dann": "Dann (1) singe (2) ich (3)...". Preposición "für" + Acusativo (mich / dich).'
+          },
+          {
+            de: 'Von 99 Luftballons auf ihrem Weg zum Horizont',
+            es: 'Sobre 99 globos en su camino hacia el horizonte',
+            notes: 'Posesivo femenino/plural en Dativo: "auf ihrem Weg" (de ellos, los globos).'
+          },
+          {
+            de: 'Denkst du vielleicht grad an mich? Dann singe ich ein Lied für dich',
+            es: '¿Estás pensando quizás ahora mismo en mí? Entonces canto una canción para ti',
+            notes: 'Régimen verbal clásico: "denken an + Akkusativ" ("an mich").'
+          },
+          {
+            de: 'Von 99 Luftballons und dass sowas von sowas kommt.',
+            es: 'Sobre 99 globos y de cómo una cosa así lleva a otra así.',
+            notes: '"sowas" = so etwas (algo así).'
+          }
+        ]
+      },
+      {
+        name: 'Strophe 2 & 3 (La Escalada)',
+        lines: [
+          {
+            de: '99 Luftballons auf ihrem Weg zum Horizont hielt man für Ufos aus dem All',
+            es: '99 globos en su camino al horizonte fueron tomados por ovnis del espacio exterior',
+            notes: 'Präteritum de "halten für": "hielt man für Ufos" (se los confundió con ovnis).'
+          },
+          {
+            de: 'Darum schickte ein General \'ne Fliegerstaffel hinterher, Alarm zu geben, wenn\'s so wär',
+            es: 'Por eso un general envió un escuadrón aéreo detrás para dar la alarma si así fuera',
+            notes: 'Conector causal-consecutivo "darum" (por eso) + Konjunktiv II "wär" (wäre).'
+          },
+          {
+            de: 'Dabei war\'n dort am Horizont nur 99 Luftballons!',
+            es: '¡Cuando en realidad allá en el horizonte solo había 99 globos!',
+            notes: '"dabei" al inicio de frase significa "y eso que / cuando en realidad".'
+          }
+        ]
+      },
+      {
+        name: 'Outro (El Epílogo entre las Ruinas)',
+        lines: [
+          {
+            de: '99 Jahre Krieg ließen keinen Platz für Sieger, Kriegsminister gibt\'s nicht mehr',
+            es: '99 años de guerra no dejaron lugar para vencedores; ya no existen ministros de guerra',
+            notes: '"es gibt nicht mehr" = ya no hay.'
+          },
+          {
+            de: 'Heute zieh ich meine Runden, seh\' die Welt in Trümmern liegen',
+            es: 'Hoy doy mis vueltas, veo el mundo yacer en ruinas',
+            notes: 'Expresión: "seine Runden ziehen" (dar vueltas / caminar en círculos).'
+          },
+          {
+            de: 'Hab \'nen Luftballon gefunden, denk\' an dich und lass\' ihn fliegen.',
+            es: 'He encontrado un globo, pienso en ti y lo dejo volar.',
+            notes: 'Acusativo masculino: "\'nen Luftballon" (einen Luftballon) → pronombre masculino acusativo "ihn".'
+          }
+        ]
+      }
+    ]
+  },
+
+  // 20. RAMMSTEIN - OHNE DICH (2004) [Nivel Fácil / A2]
+  {
+    id: 'rammstein_ohne_dich',
+    title: 'Ohne dich',
+    artist: 'Rammstein',
+    album: 'Reise, Reise',
+    year: '2004',
+    genre: 'Neue Deutsche Härte / Rock Ballad (Fácil)',
+    coverColor: 'from-stone-800 to-black',
+    spotifyQuery: 'Rammstein Ohne dich',
+    youtubeQuery: 'Rammstein Ohne dich offizielles video',
+    description: 'La balada monumental de Rammstein. Su estribillo es lento, solemne y constituye el mejor ejercicio de todo el idioma alemán para memorizar el contraste entre "Ohne dich" (ohne + Acusativo) y "Mit dir" (mit + Dativo).',
+    grammaticalFocus: 'Contraste directo e inolvidable entre preposición de Acusativo ("ohne dich") y preposición de Dativo ("mit dir"), futuro con "werden" y la expresión "das Atmen fällt mir schwer".',
+    vocabNotes: [
+      { de: 'ohne dich', es: 'sin ti (la preposición "ohne" rige SIEMPRE Acusativo: dich)' },
+      { de: 'mit dir', es: 'contigo (la preposición "mit" rige SIEMPRE Dativo: dir)' },
+      { de: 'die Tanne', es: 'el abeto (plural: die Tannen)' },
+      { de: 'die Stunden zählen', es: 'contar las horas' },
+      { de: 'der Ast / der Graben', es: 'la rama del árbol / la zanja o foso' },
+      { de: 'lohnen', es: 'valer la pena / merecer la pena ("Mit dir stehen die Sekunden, lohnen nicht")' }
+    ],
+    sections: [
+      {
+        name: 'Strophe 1 (Estrofa 1)',
+        lines: [
+          {
+            de: 'Ich werde in die Tannen gehen, dahin, wo ich sie zuletzt gesehen',
+            es: 'Me adentraré entre los abetos, allá donde la vi por última vez',
+            notes: 'Futuro I ("ich werde ... gehen") + dirección con Acusativo plural ("in die Tannen").'
+          },
+          {
+            de: 'Doch der Abend wirft ein Tuch aufs Land und auf die Wege hinterm Waldesrand',
+            es: 'Pero el atardecer arroja un manto sobre la tierra y sobre los caminos tras el linde del bosque',
+            notes: 'Verbo fuerte "werfen" (er wirft) + "aufs Land" (auf das Land).'
+          },
+          {
+            de: 'Und der Wald, er steht so schwarz und leer, weh mir, oh weh, und die Vögel singen nicht mehr.',
+            es: 'Y el bosque se alza tan negro y vacío, ¡ay de mí!, y los pájaros ya no cantan más.',
+            notes: 'Exclamación poética clásica con Dativo: "Weh mir!" (¡Ay de mí!).'
+          }
+        ]
+      },
+      {
+        name: 'Refrain (El Contraste Maestro: Ohne dich vs Mit dir)',
+        lines: [
+          {
+            de: 'Ohne dich kann ich nicht sein, ohne dich',
+            es: 'Sin ti no puedo existir, sin ti',
+            notes: '⭐ Regla de oro: "ohne" + Akkusativ → "ohne dich" (¡nunca ohne dir!).'
+          },
+          {
+            de: 'Mit dir bin ich auch allein, ohne dich',
+            es: 'Contigo también estoy solo, sin ti',
+            notes: '⭐ Regla de oro: "mit" + Dativ → "mit dir" (¡nunca mit dich!).'
+          },
+          {
+            de: 'Ohne dich zähl\' ich die Stunden, ohne dich',
+            es: 'Sin ti cuento las horas, sin ti',
+            notes: 'Inversión V2: "Ohne dich" (Posición 1) + "zähle" (Posición 2) + "ich" (Posición 3).'
+          },
+          {
+            de: 'Mit dir stehen die Sekunden, lohnen nicht, ohne dich.',
+            es: 'Contigo se detienen los segundos, no valen la pena, sin ti.',
+            notes: 'Paralelismo poético entre "Stunden" (horas) y "Sekunden" (segundos).'
+          }
+        ]
+      }
+    ]
+  },
+
+  // 21. RAMMSTEIN - SONNE (2001) [Nivel Fácil / A2]
+  {
+    id: 'rammstein_sonne',
+    title: 'Sonne',
+    artist: 'Rammstein',
+    album: 'Mutter',
+    year: '2001',
+    genre: 'Neue Deutsche Härte (Fácil / Números y Cuerpo)',
+    coverColor: 'from-orange-700 to-black',
+    spotifyQuery: 'Rammstein Sonne',
+    youtubeQuery: 'Rammstein Sonne offizielles video',
+    description: 'Uno de los riffs más potentes del rock alemán. Ideal para fijar los números del 1 al 10, partes del cuerpo (Augen, Hände, Fäuste, Gesicht, Brust), superlativos ("der hellste Stern") y preposiciones.',
+    grammaticalFocus: 'Los números del 1 al 10, superlativo masculino ("der hellste Stern von allen"), verbos reflexivos de movimiento ("legt sich heiß auf das Gesicht") y futuro con "werden".',
+    vocabNotes: [
+      { de: 'die Sonne', es: 'el sol (¡femenino en alemán!: die Sonne)' },
+      { de: 'der Stern', es: 'la estrella (¡masculino en alemán!: der Stern)' },
+      { de: 'sich fürchten', es: 'tener miedo / temer ("Fürchtet euch nicht!" = ¡No temáis!)' },
+      { de: 'untergehen', es: 'ponerse el sol / hundirse' },
+      { de: 'die Faust / die Brust', es: 'el puño (pl. die Fäuste) / el pecho' },
+      { de: 'das Gleichgewicht', es: 'el equilibrio' }
+    ],
+    sections: [
+      {
+        name: 'Strophe 1 & Refrain (Estrofa 1 y Estribillo)',
+        lines: [
+          {
+            de: 'Eins, zwei, drei, vier, fünf, sechs, sieben, acht, neun, aus!',
+            es: 'Uno, dos, tres, cuatro, cinco, seis, siete, ocho, nueve, ¡fuera!',
+            notes: 'La cuenta de árbitro de boxeo con la que arranca el tema.'
+          },
+          {
+            de: 'Alle warten auf das Licht; fürchtet euch, fürchtet euch nicht!',
+            es: 'Todos esperan la luz; ¡temed, no temáis!',
+            notes: 'Régimen verbal: "warten auf + Akkusativ" ("auf das Licht"). Imperativo plural: "Fürchtet euch!".'
+          },
+          {
+            de: 'Die Sonne scheint mir aus den Augen, sie wird heut\' Nacht nicht untergehen',
+            es: 'El sol me brilla desde los ojos, esta noche no se va a poner',
+            notes: 'Futuro I negativo con verbo separable: "wird ... nicht untergehen".'
+          },
+          {
+            de: 'Und die Welt zählt laut bis zehn: Eins, hier kommt die Sonne! Zwei, hier kommt die Sonne!',
+            es: 'Y el mundo cuenta en voz alta hasta diez: ¡Uno, aquí viene el sol! ¡Dos, aquí viene el sol!',
+            notes: 'Observa el género: "die Sonne" (femenino) → pronombre "sie".'
+          },
+          {
+            de: 'Drei, sie ist der hellste Stern von allen! Vier, hier kommt die Sonne!',
+            es: '¡Tres, ella es la estrella más brillante de todas! ¡Cuatro, aquí viene el sol!',
+            notes: 'Superlativo masculino: "der hellste Stern" (en alemán el sol es femenino y la estrella es masculina).'
+          }
+        ]
+      },
+      {
+        name: 'Strophe 2 (Partes del Cuerpo y Dirección)',
+        lines: [
+          {
+            de: 'Die Sonne scheint mir aus den Händen, kann verbrennen, kann dich blenden',
+            es: 'El sol me brilla desde las manos, puede quemar, puede cegarte',
+            notes: 'Preposición "aus" con Dativo plural: "aus den Händen" (die Hand → den Händen).'
+          },
+          {
+            de: 'Wenn sie aus den Fäusten bricht, legt sich heiß auf dein Gesicht',
+            es: 'Cuando brota de los puños, se posa ardiente sobre tu rostro',
+            notes: 'Dirección sobre una superficie con "auf" + Acusativo neutro: "auf dein Gesicht".'
+          },
+          {
+            de: 'Legt sich schmerzend auf die Brust, das Gleichgewicht wird zum Verlust',
+            es: 'Se posa con dolor sobre el pecho, el equilibrio se convierte en pérdida',
+            notes: 'Acusativo femenino: "auf die Brust".'
+          },
+          {
+            de: 'Und wird nie vom Himmel fallen!',
+            es: '¡Y jamás caerá del cielo!',
+            notes: '"vom Himmel" (von dem Himmel, Dativo masculino).'
+          }
+        ]
+      }
+    ]
   }
 ];
