@@ -306,22 +306,33 @@ export default function GrammarTrainer({ progress, setProgress, setActiveTab, on
                 </div>
               )}
 
-              {/* Feminine Endings if available */}
-              {topic.originExplanation.feminineEndings && (
-                <div className="p-5 rounded-2xl bg-stone-50 border border-stone-200">
-                  <div className="text-xs font-mono font-bold text-stone-800 uppercase mb-2">
-                    📌 Auswendig lernen: Sufijos que siempre son femeninos (die)
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    {topic.originExplanation.feminineEndings.map((ending, idx) => (
-                      <span
-                        key={idx}
-                        className="px-2.5 py-1 rounded-md bg-white border border-stone-300 text-xs font-mono text-stone-700"
-                      >
-                        {ending}
+              {/* Clarificación Pedagógica: Caso Sintáctico vs. Género Morfológico */}
+              {topic.id === 'cases_master' && (
+                <div className="p-5 rounded-2xl bg-stone-50 border border-stone-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div>
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-stone-600 bg-stone-200/70 px-2 py-0.5 rounded">
+                        Distinción Filológica Clave
                       </span>
-                    ))}
+                      <span className="text-[10px] font-mono text-amber-800 bg-amber-100 font-semibold px-2 py-0.5 rounded">
+                        Sintaxis vs. Morfología
+                      </span>
+                    </div>
+                    <h4 className="font-serif font-bold text-stone-900 text-xs sm:text-sm">
+                      El Caso determina la función; el Género es propio del sustantivo
+                    </h4>
+                    <p className="text-[11px] text-stone-600 mt-1 font-sans leading-relaxed max-w-xl">
+                      Nominativo, Acusativo y Dativo cambian según el rol en la frase (sujeto, objeto directo o indirecto). El género intrínseco (<em>der, die, das</em>) se identifica por sus <strong>sufijos morfológicos</strong> (-ung, -heit, -ling, -chen, etc.) en su sección especializada.
+                    </p>
                   </div>
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab && setActiveTab('articles')}
+                    className="px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-serif font-bold text-xs shrink-0 cursor-pointer shadow-xs transition-all hover:scale-102 flex items-center gap-1.5 self-start sm:self-auto"
+                  >
+                    <span>Ver Sufijos en Der • Die • Das</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </button>
                 </div>
               )}
 

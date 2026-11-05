@@ -39,12 +39,7 @@ export const grammarTopics = [
       ],
       quickTrick: '🧠 Truco rápido para recordar del documento:\n* Nominativo = el que hace la acción\n* Acusativo = lo que recibe la acción directamente\n* Dativo = el beneficiario o destinatario de la acción',
       dativPrepositions: ['aus', 'bei', 'mit', 'nach', 'seit', 'von', 'zu'],
-      dativMnemonic: '🔑 Regla de los Objetos: Normalmente usamos el acusativo para los objetos; usamos el dativo solo después de los indicadores de dativo: "AUS - BEI - MIT - NACH - SEIT - VON - ZU" > DATIV.',
-      feminineEndings: [
-        '-ung (die Wohnung, die Prüfung)', '-in (die Freundin)', '-schaft (die Freundschaft)', 
-        '-heit (die Gesundheit)', '-keit (die Möglichkeit)', '-tät (die Universität)',
-        '-musik (die Musik)', '-milch (die Milch)', '-nachricht (die Nachricht)'
-      ]
+      dativMnemonic: '🔑 Regla de los Objetos: Normalmente usamos el acusativo para los objetos; usamos el dativo solo después de los indicadores de dativo: "AUS - BEI - MIT - NACH - SEIT - VON - ZU" > DATIV.'
     },
     theoreticalDossier: [
       {

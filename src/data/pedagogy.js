@@ -107,5 +107,29 @@ export const pedagogyArticles = [
       }
     ],
     actionPlan: 'Usa el sistema de tarjetas de la app 5 a 10 minutos cada mañana. La consistencia de 7 palabras al día supera a 3 horas de atracón los fines de semana.'
+  },
+
+  {
+    id: 'morphology-vs-syntax',
+    title: '6. Morfología del Género vs. Sintaxis de Casos',
+    subtitle: 'Por qué el género del sustantivo jamás debe confundirse con el caso gramatical',
+    icon: 'Layers',
+    readingTime: '4 min',
+    summary: 'Uno de los mayores errores al aprender alemán es mezclar la determinación del género (der, die, das) con la declinación de casos (Nominativo, Acusativo, Dativo). El género es una propiedad intrínseca e inmutable del sustantivo que se identifica por su morfología (sufijos invariables como -ung, -heit, -ling, -chen). Los casos, en cambio, determinan exclusivamente la función sintáctica que cumple dentro de la oración.',
+    keyConcepts: [
+      {
+        term: 'Morfología Intrínseca (Género)',
+        desc: 'Un sustantivo nace con su género propio. "die Wohnung" es femenina por terminar en -ung; "das Mädchen" es neutro por terminar en -chen. Este rasgo no depende de la frase.'
+      },
+      {
+        term: 'Sintaxis Funcional (Casos)',
+        desc: 'El caso gramatical señala quién hace la acción (Nominativo), quién la recibe directamente (Acusativo) o quién se beneficia (Dativo). Los artículos se declinan para reflejar este rol, no porque el sustantivo haya cambiado de género.'
+      },
+      {
+        term: 'Separación Pedagógica Eficiente',
+        desc: 'Para evitar la sobrecarga cognitiva en la memoria de trabajo, entrena el género nominal en la sección de morfología ("Der • Die • Das"), y entrena las relaciones oracionales en el entrenador de gramática y sintaxis.'
+      }
+    ],
+    actionPlan: 'Memoriza siempre los sustantivos con su artículo y analiza su sufijo terminal (-ung = die, -or = der, -ment = das). Al formular oraciones, piensa únicamente en el rol sintáctico para declinar el artículo con precisión.'
   }
 ];
