@@ -31,7 +31,8 @@ export default function App() {
   const [isClaraMentorOpen, setIsClaraMentorOpen] = useState(false);
 
   const handleOpenCalendar = (dateStr = null) => {
-    setCalendarInitialDate(dateStr);
+    const validDate = (typeof dateStr === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(dateStr)) ? dateStr : null;
+    setCalendarInitialDate(validDate);
     setIsCalendarOpen(true);
   };
 
@@ -206,7 +207,10 @@ export default function App() {
       {/* Progress Calendar Modal triggered by 📅 Button */}
       <ProgressCalendarModal
         isOpen={isCalendarOpen}
-        onClose={() => setIsCalendarOpen(false)}
+        onClose={() => {
+          setIsCalendarOpen(false);
+          setCalendarInitialDate(null);
+        }}
         progress={progress}
         setProgress={setProgress}
         setActiveTab={setActiveTab}

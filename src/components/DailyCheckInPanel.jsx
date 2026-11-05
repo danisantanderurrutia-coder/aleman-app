@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { addXP, getProgress, saveProgress, getLocalDateString, getTodayDate, advanceToNextCurriculumDay } from '../utils/storage';
+import { 
+  addXP, getProgress, saveProgress, getLocalDateString, getTodayDate, 
+  advanceToNextCurriculumDay, toggleRetroactiveCalendarDay, safeParseDate 
+} from '../utils/storage';
 import { 
   Calendar, Flame, CheckCircle2, Circle, Gift, 
   ArrowRight, Sparkles, Trophy, Target, BookOpen, Heart, Zap, Clock,
-  Compass, Dices, Layers, HelpCircle, ChevronRight, RotateCcw
+  Compass, Dices, Layers, HelpCircle, ChevronRight, RotateCcw, Check
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import ProgressionRoadmap from './ProgressionRoadmap';
@@ -263,21 +266,34 @@ export default function DailyCheckInPanel({ progress, setProgress, setActiveTab,
   const completedQuestsCount = [questsState.focusDone, questsState.vocabDone, questsState.grammarDone].filter(Boolean).length;
   const allQuestsDone = completedQuestsCount === 3;
 
+  // Estado para popover de acción rápida en los puntos semanales
+  const [selectedWeekDot, setSelectedWeekDot] = useState(null);
+
+  const handleToggleWeekDay = (targetDateStr, currentIsDone) => {
+    const newStatus = !currentIsDone;
+    const updated = toggleRetroactiveCalendarDay(targetDateStr, newStatus);
+    setProgress(updated);
+    if (newStatus) {
+      confetti({ particleCount: 60, spread: 70, origin: { y: 0.6 } });
+    }
+    setSelectedWeekDot(prev => prev ? { ...prev, isDone: newStatus } : null);
+  };
+
   // Calcular los 7 días de la semana actual (Lunes a Domingo) de forma local y exacta
   const currDate = new Date();
   const currDayOfWeek = currDate.getDay(); // 0 es Domingo, 1 es Lunes...
   const distToMonday = (currDayOfWeek + 6) % 7; // 0 para Lun, 1 para Mar, ..., 6 para Dom
-  const mondayOfThisWeek = new Date(currDate);
-  mondayOfThisWeek.setDate(currDate.getDate() - distToMonday);
+  const mondayOfThisWeek = new Date(currDate.getFullYear(), currDate.getMonth(), currDate.getDate() - distToMonday, 12, 0, 0);
 
   const weekDayLabels = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
+  const weekDayFullNames = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
   const weekDaysData = weekDayLabels.map((label, idx) => {
     const d = new Date(mondayOfThisWeek);
     d.setDate(mondayOfThisWeek.getDate() + idx);
     const dateStr = getLocalDateString(d);
     const isToday = dateStr === todayDate;
     const isDone = !!(progress.calendarLogs?.[dateStr]?.completed || (isToday && isCheckedInToday));
-    return { label, dateStr, isToday, isDone };
+    return { label, name: weekDayFullNames[idx], dateStr, isToday, isDone };
   });
 
   return (
@@ -380,7 +396,7 @@ export default function DailyCheckInPanel({ progress, setProgress, setActiveTab,
                 </span>
                 {/* Emoji de calendario al lado de días consecutivos */}
                 <button
-                  onClick={onOpenCalendar}
+                  onClick={() => onOpenCalendar && onOpenCalendar()}
                   title="Abrir Calendario Académico & Registrar Progreso Diario"
                   className="px-2.5 py-1.5 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-950 font-serif font-bold text-xs flex items-center gap-1.5 cursor-pointer border border-amber-300 transition-all hover:scale-103 shadow-2xs"
                 >
@@ -402,35 +418,104 @@ export default function DailyCheckInPanel({ progress, setProgress, setActiveTab,
           </div>
 
           {/* 7-Day Dots de la semana actual con estado verídico y selector interactivo */}
-          <div className="flex items-center gap-2 self-stretch sm:self-auto justify-between sm:justify-start">
-            {weekDaysData.map((item) => {
-              return (
-                <button
-                  type="button"
-                  key={item.dateStr}
-                  onClick={() => onOpenCalendar && onOpenCalendar(item.dateStr)}
-                  title={`${item.dateStr} (${item.label}): ${item.isDone ? 'Jornada Completada ✓' : 'Pendiente'}. Haz clic para registrar avance o editar esta fecha.`}
-                  className="text-center group cursor-pointer focus:outline-hidden"
-                >
-                  <div
-                    className={`w-9 h-9 rounded-xl flex items-center justify-center font-mono text-xs font-bold transition-all border ${
-                      item.isToday
-                        ? item.isDone
-                          ? 'bg-emerald-600 text-white border-emerald-600 ring-2 ring-emerald-400 ring-offset-2 shadow-xs group-hover:scale-105'
-                          : 'bg-stone-900 text-white border-stone-900 ring-2 ring-amber-400 ring-offset-2 group-hover:scale-105'
-                        : item.isDone
-                        ? 'bg-emerald-50 text-emerald-800 border-emerald-300 group-hover:bg-emerald-100 group-hover:scale-105'
-                        : 'bg-stone-50 text-stone-400 border-stone-200 group-hover:bg-stone-100 group-hover:text-stone-700'
-                    }`}
+          <div className="flex flex-col items-end gap-2 self-stretch sm:self-auto">
+            <div className="flex items-center gap-2 self-stretch sm:self-auto justify-between sm:justify-start">
+              {weekDaysData.map((item) => {
+                const isSelected = selectedWeekDot?.dateStr === item.dateStr;
+                return (
+                  <button
+                    type="button"
+                    key={item.dateStr}
+                    onClick={() => setSelectedWeekDot(isSelected ? null : item)}
+                    title={`${item.dateStr} (${item.name}): ${item.isDone ? 'Jornada Completada ✓' : 'Pendiente'}. Haz clic para marcar o abrir.`}
+                    className="text-center group cursor-pointer focus:outline-hidden"
                   >
-                    {item.isDone ? '✓' : item.label}
-                  </div>
-                  <span className="text-[9px] font-mono text-stone-400 group-hover:text-stone-700 block mt-0.5">{item.label}</span>
-                </button>
-              );
-            })}
+                    <div
+                      className={`w-9 h-9 rounded-xl flex items-center justify-center font-mono text-xs font-bold transition-all border ${
+                        isSelected
+                          ? 'bg-amber-500 text-stone-950 border-amber-500 ring-2 ring-stone-900 ring-offset-2 scale-105 shadow-xs'
+                          : item.isToday
+                          ? item.isDone
+                            ? 'bg-emerald-600 text-white border-emerald-600 ring-2 ring-emerald-400 ring-offset-2 shadow-xs group-hover:scale-105'
+                            : 'bg-stone-900 text-white border-stone-900 ring-2 ring-amber-400 ring-offset-2 group-hover:scale-105'
+                          : item.isDone
+                          ? 'bg-emerald-50 text-emerald-800 border-emerald-300 group-hover:bg-emerald-100 group-hover:scale-105'
+                          : 'bg-stone-50 text-stone-400 border-stone-200 group-hover:bg-stone-100 group-hover:text-stone-700'
+                      }`}
+                    >
+                      {item.isDone ? '✓' : item.label}
+                    </div>
+                    <span className="text-[9px] font-mono text-stone-400 group-hover:text-stone-700 block mt-0.5">{item.label}</span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </div>
+
+        {/* Mini Drawer de Acción Rápida para el Día Semanal Seleccionado */}
+        {selectedWeekDot && (
+          <div className="mt-4 p-4 bg-stone-900 text-white rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs shadow-md border border-stone-800 animate-in fade-in">
+            <div className="flex items-center gap-2.5">
+              <span className="text-base">📅</span>
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="font-serif font-bold text-amber-300">{selectedWeekDot.name}</span>
+                  <span className="font-mono text-stone-400 text-[11px]">({selectedWeekDot.dateStr})</span>
+                  {selectedWeekDot.isToday && (
+                    <span className="px-2 py-0.2 rounded-full bg-amber-400/20 text-amber-300 text-[10px] font-mono font-bold">
+                      Hoy
+                    </span>
+                  )}
+                </div>
+                <span className={`text-[11px] font-mono font-semibold block ${selectedWeekDot.isDone ? 'text-emerald-400' : 'text-stone-300'}`}>
+                  {selectedWeekDot.isDone ? '✓ Jornada Registrada como Completada' : '⏳ Jornada Pendiente'}
+                </span>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 self-stretch sm:self-auto justify-end flex-wrap">
+              <button
+                type="button"
+                onClick={() => handleToggleWeekDay(selectedWeekDot.dateStr, selectedWeekDot.isDone)}
+                className={`px-3.5 py-2 rounded-xl font-serif font-bold text-xs cursor-pointer transition-all flex items-center gap-1.5 ${
+                  selectedWeekDot.isDone
+                    ? 'bg-stone-800 hover:bg-stone-700 text-stone-300 border border-stone-700'
+                    : 'bg-emerald-500 hover:bg-emerald-400 text-stone-950 shadow-sm hover:scale-102'
+                }`}
+              >
+                {selectedWeekDot.isDone ? (
+                  <span>Desmarcar Jornada</span>
+                ) : (
+                  <>
+                    <Check className="w-3.5 h-3.5 text-stone-950 stroke-[3]" />
+                    <span>Marcar Completado (+50 XP)</span>
+                  </>
+                )}
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  onOpenCalendar && onOpenCalendar(selectedWeekDot.dateStr);
+                  setSelectedWeekDot(null);
+                }}
+                className="px-3.5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-serif font-bold text-xs cursor-pointer transition-all hover:scale-102 shadow-xs"
+              >
+                Detalle en Calendario ↗
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setSelectedWeekDot(null)}
+                className="p-1.5 rounded-lg text-stone-400 hover:text-white hover:bg-stone-800 cursor-pointer text-xs"
+                title="Cerrar"
+              >
+                ✕
+              </button>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Centro de Control del Desafío Diario (3 Misiones Unificadas y Sincronizadas) */}

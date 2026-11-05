@@ -2,10 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { 
   Calendar as CalendarIcon, Clock, CheckCircle2, Circle, ChevronLeft, 
   ChevronRight, X, Sparkles, BookOpen, Flame, Award, Edit3, Save, Check,
-  Target, Bookmark, ArrowRight
+  Target, Bookmark, ArrowRight, CheckSquare
 } from 'lucide-react';
 import { curriculumRoadmap } from '../data/curriculumRoadmap';
-import { saveProgress, addXP, getLocalDateString, getCurrentStudyDate, calculateStreakFromLogs } from '../utils/storage';
+import { 
+  saveProgress, addXP, getLocalDateString, getCurrentStudyDate, 
+  calculateStreakFromLogs, safeParseDate, toggleRetroactiveCalendarDay 
+} from '../utils/storage';
 import confetti from 'canvas-confetti';
 
 export default function ProgressCalendarModal({ isOpen, onClose, progress, setProgress, setActiveTab, initialDate = null }) {
@@ -28,20 +31,21 @@ export default function ProgressCalendarModal({ isOpen, onClose, progress, setPr
 
   useEffect(() => {
     if (isOpen) {
-      const target = initialDate || getCurrentStudyDate();
-      setSelectedDateStr(target);
-      setViewDate(new Date(target));
+      const validTarget = (typeof initialDate === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(initialDate))
+        ? initialDate
+        : getCurrentStudyDate();
+      setSelectedDateStr(validTarget);
+      setViewDate(safeParseDate(validTarget));
     }
   }, [isOpen, initialDate]);
 
   // Form states for the selected date
   const calendarLogs = progress.calendarLogs || {};
-  const existingLog = calendarLogs[selectedDateStr] || {};
 
-  const [selectedDaySyllabus, setSelectedDaySyllabus] = useState(existingLog.syllabusDay || progress.curriculumDay || 1);
-  const [isCompletedForDate, setIsCompletedForDate] = useState(!!existingLog.completed);
-  const [studyMinutes, setStudyMinutes] = useState(existingLog.studyMinutes || 15);
-  const [studyNotes, setStudyNotes] = useState(existingLog.notes || '');
+  const [selectedDaySyllabus, setSelectedDaySyllabus] = useState(1);
+  const [isCompletedForDate, setIsCompletedForDate] = useState(false);
+  const [studyMinutes, setStudyMinutes] = useState(15);
+  const [studyNotes, setStudyNotes] = useState('');
   const [saveSuccessMsg, setSaveSuccessMsg] = useState(false);
 
   // Update form inputs whenever selectedDateStr or calendarLogs change
@@ -56,7 +60,7 @@ export default function ProgressCalendarModal({ isOpen, onClose, progress, setPr
 
   if (!isOpen) return null;
 
-  // Month Calendar Grid calculations
+  // Month Calendar Grid calculations con horas al mediodía (12:00) inmunes a desfasajes horarios
   const year = viewDate.getFullYear();
   const month = viewDate.getMonth(); // 0-indexed
 
@@ -66,8 +70,8 @@ export default function ProgressCalendarModal({ isOpen, onClose, progress, setPr
     'Septiembre (September)', 'Octubre (Oktober)', 'Noviembre (November)', 'Diciembre (Dezember)'
   ];
 
-  const firstDayOfMonth = new Date(year, month, 1);
-  const lastDayOfMonth = new Date(year, month + 1, 0);
+  const firstDayOfMonth = new Date(year, month, 1, 12, 0, 0);
+  const lastDayOfMonth = new Date(year, month + 1, 0, 12, 0, 0);
   
   // Monday as first day: JS getDay() is 0 for Sunday, 1 for Monday...
   let startingDayOfWeek = firstDayOfMonth.getDay() - 1;
@@ -78,9 +82,9 @@ export default function ProgressCalendarModal({ isOpen, onClose, progress, setPr
   // Days array for the grid
   const daysGrid = [];
   // Previous month trailing days
-  const prevMonthLastDay = new Date(year, month, 0).getDate();
+  const prevMonthLastDay = new Date(year, month, 0, 12, 0, 0).getDate();
   for (let i = startingDayOfWeek - 1; i >= 0; i--) {
-    const dObj = new Date(year, month - 1, prevMonthLastDay - i);
+    const dObj = new Date(year, month - 1, prevMonthLastDay - i, 12, 0, 0);
     daysGrid.push({
       dayNum: prevMonthLastDay - i,
       monthOffset: -1,
@@ -99,7 +103,7 @@ export default function ProgressCalendarModal({ isOpen, onClose, progress, setPr
   // Next month leading days to complete full 7-col weeks
   const remainingCells = 42 - daysGrid.length;
   for (let d = 1; d <= (remainingCells % 7 === 0 ? (remainingCells > 7 ? 0 : remainingCells) : remainingCells); d++) {
-    const dObj = new Date(year, month + 1, d);
+    const dObj = new Date(year, month + 1, d, 12, 0, 0);
     daysGrid.push({
       dayNum: d,
       monthOffset: 1,
@@ -107,17 +111,43 @@ export default function ProgressCalendarModal({ isOpen, onClose, progress, setPr
     });
   }
 
-  // Handle Saving the Progress for the selected date
-  const handleSaveDayProgress = (e) => {
-    e.preventDefault();
+  // Navegación de días seleccionados (Día anterior / Día siguiente)
+  const handlePrevDay = () => {
+    const d = safeParseDate(selectedDateStr);
+    d.setDate(d.getDate() - 1);
+    const nextStr = getLocalDateString(d);
+    setSelectedDateStr(nextStr);
+    setViewDate(safeParseDate(nextStr));
+  };
 
-    const wasAlreadyCompleted = !!existingLog.completed;
+  const handleNextDay = () => {
+    const d = safeParseDate(selectedDateStr);
+    d.setDate(d.getDate() + 1);
+    const nextStr = getLocalDateString(d);
+    setSelectedDateStr(nextStr);
+    setViewDate(safeParseDate(nextStr));
+  };
+
+  // Marcado rápido directo de un día de la semana
+  const handleQuickToggleDate = (targetDateStr, currentStatus) => {
+    const newStatus = !currentStatus;
+    const updated = toggleRetroactiveCalendarDay(targetDateStr, newStatus);
+    setProgress(updated);
+    if (newStatus) {
+      confetti({ particleCount: 50, spread: 60, origin: { y: 0.6 } });
+    }
+  };
+
+  // Handle Saving the Progress for the selected date (supports multi-day chaining)
+  const handleSaveDayProgress = (e, andAdvanceToNext = false) => {
+    if (e && e.preventDefault) e.preventDefault();
+
+    const currentLog = calendarLogs[selectedDateStr] || {};
+    const wasAlreadyCompleted = !!currentLog.completed;
     const isNowCompleted = isCompletedForDate;
 
     // Calculate XP reward
-    let xpGained = 0;
     if (!wasAlreadyCompleted && isNowCompleted) {
-      xpGained += 50;
       addXP(50);
       confetti({
         particleCount: 70,
@@ -144,16 +174,26 @@ export default function ProgressCalendarModal({ isOpen, onClose, progress, setPr
     let newCompletedCurriculumDays = progress.completedCurriculumDays || [];
     if (isNowCompleted && !newCompletedCurriculumDays.includes(Number(selectedDaySyllabus))) {
       newCompletedCurriculumDays = [...newCompletedCurriculumDays, Number(selectedDaySyllabus)];
+    } else if (!isNowCompleted && newCompletedCurriculumDays.includes(Number(selectedDaySyllabus))) {
+      const stillUsed = Object.values(newCalendarLogs).some(l => l.completed && l.syllabusDay === Number(selectedDaySyllabus));
+      if (!stillUsed) {
+        newCompletedCurriculumDays = newCompletedCurriculumDays.filter(d => d !== Number(selectedDaySyllabus));
+      }
     }
 
-    // Advance curriculumDay if today's active day was completed
+    // Advance curriculumDay if active day was completed
     let newCurriculumDay = progress.curriculumDay || 1;
     if (isNowCompleted && Number(selectedDaySyllabus) >= newCurriculumDay) {
       newCurriculumDay = Math.min(curriculumRoadmap.length, Number(selectedDaySyllabus) + 1);
     }
 
     // Recalcular racha ininterrumpida
-    const newStreak = calculateStreakFromLogs(newCalendarLogs);
+    const newStreak = calculateStreakFromLogs(newCalendarLogs, todayFormatted);
+
+    // Si la fecha guardada es hoy o posterior a lastActiveDate, actualizar lastActiveDate; si es retroactiva, preservar lastActiveDate existente
+    const newLastActive = (progress.lastActiveDate && progress.lastActiveDate > selectedDateStr)
+      ? progress.lastActiveDate
+      : (selectedDateStr === todayFormatted ? todayFormatted : (progress.lastActiveDate || todayFormatted));
 
     // Save to storage
     const updated = saveProgress({
@@ -161,22 +201,49 @@ export default function ProgressCalendarModal({ isOpen, onClose, progress, setPr
       completedCurriculumDays: newCompletedCurriculumDays,
       curriculumDay: newCurriculumDay,
       streak: newStreak,
-      lastActiveDate: todayFormatted
+      lastActiveDate: newLastActive
     });
     setProgress(updated);
 
-    setSaveSuccessMsg(true);
+    setSaveSuccessMsg(`¡Jornada de ${selectedDateStr} guardada!`);
     setTimeout(() => setSaveSuccessMsg(false), 3000);
+
+    // Si se solicitó avanzar al siguiente día (marcado en serie consecutivo)
+    if (andAdvanceToNext) {
+      const nextDate = safeParseDate(selectedDateStr);
+      nextDate.setDate(nextDate.getDate() + 1);
+      const nextDateStr = getLocalDateString(nextDate);
+      setSelectedDateStr(nextDateStr);
+      setViewDate(safeParseDate(nextDateStr));
+    }
   };
 
   // Quick jump to Today
   const handleJumpToToday = () => {
-    const now = new Date();
-    setViewDate(now);
-    setSelectedDateStr(getLocalDateString(now));
+    const today = getCurrentStudyDate();
+    setViewDate(safeParseDate(today));
+    setSelectedDateStr(today);
   };
 
   const selectedSyllabusData = curriculumRoadmap.find(d => d.day === Number(selectedDaySyllabus)) || curriculumRoadmap[0];
+
+  // Current Week days (Lunes a Domingo) para la barra de marcado rápido
+  const selectedDateObj = safeParseDate(selectedDateStr);
+  const currDayOfWeek = selectedDateObj.getDay();
+  const distToMonday = (currDayOfWeek + 6) % 7;
+  const mondayOfSelectedWeek = safeParseDate(selectedDateStr);
+  mondayOfSelectedWeek.setDate(mondayOfSelectedWeek.getDate() - distToMonday);
+
+  const weekDaysShort = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
+  const quickWeekDays = weekDaysShort.map((label, idx) => {
+    const d = new Date(mondayOfSelectedWeek);
+    d.setDate(mondayOfSelectedWeek.getDate() + idx);
+    const dateStr = getLocalDateString(d);
+    const isDone = !!calendarLogs[dateStr]?.completed;
+    const isToday = dateStr === todayFormatted;
+    const isCurrent = dateStr === selectedDateStr;
+    return { label, dayNum: d.getDate(), dateStr, isDone, isToday, isCurrent };
+  });
 
   // Formatting strings for Live Clock
   const timeFormatted = currentTime.toLocaleTimeString('es-ES', { 
@@ -277,11 +344,61 @@ export default function ProgressCalendarModal({ isOpen, onClose, progress, setPr
           
           {/* Left Column: Calendar Grid (7 cols) */}
           <div className="lg:col-span-7 bg-white p-6 sm:p-7 rounded-3xl border border-stone-200 shadow-xs">
+            {/* Quick Week Bar (Marcado Rápido de Días Consecutivos / Retroactivos) */}
+            <div className="mb-6 p-3.5 rounded-2xl bg-amber-50/60 border border-amber-200">
+              <div className="flex items-center justify-between gap-2 mb-2">
+                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-900 flex items-center gap-1.5">
+                  <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+                  Marcado Rápido Semanal (Haz clic para alternar o seleccionar)
+                </span>
+                <span className="text-[10px] font-mono text-stone-500">
+                  Semana Actual
+                </span>
+              </div>
+              <div className="grid grid-cols-7 gap-1 sm:gap-2">
+                {quickWeekDays.map((qw) => (
+                  <div
+                    key={qw.dateStr}
+                    className={`p-1.5 sm:p-2 rounded-xl text-center border transition-all cursor-pointer flex flex-col justify-between items-center ${
+                      qw.isCurrent
+                        ? 'bg-stone-900 text-white border-stone-900 shadow-xs ring-2 ring-amber-400'
+                        : qw.isDone
+                        ? 'bg-emerald-100/80 text-emerald-900 border-emerald-300 hover:bg-emerald-200'
+                        : 'bg-white hover:bg-stone-100 text-stone-700 border-stone-200'
+                    }`}
+                    onClick={() => {
+                      setSelectedDateStr(qw.dateStr);
+                      setViewDate(safeParseDate(qw.dateStr));
+                    }}
+                    title={`${qw.label} ${qw.dayNum}: ${qw.isDone ? 'Completado ✓' : 'Pendiente'}`}
+                  >
+                    <span className="text-[10px] font-mono font-bold block">{qw.label}</span>
+                    <span className="text-xs font-serif font-bold my-0.5">{qw.dayNum}</span>
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleQuickToggleDate(qw.dateStr, qw.isDone);
+                      }}
+                      className={`w-4 h-4 rounded-full flex items-center justify-center text-[10px] cursor-pointer transition-transform hover:scale-120 ${
+                        qw.isDone 
+                          ? 'bg-emerald-600 text-white' 
+                          : 'bg-stone-200 text-stone-500 hover:bg-amber-300 hover:text-stone-900'
+                      }`}
+                      title={qw.isDone ? 'Desmarcar fecha' : 'Marcar como completada inmediatamente (+50 XP)'}
+                    >
+                      {qw.isDone ? '✓' : '+'}
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             {/* Calendar Month Navigation Header */}
             <div className="flex items-center justify-between mb-6 pb-4 border-b border-stone-100">
               <div className="flex items-center gap-2">
                 <button
-                  onClick={() => setViewDate(new Date(year, month - 1, 1))}
+                  onClick={() => setViewDate(new Date(year, month - 1, 1, 12, 0, 0))}
                   className="p-2 rounded-xl hover:bg-stone-100 text-stone-600 cursor-pointer transition-colors"
                   title="Mes anterior"
                 >
@@ -291,7 +408,7 @@ export default function ProgressCalendarModal({ isOpen, onClose, progress, setPr
                   {monthNames[month]} {year}
                 </h3>
                 <button
-                  onClick={() => setViewDate(new Date(year, month + 1, 1))}
+                  onClick={() => setViewDate(new Date(year, month + 1, 1, 12, 0, 0))}
                   className="p-2 rounded-xl hover:bg-stone-100 text-stone-600 cursor-pointer transition-colors"
                   title="Mes siguiente"
                 >
@@ -404,26 +521,55 @@ export default function ProgressCalendarModal({ isOpen, onClose, progress, setPr
           {/* Right Column: Daily Progression Dossier & Logger (5 cols) */}
           <div className="lg:col-span-5 bg-white p-6 sm:p-7 rounded-3xl border border-stone-200 shadow-xs flex flex-col justify-between h-full">
             <div>
-              {/* Selected Date Header */}
+              {/* Selected Date Header con Navegación de Días Consecutivos */}
               <div className="pb-4 border-b border-stone-100">
-                <div className="flex items-center justify-between gap-2 mb-1">
+                <div className="flex items-center justify-between gap-2 mb-2">
                   <span className="text-[11px] font-mono font-bold text-stone-400 uppercase tracking-widest">
                     Registro de Jornada
                   </span>
-                  {selectedDateStr === todayFormatted && (
-                    <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300">
-                      Fecha de Hoy
-                    </span>
-                  )}
+                  <div className="flex items-center gap-1.5">
+                    {selectedDateStr === todayFormatted && (
+                      <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300">
+                        Hoy
+                      </span>
+                    )}
+                    {calendarLogs[selectedDateStr]?.completed && (
+                      <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-900 border border-emerald-300 flex items-center gap-1">
+                        <Check className="w-3 h-3 text-emerald-600" />
+                        Completado
+                      </span>
+                    )}
+                  </div>
                 </div>
-                <h3 className="text-xl font-serif font-bold text-stone-900 capitalize">
-                  {new Date(selectedDateStr + 'T12:00:00').toLocaleDateString('es-ES', {
-                    weekday: 'long',
-                    day: 'numeric',
-                    month: 'long',
-                    year: 'numeric'
-                  })}
-                </h3>
+
+                <div className="flex items-center justify-between gap-2">
+                  <button
+                    type="button"
+                    onClick={handlePrevDay}
+                    className="p-1.5 rounded-xl hover:bg-stone-100 text-stone-600 border border-stone-200 cursor-pointer transition-colors"
+                    title="Ver día anterior"
+                  >
+                    <ChevronLeft className="w-4 h-4" />
+                  </button>
+
+                  <h3 className="text-base sm:text-lg font-serif font-bold text-stone-900 capitalize text-center leading-tight">
+                    {safeParseDate(selectedDateStr).toLocaleDateString('es-ES', {
+                      weekday: 'long',
+                      day: 'numeric',
+                      month: 'long',
+                      year: 'numeric'
+                    })}
+                  </h3>
+
+                  <button
+                    type="button"
+                    onClick={handleNextDay}
+                    className="p-1.5 rounded-xl hover:bg-stone-100 text-stone-600 border border-stone-200 cursor-pointer transition-colors"
+                    title="Ver día siguiente"
+                  >
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
+                </div>
               </div>
 
               {/* Form to log progress according to curriculum progression plan */}
@@ -484,7 +630,7 @@ export default function ProgressCalendarModal({ isOpen, onClose, progress, setPr
                         {isCompletedForDate ? 'Jornada Completada con Éxito' : 'Marcar Jornada como Completada'}
                       </span>
                       <span className="text-[10px] text-stone-500 font-sans">
-                        Suma +50 XP y avanza en la escalera hacia B1/B2
+                        Suma +50 XP y consolida tu racha de estudio
                       </span>
                     </div>
                   </div>
@@ -530,20 +676,32 @@ export default function ProgressCalendarModal({ isOpen, onClose, progress, setPr
                   />
                 </div>
 
-                {/* Submit Button */}
-                <button
-                  type="submit"
-                  className="w-full py-3.5 rounded-2xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-serif font-bold text-xs flex items-center justify-center gap-2 cursor-pointer shadow-md shadow-amber-500/20 transition-all hover:scale-101"
-                >
-                  <Save className="w-4 h-4" />
-                  <span>Guardar Progreso de la Fecha</span>
-                </button>
+                {/* Dual Submit Buttons: Single Save & Chain-Next Save */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                  <button
+                    type="submit"
+                    className="w-full py-3.5 px-3 rounded-2xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-serif font-bold text-xs flex items-center justify-center gap-1.5 cursor-pointer shadow-md shadow-amber-500/20 transition-all hover:scale-101"
+                  >
+                    <Save className="w-4 h-4 shrink-0" />
+                    <span>Guardar Fecha</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={(e) => handleSaveDayProgress(e, true)}
+                    className="w-full py-3.5 px-3 rounded-2xl bg-stone-900 hover:bg-black text-white font-serif font-bold text-xs flex items-center justify-center gap-1.5 cursor-pointer shadow-md transition-all hover:scale-101"
+                    title="Guarda esta fecha y avanza de inmediato al siguiente día para registrar varios días retroactivos seguidos"
+                  >
+                    <span>Guardar y siguiente</span>
+                    <ArrowRight className="w-4 h-4 shrink-0" />
+                  </button>
+                </div>
 
                 {/* Success Feedback alert */}
                 {saveSuccessMsg && (
                   <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-900 text-xs font-mono font-bold text-center flex items-center justify-center gap-2 animate-in fade-in">
                     <Check className="w-4 h-4 text-emerald-600" />
-                    <span>¡Progreso del día registrado correctamente!</span>
+                    <span>{typeof saveSuccessMsg === 'string' ? saveSuccessMsg : '¡Progreso registrado correctamente!'}</span>
                   </div>
                 )}
               </form>

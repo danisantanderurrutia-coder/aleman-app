@@ -14,6 +14,17 @@ export const getLocalDateString = (d = new Date()) => {
   return `${year}-${month}-${day}`;
 };
 
+// Parser de fecha seguro inmune a desvíos por huso horario o UTC medianoche
+export const safeParseDate = (dateVal) => {
+  if (!dateVal) return new Date();
+  if (typeof dateVal === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(dateVal)) {
+    const [y, m, d] = dateVal.split('-').map(Number);
+    return new Date(y, (m || 1) - 1, d || 1, 12, 0, 0);
+  }
+  const d = new Date(dateVal);
+  return isNaN(d.getTime()) ? new Date() : d;
+};
+
 // Regla del búho nocturno (Night Owl) inteligente:
 // 1. Si el usuario practica antes de las 4 AM (00:00 a 03:59) y la jornada de ayer NO estaba completada,
 //    la sesión se considera parte de la jornada de ayer para no romper su racha.
@@ -69,15 +80,21 @@ export const advanceToNextCurriculumDay = () => {
 };
 
 export const getYesterdayLocalDateString = (d = new Date()) => {
-  const prev = new Date(d);
+  let prev;
+  if (typeof d === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(d)) {
+    const [y, m, day] = d.split('-').map(Number);
+    prev = new Date(y, m - 1, day, 12, 0, 0);
+  } else {
+    prev = new Date(d);
+  }
   prev.setDate(prev.getDate() - 1);
   return getLocalDateString(prev);
 };
 
-// Recalcular racha de días consecutivos ininterrumpidos a partir de calendarLogs
+// Recalcular racha de días consecutivos ininterrumpidos a partir de calendarLogs (100% inmune a husos horarios)
 export const calculateStreakFromLogs = (calendarLogs = {}, currentStudyDate = getCurrentStudyDate()) => {
   let streak = 0;
-  let checkDate = new Date(currentStudyDate);
+  let checkDate = safeParseDate(currentStudyDate);
 
   // Si hoy está marcado como completado, suma 1 y mira los días previos
   const todayStr = getLocalDateString(checkDate);
@@ -160,6 +177,47 @@ export const saveProgress = (updates) => {
     console.error('Error saving to localStorage', e);
     return defaultState;
   }
+};
+
+// Permite marcar o desmarcar cualquier fecha retroactiva de forma inmediata y consistente
+export const toggleRetroactiveCalendarDay = (dateStr, isCompleted = true, syllabusDay = null, studyMinutes = 20) => {
+  const current = getProgress();
+  const calendarLogs = { ...(current.calendarLogs || {}) };
+  const existingLog = calendarLogs[dateStr] || {};
+  const today = getCurrentStudyDate();
+
+  const chosenSyllabusDay = syllabusDay || existingLog.syllabusDay || current.curriculumDay || 1;
+
+  calendarLogs[dateStr] = {
+    ...existingLog,
+    date: dateStr,
+    completed: isCompleted,
+    syllabusDay: chosenSyllabusDay,
+    studyMinutes: existingLog.studyMinutes || studyMinutes,
+    updatedAt: new Date().toISOString()
+  };
+
+  let newCompletedDays = current.completedCurriculumDays || [];
+  if (isCompleted && !newCompletedDays.includes(chosenSyllabusDay)) {
+    newCompletedDays = [...newCompletedDays, chosenSyllabusDay];
+  } else if (!isCompleted && newCompletedDays.includes(chosenSyllabusDay)) {
+    const stillHasSyllabusDay = Object.values(calendarLogs).some(l => l.completed && l.syllabusDay === chosenSyllabusDay);
+    if (!stillHasSyllabusDay) {
+      newCompletedDays = newCompletedDays.filter(d => d !== chosenSyllabusDay);
+    }
+  }
+
+  const newStreak = calculateStreakFromLogs(calendarLogs, today);
+
+  if (isCompleted && !existingLog.completed) {
+    addXP(50);
+  }
+
+  return saveProgress({
+    calendarLogs,
+    completedCurriculumDays: newCompletedDays,
+    streak: newStreak
+  });
 };
 
 export const addXP = (amount) => {
