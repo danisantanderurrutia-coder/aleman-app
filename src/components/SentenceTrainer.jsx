@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { sentencePuzzles } from '../data/sentenceBuilder';
 import { speechService } from '../utils/speech';
 import { addXP, saveProgress, getTodayDate } from '../utils/storage';
-import { Puzzle, Check, X, RotateCcw, Volume2, ArrowRight, ArrowLeft, Bookmark, Lightbulb, CheckCircle2 } from 'lucide-react';
+import { Puzzle, Check, X, RotateCcw, Volume2, ArrowRight, ArrowLeft, Bookmark, Lightbulb, CheckCircle2, Sparkles } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import YodaSyntaxTrainer from './YodaSyntaxTrainer';
 
 export default function SentenceTrainer({ progress, setProgress, setActiveTab, onOpenCalendar, onAddConsecutiveDay }) {
+  const [mode, setMode] = useState('builder'); // 'builder' | 'yoda'
   const completedList = progress.completedSentences || [];
   
   // Iniciar en la primera oración no completada por el usuario (o en la 0 si ya completó todas)
@@ -127,8 +129,38 @@ export default function SentenceTrainer({ progress, setProgress, setActiveTab, o
         </div>
       </div>
 
-      {/* Selector de Oraciones (Pills de navegación rápida para no repetir siempre la misma) */}
-      <div className="mb-6 p-4 rounded-2xl bg-white border border-stone-200 shadow-2xs">
+      {/* Mode Selector: Constructor vs Yoda-Deutsch */}
+      <div className="flex items-center gap-2 p-1.5 bg-stone-100 rounded-2xl border border-stone-200 mb-8 w-fit">
+        <button
+          onClick={() => setMode('builder')}
+          className={`px-4 py-2.5 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer flex items-center gap-2 ${
+            mode === 'builder'
+              ? 'bg-stone-900 text-white shadow-xs'
+              : 'text-stone-600 hover:text-stone-900 hover:bg-stone-200/50'
+          }`}
+        >
+          <span>🧱 Constructor de Frases</span>
+        </button>
+
+        <button
+          onClick={() => setMode('yoda')}
+          className={`px-4 py-2.5 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer flex items-center gap-2 ${
+            mode === 'yoda'
+              ? 'bg-stone-900 text-white shadow-xs'
+              : 'text-stone-600 hover:text-stone-900 hover:bg-stone-200/50'
+          }`}
+        >
+          <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+          <span>🪐 Entendiendo a Yoda (Yoda-Deutsch)</span>
+        </button>
+      </div>
+
+      {mode === 'yoda' ? (
+        <YodaSyntaxTrainer setActiveTab={setActiveTab} />
+      ) : (
+        <>
+          {/* Selector de Oraciones (Pills de navegación rápida para no repetir siempre la misma) */}
+          <div className="mb-6 p-4 rounded-2xl bg-white border border-stone-200 shadow-2xs">
         <div className="flex items-center justify-between gap-2 mb-2">
           <span className="text-[11px] font-mono font-bold text-stone-500 uppercase tracking-wider">
             Selecciona cualquier reto ({sentencePuzzles.length} disponibles):
@@ -322,6 +354,8 @@ export default function SentenceTrainer({ progress, setProgress, setActiveTab, o
           )}
         </div>
       </div>
-    </div>
+    </>
+  )}
+</div>
   );
 }

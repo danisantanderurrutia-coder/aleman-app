@@ -19,6 +19,7 @@ import AppGuideModal from './components/AppGuideModal';
 import ProgressCalendarModal from './components/ProgressCalendarModal';
 import ClaraMentorModal from './components/ClaraMentorModal';
 import IndieKaraokeTrainer from './components/IndieKaraokeTrainer';
+import YodaSyntaxTrainer from './components/YodaSyntaxTrainer';
 import { getProgress, saveProgress, addXP, getLocalDateString, getTodayDate } from './utils/storage';
 import confetti from 'canvas-confetti';
 
@@ -172,6 +173,9 @@ export default function App() {
             onOpenCalendar={() => setIsCalendarOpen(true)}
             onAddConsecutiveDay={handleAddConsecutiveDay}
           />
+        )}
+        {activeTab === 'yoda' && (
+          <YodaSyntaxTrainer setActiveTab={setActiveTab} />
         )}
         {activeTab === 'dialogues' && (
           <DialoguesTrainer progress={progress} setProgress={setProgress} />

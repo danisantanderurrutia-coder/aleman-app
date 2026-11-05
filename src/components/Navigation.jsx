@@ -16,6 +16,7 @@ export default function Navigation({ activeTab, setActiveTab }) {
     { id: 'flashcards', label: '🗂️ Léxico SRS 🗂️', icon: Layers },
     { id: 'articles', label: '🎲 Der • Die • Das 🎲', icon: Dices },
     { id: 'sentences', label: '🧱 Sintaxis 🧱', icon: Puzzle },
+    { id: 'yoda', label: '🪐 Yoda-Deutsch 🪐', icon: Sparkles },
     { id: 'dialogues', label: '🎙️ Situaciones 🎙️', icon: MessageSquare },
     { id: 'cognates', label: '👻 Falsos Amigos 👻', icon: Ghost },
     { id: 'pixel', label: '🎨 Píxel 8×8 🎨', icon: Palette },
