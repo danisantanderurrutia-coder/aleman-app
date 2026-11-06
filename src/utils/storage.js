@@ -150,7 +150,7 @@ export const getProgress = () => {
     // Verificar racha diaria con la regla de corte a las 4 AM
     const today = getCurrentStudyDate();
     if (data.lastActiveDate !== today) {
-      const yesterday = getYesterdayLocalDateString(new Date(today));
+      const yesterday = getYesterdayLocalDateString(today);
       if (data.lastActiveDate === yesterday) {
         // Mantiene racha
       } else {

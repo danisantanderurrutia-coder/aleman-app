@@ -1,7 +1,7 @@
 import React from 'react';
 import { 
   Sun, Compass, BookOpen, Layers, Dices, Puzzle, MessageSquare, 
-  Ghost, Calendar, Palette, Award, Library, BarChart3, Heart, Music 
+  Ghost, Calendar, Palette, Award, Library, BarChart3, Heart, Music, Sparkles 
 } from 'lucide-react';
 
 export default function Navigation({ activeTab, setActiveTab }) {

@@ -27,17 +27,18 @@ class RootErrorBoundary extends React.Component {
   render() {
     if (this.state.hasError) {
       return (
-        <div style={{ padding: '40px 20px', maxWidth: '600px', margin: '40px auto', fontFamily: 'system-ui, sans-serif', textAlign: 'center', backgroundColor: '#faf9f6', border: '1px solid #e7e5e4', borderRadius: '24px' }}>
-          <h2 style={{ fontSize: '24px', fontWeight: 'bold', color: '#1c1917', marginBottom: '12px' }}>
-            🇩🇪 DeutschMeister A2 • Restauración de Sesión
+        <div style={{ padding: '40px 20px', maxWidth: '640px', margin: '40px auto', fontFamily: 'system-ui, sans-serif', textAlign: 'center', backgroundColor: '#faf9f6', border: '1px solid #e7e5e4', borderRadius: '24px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
+          <div style={{ fontSize: '40px', marginBottom: '8px' }}>🇩🇪</div>
+          <h2 style={{ fontSize: '22px', fontWeight: 'bold', color: '#1c1917', marginBottom: '10px' }}>
+            DeutschMeister A2 • Restauración de Sesión
           </h2>
-          <p style={{ fontSize: '14px', color: '#78716c', marginBottom: '24px', lineHeight: 1.6 }}>
-            Se detectó una discrepancia en el almacenamiento local del navegador tras actualizar los módulos. Haz clic abajo para recargar la aplicación limpiamente.
+          <p style={{ fontSize: '14px', color: '#78716c', marginBottom: '20px', lineHeight: 1.6 }}>
+            Se actualizó la plataforma. Haz clic abajo para recargar o restablecer tu sesión.
           </p>
-          <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' }}>
+          <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
             <button
               onClick={() => window.location.reload()}
-              style={{ padding: '12px 24px', backgroundColor: '#f59e0b', color: '#0c0a09', border: 'none', borderRadius: '12px', fontWeight: 'bold', cursor: 'pointer' }}
+              style={{ padding: '12px 24px', backgroundColor: '#d97706', color: '#ffffff', border: 'none', borderRadius: '12px', fontWeight: 'bold', cursor: 'pointer' }}
             >
               Recargar Página 🔄
             </button>
@@ -48,6 +49,16 @@ class RootErrorBoundary extends React.Component {
               Restablecer Almacenamiento Local 🧹
             </button>
           </div>
+          {this.state.error && (
+            <details style={{ marginTop: '24px', textAlign: 'left', fontSize: '11px', color: '#a8a29e', background: '#f5f5f4', padding: '12px', borderRadius: '8px', overflow: 'auto' }}>
+              <summary style={{ cursor: 'pointer', fontWeight: 600 }}>Detalles técnicos del error</summary>
+              <pre style={{ marginTop: '8px', whiteSpace: 'pre-wrap', fontFamily: 'monospace' }}>
+                {this.state.error.toString()}
+                {'\n'}
+                {this.state.error.stack}
+              </pre>
+            </details>
+          )}
         </div>
       );
     }
