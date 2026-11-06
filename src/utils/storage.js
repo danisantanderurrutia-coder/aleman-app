@@ -108,8 +108,10 @@ export const calculateStreakFromLogs = (calendarLogs = {}, currentStudyDate = ge
     checkDate.setDate(checkDate.getDate() - 1);
   }
 
-  // Contar días consecutivos hacia atrás
-  while (true) {
+  // Contar días consecutivos hacia atrás con límite de seguridad de 365 días
+  let safetyCounter = 0;
+  while (safetyCounter < 365) {
+    safetyCounter++;
     const dStr = getLocalDateString(checkDate);
     if (calendarLogs[dStr]?.completed) {
       streak++;
