@@ -329,5 +329,49 @@ export const vocabularyList = [
     exampleDe: 'Ich habe heute Abend eine Verabredung mit Freunden.',
     exampleEs: 'Tengo un encuentro con amigos esta noche.',
     tips: 'Diferencia con "Termin": Termin es formal (médico, jefe), Verabredung es con amigos/pareja.'
+  },
+  {
+    id: 'v29',
+    article: 'die',
+    word: 'Merkwürdigkeit',
+    plural: 'die Merkwürdigkeiten',
+    translation: 'la rareza / la peculiaridad / lo curioso (del adj. merkwürdig)',
+    category: 'alltag',
+    exampleDe: 'Das ist eine echte Merkwürdigkeit, von der ich noch nie gehört habe.',
+    exampleEs: 'Eso es una verdadera rareza de la que nunca había oído hablar.',
+    tips: 'Viene del adjetivo "merkwürdig" (extraño/curioso, digno de atención: merken + würdig). Por terminar en el sufijo invariable "-keit", es 100% FEMENINO (die). Como concepto abstracto neutro se dice "das Merkwürdige" (lo curioso).'
+  },
+  {
+    id: 'v30',
+    article: 'die',
+    word: 'Ungewöhnlichkeit',
+    plural: 'die Ungewöhnlichkeiten',
+    translation: 'la singularidad / lo insólito / lo inusual (del adj. ungewöhnlich)',
+    category: 'alltag',
+    exampleDe: 'Die Ungewöhnlichkeit der Situation hat alle im Raum überrascht.',
+    exampleEs: 'Lo insólito de la situación sorprendió a todos en la sala.',
+    tips: 'Viene del adjetivo "ungewöhnlich" (inusual / fuera de lo habitual, prefijo un- + gewöhnlich). Al recibir el sufijo "-keit", se convierte en sustantivo 100% FEMENINO (die). Como concepto abstracto neutro se usa "das Ungewöhnliche" (lo inusual).'
+  },
+  {
+    id: 'v31',
+    article: 'das',
+    word: 'Merkwürdige',
+    plural: '-',
+    translation: 'lo curioso / lo extraño (adjetivo sustantivado de merkwürdig)',
+    category: 'alltag',
+    exampleDe: 'Das Merkwürdige daran ist, dass niemand etwas bemerkt hat.',
+    exampleEs: 'Lo curioso de esto es que nadie notó nada.',
+    tips: 'Adjetivo sustantivado neutro: cuando un adjetivo como "merkwürdig" se usa con valor abstracto neutro en alemán ("lo curioso / lo raro"), toma el artículo "das" y mayúscula (das Merkwürdige).'
+  },
+  {
+    id: 'v32',
+    article: 'das',
+    word: 'Ungewöhnliche',
+    plural: '-',
+    translation: 'lo inusual / lo fuera de lo común (adjetivo sustantivado de ungewöhnlich)',
+    category: 'alltag',
+    exampleDe: 'Wir suchen das Ungewöhnliche in der modernen Kunst.',
+    exampleEs: 'Buscamos lo inusual en el arte moderno.',
+    tips: 'Adjetivo sustantivado neutro: "das Ungewöhnliche" = lo inusual / lo insólito. Si lleva sufijo "-keit", pasa a ser femenino: "die Ungewöhnlichkeit".'
   }
 ];

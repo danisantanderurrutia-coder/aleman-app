@@ -43,6 +43,8 @@ export const genderSuffixesData = {
         reliability: '100%',
         meaning: 'Cualidad de adjetivos terminados en -bar, -ig, -lich, -sam.',
         examples: [
+          { de: 'die Merkwürdigkeit', es: 'la rareza / lo curioso (del adj. merkwürdig)' },
+          { de: 'die Ungewöhnlichkeit', es: 'lo inusual / la singularidad (del adj. ungewöhnlich)' },
           { de: 'die Möglichkeit', es: 'la posibilidad' },
           { de: 'die Pünktlichkeit', es: 'la puntualidad' },
           { de: 'die Einsamkeit', es: 'la soledad' },
@@ -274,6 +276,17 @@ export const genderSuffixesData = {
           { de: 'das Trinken', es: 'la bebida (del verbo trinken)' },
           { de: 'das Lernen', es: 'el aprendizaje / el estudiar' },
           { de: 'das Leben', es: 'la vida (del verbo leben)' }
+        ]
+      },
+      {
+        suffix: 'Adjetivo Sustantivado Abstracto',
+        reliability: '100% Absoluto',
+        meaning: 'Conceptos abstractos formados a partir de un adjetivo (equivalente al "lo + adjetivo" en español).',
+        examples: [
+          { de: 'das Merkwürdige', es: 'lo curioso / lo extraño (del adj. merkwürdig)' },
+          { de: 'das Ungewöhnliche', es: 'lo inusual / lo insólito (del adj. ungewöhnlich)' },
+          { de: 'das Gute', es: 'lo bueno' },
+          { de: 'das Neue', es: 'lo nuevo' }
         ]
       },
       {

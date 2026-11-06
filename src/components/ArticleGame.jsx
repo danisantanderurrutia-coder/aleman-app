@@ -142,12 +142,64 @@ export default function ArticleGame({ progress, setProgress }) {
         <>
           {/* Main Play Area */}
           <div className="p-10 sm:p-14 rounded-3xl bg-white border border-stone-200/90 shadow-sm text-center mb-10">
-            <span className="text-xs font-mono font-semibold text-stone-400 uppercase tracking-widest">
+            <span className="text-xs font-mono font-semibold text-stone-400 uppercase tracking-widest block mb-3">
               Asignación de Género Nominal
             </span>
 
+            {/* Selector rápido de palabra o búsqueda directa */}
+            <div className="flex flex-wrap items-center justify-center gap-2 mb-4">
+              <span className="text-[11px] font-mono text-stone-400">Ir a palabra:</span>
+              <select
+                value={currentWordIndex}
+                onChange={(e) => {
+                  setCurrentWordIndex(Number(e.target.value));
+                  setLastAnswer(null);
+                }}
+                className="px-3 py-1.5 rounded-xl border border-stone-200 text-xs font-serif bg-stone-50 text-stone-800 focus:outline-hidden focus:ring-1 focus:ring-amber-400 cursor-pointer max-w-xs truncate"
+              >
+                {wordsWithArticles.map((w, idx) => (
+                  <option key={w.id} value={idx}>
+                    {w.word} ({w.translation.split('/')[0].trim()})
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Quick Spotlight Pills para merkwürdig y ungewöhnlich */}
+            <div className="flex flex-wrap items-center justify-center gap-1.5 mb-6 text-[11px] font-mono">
+              <span className="text-stone-400 text-[10px] uppercase font-bold mr-1">Destacadas:</span>
+              {[
+                { name: 'Merkwürdigkeit', sub: 'die (-keit)' },
+                { name: 'Ungewöhnlichkeit', sub: 'die (-keit)' },
+                { name: 'Merkwürdige', sub: 'das (abstr.)' },
+                { name: 'Ungewöhnliche', sub: 'das (abstr.)' }
+              ].map((spot) => {
+                const targetIdx = wordsWithArticles.findIndex(w => w.word === spot.name);
+                if (targetIdx === -1) return null;
+                const isCurrent = targetIdx === currentWordIndex;
+                return (
+                  <button
+                    key={spot.name}
+                    type="button"
+                    onClick={() => {
+                      setCurrentWordIndex(targetIdx);
+                      setLastAnswer(null);
+                    }}
+                    className={`px-2.5 py-1 rounded-lg border transition-all cursor-pointer ${
+                      isCurrent
+                        ? 'bg-stone-900 text-white border-stone-900 shadow-2xs font-bold'
+                        : 'bg-stone-100 hover:bg-stone-200 text-stone-700 border-stone-200'
+                    }`}
+                  >
+                    <span>{spot.name}</span>
+                    <span className="text-[9px] opacity-70 ml-1">({spot.sub})</span>
+                  </button>
+                );
+              })}
+            </div>
+
             {/* Word Display */}
-            <div className="my-8">
+            <div className="my-6">
               <h3 className="text-4xl sm:text-6xl font-serif font-bold text-stone-900 tracking-tight">
                 {currentWord?.word}
               </h3>
